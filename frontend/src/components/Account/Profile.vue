@@ -35,9 +35,9 @@ export default {
 <style scoped>
 .profile-container {
   text-align: center;
-  padding-left: 5rem;
-  padding-right: 5rem;
-  padding-top: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 100px;
 }
 
 .profile-heading {
