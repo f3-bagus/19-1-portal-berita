@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar v-if="showNavbar" />
     <router-view />
-    <Footer />
+    <Footer v-if="showFooter" />
   </div>
 </template>
 
@@ -20,11 +20,15 @@ export default {
   setup() {
     const route = useRoute();
     const showNavbar = computed(
-      () => !["/login", "/register"].includes(route.path)
+      () => !["/login", "/register", "/forgot-password"].includes(route.path)
+    );
+    const showFooter = computed(
+      () => !["/login", "/register", "/forgot-password"].includes(route.path)
     );
 
     return {
       showNavbar,
+      showFooter,
     };
   },
 };
