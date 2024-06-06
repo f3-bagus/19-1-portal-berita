@@ -56,9 +56,9 @@
             <a class="nav-link" href="#">Contact Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-person-circle"></i>
-            </a>
+            <router-link to="/profile" class="nav-link active" aria-current="page"
+              ><i class="bi bi-person-circle"></i></router-link
+            >
           </li>
         </ul>
       </div>
