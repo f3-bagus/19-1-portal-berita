@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar v-if="showNavbar" />
     <router-view />
+    <Footer />
   </div>
 </template>
 
@@ -9,10 +10,12 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   components: {
     Navbar,
+    Footer,
   },
   setup() {
     const route = useRoute();
