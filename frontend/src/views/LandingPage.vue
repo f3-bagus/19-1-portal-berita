@@ -189,6 +189,11 @@
   .margin-top{
     margin-top: 100px;
   }
+
+  .btn-primary {
+  --bs-btn-bg: #003d6b !important;
+}
+
     .title{
         color: #AB533C;
         font-size: 25px;
