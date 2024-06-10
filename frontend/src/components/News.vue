@@ -3,52 +3,73 @@
     <div class="breadcrumbs">
       <span>News > Nasional</span>
     </div>
-    <div class="author">
-      Author Name
-    </div>
+    <div class="author">Author Name</div>
     <div class="metadata">
       <div class="date">Senin, 1 Mei 2024</div>
       <div class="time">10.34 WIB</div>
     </div>
-    <img class="image-news"
-      src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200" alt="">
-    <h1 class="title-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotmani</h1>
+    <img
+      class="image-news"
+      src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+      alt=""
+    />
+    <h1 class="title-news">
+      Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotmani
+    </h1>
     <div class="content">
       <p>
-        <strong>Jakarta, Berita.com</strong> - Paragraf 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-        do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <strong>Jakarta, Berita.com</strong> - Paragraf 1 Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+        qui officia deserunt mollit anim id est laborum.
       </p>
       <div class="image-container">
-        <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-          alt="Image 1">
-        <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-          alt="Image 2">
+        <img
+          src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+          alt="Image 1"
+        />
+        <img
+          src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+          alt="Image 2"
+        />
       </div>
       <p>
-        Paragraf 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
+        Paragraf 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
       </p>
     </div>
     <div class="button-container">
@@ -63,32 +84,188 @@
     <div class="container-comment">
       <div class="add-comment">
         <p class="title-comment">Tulis Komentar Anda</p>
-        <textarea class="comment-textarea" placeholder="Add a comment..."></textarea>
+        <textarea
+          class="comment-textarea"
+          placeholder="Add a comment..."
+        ></textarea>
         <button class="send-button" @click="sendComment">Kirim</button>
       </div>
     </div>
     <div class="comments">
       <div>
-        <img src="https://via.placeholder.com/125" size="10rem" class="profile-picture" />
+        <img
+          src="https://via.placeholder.com/125"
+          size="10rem"
+          class="profile-picture"
+        />
       </div>
       <div class="content-comment">
         <div class="title-time">
           <p class="username-comment">Nama User</p>
           <p class="time-comment">48 Minutes Ago</p>
         </div>
-        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
+        <p class="user-comment">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You’ve nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </p>
+        <p class="text-right text-success">Reply</p>
+      </div>
+    </div>
+    <div class="reply-section d-flex">
+      <img
+        src="../assets/icon/reply-arrow.svg"
+        alt="Reply Logo"
+        class="reply-logo mt-4 me-3"
+      />
+      <div class="comments">
+        <div>
+          <img
+            src="https://via.placeholder.com/125"
+            size="10rem"
+            class="profile-picture"
+          />
+        </div>
+        <div class="content-comment">
+          <div class="title-time">
+            <p class="username-comment">Nama User</p>
+            <p class="time-comment">48 Minutes Ago</p>
+          </div>
+          <p class="user-comment">
+            Impressive! Though it seems the drag feature could be improved. But
+            overall it looks incredible. You’ve nailed the design and the
+            responsiveness at various breakpoints works really well.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="reply-section d-flex">
+      <img
+        src="../assets/icon/reply-arrow.svg"
+        alt="Reply Logo"
+        class="reply-logo mt-4 me-3"
+      />
+      <div class="comments">
+        <div>
+          <img
+            src="https://via.placeholder.com/125"
+            size="10rem"
+            class="profile-picture"
+          />
+        </div>
+        <div class="content-comment">
+          <div class="title-time">
+            <p class="username-comment">Nama User</p>
+            <p class="time-comment">48 Minutes Ago</p>
+          </div>
+          <p class="user-comment">
+            Impressive! Though it seems the drag feature could be improved. But
+            overall it looks incredible. You’ve nailed the design and the
+            responsiveness at various breakpoints works really well.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="reply-section d-flex">
+      <img
+        src="../assets/icon/reply-arrow.svg"
+        alt="Reply Logo"
+        class="reply-logo mt-4 me-3"
+      />
+      <div class="comments">
+        <div>
+          <img
+            src="https://via.placeholder.com/125"
+            size="10rem"
+            class="profile-picture"
+          />
+        </div>
+        <div class="content-comment">
+          <div class="title-time">
+            <p class="username-comment">Nama User</p>
+            <p class="time-comment">48 Minutes Ago</p>
+          </div>
+          <p class="user-comment">
+            Impressive! Though it seems the drag feature could be improved. But
+            overall it looks incredible. You’ve nailed the design and the
+            responsiveness at various breakpoints works really well.
+          </p>
+        </div>
       </div>
     </div>
     <div class="comments">
       <div>
-        <img src="https://via.placeholder.com/125" size="10rem" class="profile-picture" />
+        <img
+          src="https://via.placeholder.com/125"
+          size="20rem"
+          class="profile-picture"
+        />
       </div>
       <div class="content-comment">
         <div class="title-time">
           <p class="username-comment">Nama User</p>
           <p class="time-comment">48 Minutes Ago</p>
         </div>
-        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
+        <p class="user-comment">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You’ve nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </p>
+        <p class="text-right text-success">Reply</p>
+      </div>
+    </div>
+    <div class="reply-section d-flex">
+      <img
+        src="../assets/icon/reply-arrow.svg"
+        alt="Reply Logo"
+        class="reply-logo mt-4 me-3"
+      />
+      <div class="comments">
+        <div>
+          <img
+            src="https://via.placeholder.com/125"
+            size="10rem"
+            class="profile-picture"
+          />
+        </div>
+        <div class="content-comment">
+          <div class="title-time">
+            <p class="username-comment">Nama User</p>
+            <p class="time-comment">48 Minutes Ago</p>
+          </div>
+          <p class="user-comment">
+            Impressive! Though it seems the drag feature could be improved. But
+            overall it looks incredible. You’ve nailed the design and the
+            responsiveness at various breakpoints works really well.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="reply-section d-flex">
+      <img
+        src="../assets/icon/reply-arrow.svg"
+        alt="Reply Logo"
+        class="reply-logo mt-4 me-3"
+      />
+      <div class="comments">
+        <div>
+          <img
+            src="https://via.placeholder.com/125"
+            size="10rem"
+            class="profile-picture"
+          />
+        </div>
+        <div class="content-comment">
+          <div class="title-time">
+            <p class="username-comment">Nama User</p>
+            <p class="time-comment">48 Minutes Ago</p>
+          </div>
+          <p class="user-comment">
+            Impressive! Though it seems the drag feature could be improved. But
+            overall it looks incredible. You’ve nailed the design and the
+            responsiveness at various breakpoints works really well.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -96,16 +273,21 @@
 
 <script>
 export default {
-  name: 'News',
+  name: "News",
   methods: {
     sendComment() {
-      alert('Comment sent!');
-    }
-  }
-}
+      alert("Comment sent!");
+    },
+  },
+};
 </script>
 
 <style scoped>
+.reply-logo {
+  width: 40px;
+  height: 40px;
+}
+
 .margin-top {
   margin-top: 100px;
 }
@@ -130,7 +312,7 @@ export default {
 .author {
   font-size: 16px;
   margin-top: 10px;
-  color: #A6A6A6;
+  color: #a6a6a6;
   font-weight: bold;
 }
 
@@ -143,7 +325,7 @@ export default {
 
 .date,
 .time {
-  color: #A6A6A6;
+  color: #a6a6a6;
 }
 
 .title-news {
@@ -203,7 +385,7 @@ export default {
 }
 
 .container-comment {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   width: full;
   height: 300px;
   border-radius: 10px;
@@ -246,7 +428,7 @@ export default {
 
 .comments {
   width: full;
-  height: 110px;
+  height: 140px;
   border-radius: 10px;
   border: 20px;
   border: 1px solid #ccc;
@@ -288,7 +470,7 @@ export default {
 
 .user-comment {
   font-size: 14px;
-  color: #67727E;
+  color: #67727e;
 }
 
 @media (max-width: 426px) {
