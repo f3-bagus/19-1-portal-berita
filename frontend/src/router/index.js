@@ -5,6 +5,7 @@ import Profile from "../views/Profile.vue";
 import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import News from "../components/News.vue";
+import EditProfile from "../views/EditProfile.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/edit-profile",
+    name: "EditProfile",
+    component: EditProfile,
   },
   {
     path: "/register",
