@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Profile from "../views/Profile.vue";
 import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
+import ResetPassword from "../views/ResetPassword.vue";
 import News from "../components/News.vue";
 import EditProfile from "../views/EditProfile.vue";
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/news",
     name: "News",
     component: News,
+  },
+  {
+    path: "/reset-password",
+    name: "ResetPassword",
+    component: ResetPassword,
   },
 ];
 

@@ -20,10 +20,22 @@ export default {
   setup() {
     const route = useRoute();
     const showNavbar = computed(
-      () => !["/login", "/register", "/forgot-password"].includes(route.path)
+      () =>
+        ![
+          "/login",
+          "/register",
+          "/forgot-password",
+          "/reset-password",
+        ].includes(route.path)
     );
     const showFooter = computed(
-      () => !["/login", "/register", "/forgot-password"].includes(route.path)
+      () =>
+        ![
+          "/login",
+          "/register",
+          "/forgot-password",
+          "/reset-password",
+        ].includes(route.path)
     );
 
     return {
