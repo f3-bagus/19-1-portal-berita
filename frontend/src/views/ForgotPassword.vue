@@ -17,7 +17,7 @@
       </button>
       <div class="d-flex justify-content-center mt-3">
         <span class="me-1"> Kembali ke</span
-        ><span class="text-danger">Login</span>
+        ><span class="text-danger" type="button" @click="login">Login</span>
         <span class="ms-1">Page</span>
       </div>
     </div>
@@ -31,6 +31,11 @@ export default {
   name: "ForgotPassword",
   components: {
     AuthLayout,
+  },
+  methods: {
+    login() {
+      this.$router.push({ name: "Login" });
+    },
   },
 };
 </script>

@@ -40,7 +40,7 @@
       </div>
       <div class="d-flex justify-content-center mt-3">
         <span class="me-2">Sedah memiliki akun?</span
-        ><span class="text-danger">Login!</span>
+        ><span class="text-danger" type="button" @click="login">Login!</span>
       </div>
     </div>
   </AuthLayout>
@@ -53,6 +53,11 @@ export default {
   name: "Register",
   components: {
     AuthLayout,
+  },
+  methods: {
+    login() {
+      this.$router.push({ name: "Login" });
+    },
   },
 };
 </script>
