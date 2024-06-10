@@ -32,7 +32,7 @@
         </form>
         <ul class="navbar-nav ms-auto navbar-top">
           <li class="nav-item">
-            <router-link to="/" class="nav-link active" aria-current="page">
+            <router-link to="/" class="nav-link" aria-current="page" exact>
               Home
             </router-link>
           </li>
@@ -55,10 +55,12 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact Us</a>
+            <router-link to="/contact-us" class="nav-link" aria-current="page" exact>
+              Contact Us
+            </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link active profile-icon" aria-current="page">
+            <router-link to="/profile" class="nav-link profile-icon" aria-current="page" exact>
               <i class="bi bi-person-circle"></i>
             </router-link>
           </li>
@@ -116,6 +118,11 @@ export default {
 
 .profile-icon .bi-person-circle {
   font-size: 1.5rem;
+  color: #90B2C9 !important;
+}
+
+.nav-link.profile-icon.router-link-active .bi-person-circle {
+  color: #ffffff !important;
 }
 
 .search-button {
@@ -135,5 +142,13 @@ export default {
 
 .search-button:focus {
   outline: none;
+}
+
+.router-link-active {
+  color: #ffffff !important;
+}
+
+.router-link-exact-active {
+  font-weight: bold;
 }
 </style>
