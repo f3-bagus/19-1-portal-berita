@@ -16,11 +16,11 @@
             </div>
             <div class="edit-profile-form">
                 <label>Full Name</label>
-                <input type="text" v-model="fullName" />
+                <input type="text" v-model="fullName" placeholder="Full Name" />
                 <label>Username</label>
-                <input type="text" v-model="username" />
+                <input type="text" v-model="username" placeholder="Username" />
                 <label>Email</label>
-                <input type="email" v-model="email" />
+                <input type="email" v-model="email" placeholder="Email" />
                 <button class="save-button" @click="saveChanges">Save Changes</button>
             </div>
         </div>
