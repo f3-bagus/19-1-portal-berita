@@ -3,15 +3,27 @@
     <h1 class="profile-heading">My Profile</h1>
     <hr class="profile-divider" />
     <div class="profile-content">
-      <img src="https://via.placeholder.com/150" size="10rem" class="profile-picture" />
+      <img
+        src="https://via.placeholder.com/150"
+        size="10rem"
+        class="profile-picture"
+      />
       <div class="profile-details">
         <h3 class="profile-name">Nama User</h3>
         <p class="profile-email">user@mail.com</p>
         <div>
-          <button variant="primary" class="profile-button" @click="editProfile">Edit Profile</button>
+          <button variant="primary" class="profile-button" @click="editProfile">
+            Edit Profile
+          </button>
         </div>
         <div class="margin-b">
-          <button variant="primary" class="profile-button" @click="changePassword">Change Password</button>
+          <button
+            variant="primary"
+            class="profile-button"
+            @click="changePassword"
+          >
+            Change Password
+          </button>
         </div>
       </div>
     </div>
@@ -24,25 +36,34 @@
           <div class="image-container">
             <img
               src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 1">
+              alt="Image 1"
+            />
           </div>
-          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+          <p class="saved-news">
+            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
+          </p>
         </div>
         <div class="saved-container">
           <div class="image-container">
             <img
               src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 2">
+              alt="Image 2"
+            />
           </div>
-          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+          <p class="saved-news">
+            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
+          </p>
         </div>
         <div class="saved-container">
           <div class="image-container">
             <img
               src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 3">
+              alt="Image 3"
+            />
           </div>
-          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+          <p class="saved-news">
+            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
+          </p>
         </div>
       </div>
       <div class="button-more-saved">
@@ -60,40 +81,48 @@
     </div>
     <h4 class="heading">Notification</h4>
     <div class="notif-container">
-        <p>Notification for news</p>
-        <div class="slider-container">
-      <label class="switch">
-        <input type="checkbox" v-model="notificationsEnabled" @change="toggleNotifications">
-        <span class="slider round"></span>
-      </label>
-    </div>
+      <p>Notification for news</p>
+      <div class="slider-container">
+        <label class="switch">
+          <input
+            type="checkbox"
+            v-model="notificationsEnabled"
+            @change="toggleNotifications"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Profile',
+  name: "Profile",
   data() {
     return {
-      notificationsEnabled: false
+      notificationsEnabled: false,
     };
   },
   methods: {
     editProfile() {
-      this.$router.push({ name: 'EditProfile' });
+      this.$router.push({ name: "EditProfile" });
     },
     changePassword() {
-      this.$router.push({ name: 'ForgotPassword' });
+      this.$router.push({ name: "ChangePassword" });
     },
     goToSavedNews() {
-      this.$router.push({ name: 'SavedNews' });
+      this.$router.push({ name: "SavedNews" });
     },
     toggleNotifications() {
-      alert(`Notifications are now ${this.notificationsEnabled ? 'enabled' : 'disabled'}`);
+      alert(
+        `Notifications are now ${
+          this.notificationsEnabled ? "enabled" : "disabled"
+        }`
+      );
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -110,7 +139,7 @@ export default {
 }
 
 .profile-heading {
-  color: #AB533C;
+  color: #ab533c;
   font-weight: 700;
 }
 

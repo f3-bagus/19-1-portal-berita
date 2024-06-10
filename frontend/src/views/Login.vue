@@ -23,9 +23,17 @@
           <label class="form-check-label" for="rememberMe"> Remember me </label>
         </div>
 
-        <div class="text-danger">Forget Password?</div>
+        <div class="text-danger" type="button" @click="forgotPassword">
+          Forgot Password?
+        </div>
       </div>
-      <button type="button" class="btn btn-secondary mt-5">Masuk</button>
+      <button
+        type="button"
+        class="btn btn-secondary mt-5"
+        @click="goToDashboard"
+      >
+        Masuk
+      </button>
       <h6 class="d-flex justify-content-center my-3">atau</h6>
       <div class="d-flex justify-content-center">
         <img
@@ -36,7 +44,9 @@
       </div>
       <div class="d-flex justify-content-center mt-3">
         <span class="me-2">Belum memiliki akun?</span
-        ><span class="text-danger">Daftar!</span>
+        ><span class="text-danger" type="button" @click="register"
+          >Daftar!</span
+        >
       </div>
     </div>
   </AuthLayout>
@@ -49,6 +59,17 @@ export default {
   name: "Login",
   components: {
     AuthLayout,
+  },
+  methods: {
+    goToDashboard() {
+      this.$router.push({ name: "LandingPage" });
+    },
+    forgotPassword() {
+      this.$router.push({ name: "ForgotPassword" });
+    },
+    register() {
+      this.$router.push({ name: "Register" });
+    },
   },
 };
 </script>
