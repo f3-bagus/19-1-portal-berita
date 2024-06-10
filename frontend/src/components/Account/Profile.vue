@@ -1,7 +1,7 @@
 <template>
   <div class="profile-container">
     <h1 class="profile-heading">My Profile</h1>
-    <hr class="profile-divider"/>
+    <hr class="profile-divider" />
     <div class="profile-content">
       <img src="https://via.placeholder.com/150" size="10rem" class="profile-picture" />
       <div class="profile-details">
@@ -16,23 +16,92 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <h4 class="heading">Saved News</h4>
+    <div class="saved-list">
+      <div class="saved-news-wrapper">
+        <div class="saved-container">
+          <div class="image-container">
+            <img
+              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+              alt="Image 1">
+          </div>
+          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+        </div>
+        <div class="saved-container">
+          <div class="image-container">
+            <img
+              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+              alt="Image 2">
+          </div>
+          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+        </div>
+        <div class="saved-container">
+          <div class="image-container">
+            <img
+              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
+              alt="Image 3">
+          </div>
+          <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
+        </div>
+      </div>
+      <div class="button-more-saved">
+        <div class="row button-more-content">
+          <div class="button-more">
+            <button class="show-more-button" @click="goToSavedNews">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+          <div>
+            <p class="text-show">Show More</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h4 class="heading">Notification</h4>
+    <div class="notif-container">
+        <p>Notification for news</p>
+        <div class="slider-container">
+      <label class="switch">
+        <input type="checkbox" v-model="notificationsEnabled" @change="toggleNotifications">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Profile',
+  data() {
+    return {
+      notificationsEnabled: false
+    };
+  },
   methods: {
     editProfile() {
-      alert('Edit Profile clicked');
+      this.$router.push({ name: 'EditProfile' });
     },
     changePassword() {
-      alert('Change Password clicked');
-    }
+      this.$router.push({ name: 'ForgotPassword' });
+    },
+    goToSavedNews() {
+      this.$router.push({ name: 'SavedNews' });
+    },
+    toggleNotifications() {
+      alert(`Notifications are now ${this.notificationsEnabled ? 'enabled' : 'disabled'}`);
+    },
   }
 }
 </script>
 
 <style scoped>
+.heading {
+  font-weight: bold;
+  margin-top: 70px;
+}
+
 .profile-container {
   text-align: center;
   padding-left: 10%;
@@ -67,7 +136,7 @@ export default {
 }
 
 .margin-b {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .profile-details {
@@ -96,5 +165,208 @@ export default {
 
 .profile-button:hover {
   background-color: #023362;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.image-container img {
+  max-width: 295px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.saved-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.saved-news-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+
+.saved-news {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0;
+}
+
+.saved-container {
+  max-width: 295px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.text-show {
+  font-size: 14px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.button-more {
+  padding-left: 30px;
+}
+
+.button-more-saved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-more-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.show-more-button {
+  background-color: #085487;
+  color: white;
+  border: 0;
+  border-radius: 100px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: auto;
+}
+
+.show-more-button:hover {
+  background-color: #023362;
+}
+
+.notif-container {
+  width: full;
+  height: 110px;
+  border-radius: 10px;
+  border: 20px;
+  border: 1px solid #ccc;
+  margin-top: 25px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0da13a;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+@media (max-width: 426px) {
+  .saved-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .saved-news-wrapper {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .saved-container {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .button-more-saved {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .saved-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .saved-news-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .saved-container {
+    flex-basis: 45%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .button-more-saved {
+    flex-basis: 45%;
+    margin-top: 20px;
+  }
 }
 </style>
