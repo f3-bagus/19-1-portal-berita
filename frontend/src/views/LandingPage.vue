@@ -181,6 +181,26 @@
             </div>
           </div>
         </div>
+        <div class="category-content margin-top">
+          <div class="title-content d-flex justify-content-between">
+            <h5 class="title">Video 30 detik</h5>
+            <i class="bi bi-arrow-right-circle-fill"></i>
+          </div>
+          <hr>
+          <div class="news d-flex">
+              <div class="news-title">
+                  <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+                  <h6 class="text-secondary mt-4">10 menit yang lalu</h6>
+              </div>
+              <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item custom-video-width" src="https://www.youtube.com/embed/mbJnAPBfH7I" allowfullscreen></iframe>
+              </div>
+              <!-- <video controls width="1000">
+                  <source src="https://youtu.be/mbJnAPBfH7I?si=E23sjStYkyjmvvDR" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video> -->
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -282,6 +302,15 @@
       width: 50%;
       margin-right: 50px;
     }
+
+    @media only screen and (min-width: 768px) {
+        .custom-video-width {
+            width: 700px;
+            height: 400px;
+            margin: 0 auto; /* Center align the video */
+        }
+    }
+
   </style>
   
   
