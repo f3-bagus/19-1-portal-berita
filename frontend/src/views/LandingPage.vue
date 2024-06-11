@@ -212,7 +212,8 @@
 
   .btn-primary {
   --bs-btn-bg: #003d6b !important;
-}
+  border: 0 !important;
+  }
 
     .title{
         color: #AB533C;
