@@ -31,7 +31,7 @@
         </form>
         <ul class="navbar-nav ms-auto navbar-top">
           <li class="nav-item">
-            <router-link to="" class="nav-link" aria-current="page" exact>
+            <router-link to="/contributor" class="nav-link" aria-current="page" exact>
               My Post
             </router-link>
           </li>
