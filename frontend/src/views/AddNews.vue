@@ -92,14 +92,7 @@
   .margin-top{
     margin-top: 100px;
   }
-
-  .title-mypost .btn-primary{
-    --bs-btn-bg: #ab533c !important;
-    --bs-btn-hover-bg: #ff3300 !important;
-    --bs-btn-active-bg: #ff3300;
-    border: 0 !important;
-    color: white;
-  }
+  
   .news-post img{
       width: 25%;
       margin-right: 20px;

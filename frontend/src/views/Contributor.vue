@@ -15,8 +15,7 @@
                             <span>June 8 2024</span>
                         </span>
                         <div>
-                            <button class="btn btn-primary mt-2 me-2">Edit Post</button>
-                            <button class="btn btn-primary mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2">View Post</button>
                         </div>
                     </div>
                 </div>
@@ -28,8 +27,7 @@
                             <span>June 8 2024</span>
                         </span>
                         <div>
-                            <button class="btn btn-primary mt-2 me-2">Edit Post</button>
-                            <button class="btn btn-primary mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2">View Post</button>
                         </div>
                     </div>
                 </div>
@@ -41,8 +39,7 @@
                             <span>June 8 2024</span>
                         </span>
                         <div>
-                            <button class="btn btn-primary mt-2 me-2">Edit Post</button>
-                            <button class="btn btn-primary mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2">View Post</button>
                         </div>
                     </div>
                 </div>
@@ -54,21 +51,7 @@
                             <span>June 8 2024</span>
                         </span>
                         <div>
-                            <button class="btn btn-primary mt-2 me-2">Edit Post</button>
-                            <button class="btn btn-primary mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200" alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button class="btn btn-primary mt-2 me-2">Edit Post</button>
-                            <button class="btn btn-primary mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2">View Post</button>
                         </div>
                     </div>
                 </div>
@@ -99,10 +82,10 @@
     margin-top: 100px;
   }
 
-  .title-mypost .btn-primary{
-    --bs-btn-bg: #ab533c !important;
-    --bs-btn-hover-bg: #ff3300 !important;
-    --bs-btn-active-bg: #ff3300;
+  .title-mypost button{
+    --bs-btn-bg: #ff3300 !important;
+    --bs-btn-hover-bg: #c24121 !important;
+    --bs-btn-active-bg: #c2412;
     border: 0 !important;
     color: white;
   }
