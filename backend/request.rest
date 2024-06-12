@@ -1,0 +1,141 @@
+//Login Admin
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "Admin123"
+}
+
+### Verifikasi Author Oleh admin
+POST http://localhost:5000/validate-author
+Content-Type: application/json
+
+{
+  "user_id" : "3"
+}
+
+### Admin Menambahkan Kategori Berita ###
+POST http://localhost:5000/categories
+Content-Type: application/json
+
+{
+  "categories_name" : "Hiburan"
+}
+
+### Verifikasi berita Oleh Admin ###
+POST http://localhost:5000/news/verify
+Content-Type: application/json
+
+{
+  "news_id":"1"
+}
+
+###//////####
+
+
+GET http://localhost:5000/me
+
+###
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "username": "Author",
+  "email": "author@gmail.com",
+  "password": "author123",
+  "confPassword": "author123",
+  "role":"author"
+}
+
+
+### //Login Author// ####
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "author@gmail.com",
+  "password": "author123"
+}
+
+//Author Menambahkan Berita
+###
+POST http://localhost:5000/News
+Content-Type: application/json
+
+{
+  "title": "Timnas Indonesia Kalah Menghadapi Iraq",
+  "content": "Timnas Indonesia Harus Mengakui Kekalahan dari Iraq dalam lanjutan Babak penyisihan Piala Dunia",
+  "categories_id":"1",
+  "image_url":"https://www.google.com/imgres?q=timnas&imgurl=https%3A%2F%2Fimgcdn.solopos.com%2F%40space%2F2024%2F05%2Ftimnas-indonesia.jpg&imgrefurl=https%3A%2F%2Fsport.solopos.com%2Fada-12-laga-timnas-indonesia-di-bulan-juni-2024-ini-jadwal-lengkapnya-1934518&docid=tEsadcmVrQbLrM&tbnid=VETWgmawcfiUjM&vet=12ahUKEwjsl725sceGAxXRcWwGHSd1EDgQM3oECFwQAA..i&w=600&h=450&hcb=2&itg=1&ved=2ahUKEwjsl725sceGAxXRcWwGHSd1EDgQM3oECFwQAA"
+}
+
+
+
+### Register User ###
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "username": "User",
+  "email": "user@gmail.com",
+  "password": "user123",
+  "confPassword": "user123",
+  "role":"user"
+}
+
+
+### Login User
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email" : "user@gmail.com",
+  "password" : "user123"
+}
+
+### User Mendapatkan Notifikasi ###
+GET http://localhost:5000/notifications
+
+### User Membaca Notifikasi ###
+PATCH http://localhost:5000/notifications/1/read
+
+###
+DELETE http://localhost:5000/logout
+
+
+###user mengirim comments
+POST http://localhost:5000/comments
+Content-Type: application/json
+
+{
+
+"news_id" : "38",
+"comment_text" : "saya mau comment"
+
+}
+
+##user mengedit comments
+PATCH http://localhost:5000/comments
+Content-Type: application/json
+{
+"comment_id":"2",
+"comments_text":"saya mau comment updated"
+}
+
+##user delete comments
+PATCH http://localhost:5000/comments
+Content-Type: application/json
+{
+"comment_id":"2"
+}
+
+##admin melihat semua comments
+GET http://localhost:5000/comments
+Content-Type: application/json
+
+##admin delete comments
+PATCH http://localhost:5000/comments/2
+Content-Type: application/json
+
+

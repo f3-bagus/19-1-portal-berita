@@ -10,6 +10,9 @@ import EditProfile from "../views/EditProfile.vue";
 import ChangePassword from "../views/ChangePassword.vue";
 import ContactUs from "../views/ContactUs.vue";
 import SavedNews from "../views/SavedNews.vue";
+import Contributor from "../views/Contributor.vue";
+import AddNews from "../views/AddNews.vue";
+
 
 const routes = [
   {
@@ -67,6 +70,16 @@ const routes = [
     path: "/saved-news",
     name: "SavedNews",
     component: SavedNews,
+  },
+  {
+    path: "/contributor",
+    name: "Contributor",
+    component: Contributor,
+  },
+  {
+    path: "/addnews",
+    name: "AddNews",
+    component: AddNews,
   },
 ];
 
