@@ -16,19 +16,6 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <form class="d-flex mx-auto search-bar">
-          <div class="input-container">
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn search-button" type="submit">
-              <i class="bi bi-search search-icon"></i>
-            </button>
-          </div>
-        </form>
         <ul class="navbar-nav ms-auto navbar-top">
           <li class="nav-item">
             <router-link to="/contributor" class="nav-link" aria-current="page" exact>
@@ -36,8 +23,8 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/contact-us" class="nav-link" aria-current="page" exact>
-              Contact Us
+            <router-link to="/addnews" class="nav-link" aria-current="page" exact>
+              Add News
             </router-link>
           </li>
           <li class="nav-item">
@@ -88,14 +75,6 @@ export default {
 
 .input-container .form-control {
   padding-right: 2.5rem;
-}
-
-.search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .profile-icon .bi-person-circle {

@@ -22,10 +22,12 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
+app.use(
+  cors({
     credentials: true,
-    origin: "http://localhost:3000"
-}));
+    origin: "http://localhost:5173",
+  })
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
@@ -41,10 +43,10 @@ app.use("/api", CategoryRoute);
 app.use("/api", SavedNewsRoute);
 app.use(CategoryRoute);
 app.use(CommentRoute);
-app.use(NotificationRoute)
-app.use(SavedNewsRoute)
-app.use(ContactMessageRoute)
-app.use(AuthRoute)
+app.use(NotificationRoute);
+app.use(SavedNewsRoute);
+app.use(ContactMessageRoute);
+app.use(AuthRoute);
 
-app.listen(5000, () => console.log('Server berjalan di port 5000'));
+app.listen(5000, () => console.log("Server berjalan di port 5000"));
 //server.js

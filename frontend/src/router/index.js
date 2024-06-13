@@ -13,7 +13,6 @@ import SavedNews from "../views/SavedNews.vue";
 import Contributor from "../views/Contributor.vue";
 import AddNews from "../views/AddNews.vue";
 
-
 const routes = [
   {
     path: "/",
