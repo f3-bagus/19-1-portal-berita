@@ -31,6 +31,12 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send(`<h1> API BERITA </h1>
+    <p>SELAMAT DATANG DI PROJECT KITA</p>`);
+});
+
 app.use(UserRoute);
 app.use(NewsRoute);
 app.use("/api/Auth", AuthRoute);
@@ -48,5 +54,10 @@ app.use(SavedNewsRoute);
 app.use(ContactMessageRoute);
 app.use(AuthRoute);
 
-app.listen(5000, () => console.log("Server berjalan di port 5000"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port http://localhost:${PORT}`);
+});
+
 //server.js
