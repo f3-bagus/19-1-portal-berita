@@ -107,7 +107,8 @@ export default {
         console.log(response.data); // Log the response data
 
         if (response.data.success) {
-          this.$router.push({ name: "Login" });
+          alert(response.data.msg);
+          this.$router.push({ name: "Login" }); // Redirect to Login page
         } else {
           alert(
             "Registration failed: " + (response.data.msg || "Unknown error")
