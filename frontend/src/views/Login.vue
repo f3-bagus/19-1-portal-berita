@@ -44,6 +44,7 @@
           src="../assets/icon/google.svg"
           alt="Google Logo"
           class="google-logo"
+          @click="loginWithGoogle"
         />
       </div>
       <div class="d-flex justify-content-center mt-3">
@@ -107,6 +108,10 @@ export default {
     register() {
       this.$router.push({ name: "Register" });
     },
+    loginWithGoogle() {
+      // Redirect to Google OAuth URL
+      window.location.href = "http://localhost:5000/auth/google";
+    },
   },
 };
 </script>
@@ -127,5 +132,6 @@ export default {
 .google-logo {
   width: 30px;
   height: 30px;
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
 }
 </style>
