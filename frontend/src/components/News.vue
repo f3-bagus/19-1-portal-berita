@@ -3,74 +3,14 @@
     <div class="breadcrumbs">
       <span>News > Nasional</span>
     </div>
-    <div class="author">Author Name</div>
+    <div class="author">{{ author }}</div>
     <div class="metadata">
-      <div class="date">Senin, 1 Mei 2024</div>
-      <div class="time">10.34 WIB</div>
+      <div class="date">{{ date }}</div>
     </div>
-    <img
-      class="image-news"
-      src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-      alt=""
-    />
-    <h1 class="title-news">
-      Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotmani
-    </h1>
+    <img :src="imageUrl" class="image-news" alt="News Image" />
+    <h1 class="title-news">{{ title }}</h1>
     <div class="content">
-      <p>
-        <strong>Jakarta, Berita.com</strong> - Paragraf 1 Lorem ipsum dolor sit
-        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum.
-      </p>
-      <div class="image-container">
-        <img
-          src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-          alt="Image 1"
-        />
-        <img
-          src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-          alt="Image 2"
-        />
-      </div>
-      <p>
-        Paragraf 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-        do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
+      <p>{{ content }}</p>
     </div>
     <div class="button-container">
       <button class="circle-button">
@@ -272,14 +212,58 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "News",
+  data() {
+    return {
+      title: '',
+      content: '',
+      author: '',
+      imageUrl: '',
+      date: '',
+      authorId: ''
+    };
+  },
+  created() {
+    this.fetchNews();
+  },
   methods: {
+    async fetchNews() {
+      try {
+        const response = await axios.get(`http://localhost:5000/news/${this.$route.params.id}`);
+        const data = response.data;
+        this.title = data.title;
+        this.content = data.content;
+        this.imageUrl = data.image_url;
+        this.date = this.formatDate(data.createdAt);
+        this.authorId = data.author_id;
+        this.fetchAuthor(this.authorId);
+      } catch (error) {
+        console.error('Error fetching news:', error);
+      }
+    },
+    async fetchAuthor(authorId) {
+      try {
+        const response = await axios.get(`http://localhost:5000/users/${authorId}`);
+        const userData = response.data;
+        this.author = userData.username;
+        console.log(this.author)
+      } catch (error) {
+        console.log(authorId)
+        console.error('Error fetching author:', error);
+      }
+    },
+    formatDate(dateString) {
+      return moment(dateString).format('dddd, D MMMM YYYY HH.mm [WIB]');
+    },
     sendComment() {
       alert("Comment sent!");
     },
   },
 };
+
 </script>
 
 <style scoped>
