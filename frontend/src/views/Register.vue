@@ -4,6 +4,9 @@
       <h6 class="d-flex justify-content-center mb-5">
         Daftar ke Berita.com dan temukan berita terkini!
       </h6>
+      <div v-if="message" :class="`alert ${messageType}`" role="alert">
+        {{ message }}
+      </div>
       <form @submit.prevent="registerUser">
         <input
           class="form-control"
@@ -48,6 +51,7 @@
           src="../assets/icon/google.svg"
           alt="Google Logo"
           class="google-logo"
+          @click="loginWithGoogle"
         />
       </div>
       <div class="d-flex justify-content-center mt-3">
@@ -74,6 +78,8 @@ export default {
       password: "",
       confPassword: "",
       role: "user", // Default role is "user"
+      message: "", // Message to show success or error
+      messageType: "", // Type of message (success or error)
     };
   },
   methods: {
@@ -85,13 +91,13 @@ export default {
         !this.password ||
         !this.confPassword
       ) {
-        alert("Semua bidang harus diisi");
+        this.showMessage("Semua bidang harus diisi", "alert-danger");
         return;
       }
 
       // Validasi konfirmasi password
       if (this.password !== this.confPassword) {
-        alert("Konfirmasi kata sandi tidak sesuai");
+        this.showMessage("Konfirmasi kata sandi tidak sesuai", "alert-danger");
         return;
       }
 
@@ -107,24 +113,40 @@ export default {
         console.log(response.data); // Log the response data
 
         if (response.data.success) {
-          alert(response.data.msg);
-          this.$router.push({ name: "Login" }); // Redirect to Login page
+          this.showMessage(response.data.msg, "alert-success");
+          setTimeout(() => {
+            this.$router.push({ name: "Login" }); // Redirect to Login page
+          }, 2000); // Wait for 2 seconds before redirecting
         } else {
-          alert(
-            "Registration failed: " + (response.data.msg || "Unknown error")
+          this.showMessage(
+            "Registration failed: " + (response.data.msg || "Unknown error"),
+            "alert-danger"
           );
         }
       } catch (error) {
         console.error("There was an error registering:", error);
         if (error.response && error.response.data && error.response.data.msg) {
-          alert("Registration failed: " + error.response.data.msg);
+          this.showMessage(
+            "Registration failed: " + error.response.data.msg,
+            "alert-danger"
+          );
         } else {
-          alert("An error occurred. Please try again.");
+          this.showMessage(
+            "An error occurred. Please try again.",
+            "alert-danger"
+          );
         }
       }
     },
+    showMessage(msg, type) {
+      this.message = msg;
+      this.messageType = type;
+    },
     login() {
       this.$router.push({ name: "Login" });
+    },
+    loginWithGoogle() {
+      window.location.href = "http://localhost:5000/auth/google";
     },
   },
 };
@@ -139,9 +161,27 @@ export default {
 .google-logo {
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .font-size-small {
   font-size: 0.8rem;
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
 }
 </style>
