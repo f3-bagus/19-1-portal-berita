@@ -12,13 +12,13 @@ import ContactMessageRoute from "./routes/ContactMessageRoute.js";
 import NotificationRoute from "./routes/NotificationRoute.js";
 import SavedNewsRoute from "./routes/SavedNewsRoute.js";
 
-// import db from "./config/database.js";
+import db from "./config/database.js";
 
 dotenv.config();
 
-// (async () => {
-//     await db.sync();
-// })();
+(async () => {
+    await db.sync();
+})();
 
 const app = express();
 
