@@ -105,12 +105,18 @@
 </template>
 
 <script>
-import AdminLayout from "../components/Admin/AdminLayout.vue";
+import AdminLayout from "../../components/Admin/AdminLayout.vue";
 
 export default {
   name: "ManageUser",
   components: {
     AdminLayout,
+  },
+  created() {
+    const userRole = localStorage.getItem('userRole');
+    if (userRole !== 'admin') {
+      this.$router.push({ name: 'LandingPage' });
+    }
   },
   data() {
     return {

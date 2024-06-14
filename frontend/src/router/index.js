@@ -9,10 +9,10 @@ import NewsPage from "../views/NewsPage.vue";
 import EditProfile from "../views/EditProfile.vue";
 import ContactUs from "../views/ContactUs.vue";
 import SavedNews from "../views/SavedNews.vue";
-import Contributor from "../views/Contributor.vue";
-import AddNews from "../views/AddNews.vue";
-import Admin from "../views/Admin.vue";
-import ManageUser from "../views/ManageUser.vue";
+import Contributor from "../views/contributor/Contributor.vue";
+import AddNews from "../views/contributor/AddNews.vue";
+import Admin from "../views/admin/Admin.vue";
+import ManageUser from "../views/admin/ManageUser.vue";
 
 const routes = [
   {
@@ -70,27 +70,44 @@ const routes = [
     path: "/contributor",
     name: "Contributor",
     component: Contributor,
+    meta: { requiresAuth: true, role: 'author' }
   },
   {
     path: "/addnews",
     name: "AddNews",
     component: AddNews,
+    meta: { requiresAuth: true, role: 'author' }
   },
   {
     path: "/admin",
     name: "Admin",
     component: Admin,
+    meta: { requiresAuth: true, role: 'admin' }
   },
   {
     path: "/manageUser",
     name: "ManageUser",
     component: ManageUser,
+    meta: { requiresAuth: true, role: 'admin' }
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const userRole = localStorage.getItem('userRole');
+
+  if (requiresAuth && !userRole) {
+    next({ name: 'Login' });
+  } else if (requiresAuth && to.meta.role !== userRole) {
+    next({ name: 'LandingPage' });
+  } else {
+    next();
+  }
 });
 
 export default router;
