@@ -4,8 +4,7 @@
       <!-- Navbar Brand-->
       <router-link to="/admin" class="navbar-brand nav-link ps-3" exact>Admin</router-link>
       <!-- Sidebar Toggle-->
-      <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i
-          class="bi bi-box-arrow-in-right"></i></button>
+      <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="bi bi-list"></i></button>
       <!-- Navbar Search-->
       <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -37,15 +36,15 @@
             <div class="nav">
               <div class="sb-sidenav-menu-heading">Core</div>
               <router-link to="/admin" class="nav-link" exact>
-                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
                 Dashboard
               </router-link>
               <div class="sb-sidenav-menu-heading">Admin Menu</div>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                 aria-expanded="false" aria-controls="collapseLayouts">
-                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                <div class="sb-nav-link-icon"><i class="bi bi-people-fill"></i></div>
                 User Management
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
               </a>
               <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                 data-bs-parent="#sidenavAccordion">
@@ -54,11 +53,15 @@
                   <router-link to="/manage-author" class="navbar-brand nav-link ps-3" exact>User Author</router-link>
                 </nav>
               </div>
+              <a class="nav-link" href="charts.html">
+                <div class="sb-nav-link-icon"><i class="bi bi-bookmarks-fill"></i></div>
+                Category Management
+              </a>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                 aria-expanded="false" aria-controls="collapsePages">
-                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                <div class="sb-nav-link-icon"><i class="bi bi-newspaper"></i></div>
                 News Management
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
               </a>
               <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -74,19 +77,15 @@
                   </a>
                 </nav>
               </div>
-              <a class="nav-link" href="charts.html">
-                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                Category Management
-              </a>
               <a class="nav-link" href="tables.html">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="bi bi-messenger"></i></div>
                 Manage Messages
               </a>
             </div>
           </div>
           <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            Admin
           </div>
         </nav>
       </div>
@@ -13319,4 +13318,5 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
 </style>
