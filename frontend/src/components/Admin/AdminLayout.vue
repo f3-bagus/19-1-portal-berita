@@ -43,7 +43,7 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <router-link to="/manageUser" class="navbar-brand nav-link ps-3" exact>User Pengunjung</router-link>
+                                <router-link to="/manageUser" class="navbar-brand nav-link ps-3" exact>User Manager</router-link>
                                 <a class="nav-link" href="layout-sidenav-light.html">User Contributor</a>
                             </nav>
                         </div>
@@ -107,7 +107,7 @@ export default {
 };
 </script>
   
-  <style scoped>
+  <style>
   @charset "UTF-8";
 /*!
 * Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)
