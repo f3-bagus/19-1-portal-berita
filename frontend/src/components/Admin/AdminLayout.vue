@@ -53,10 +53,10 @@
                   <router-link to="/manage-author" class="navbar-brand nav-link ps-3" exact>User Author</router-link>
                 </nav>
               </div>
-              <a class="nav-link" href="charts.html">
+              <router-link to="/manage-category" class="nav-link" >
                 <div class="sb-nav-link-icon"><i class="bi bi-bookmarks-fill"></i></div>
                 Category Management
-              </a>
+              </router-link>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                 aria-expanded="false" aria-controls="collapsePages">
                 <div class="sb-nav-link-icon"><i class="bi bi-newspaper"></i></div>

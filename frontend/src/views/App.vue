@@ -32,6 +32,7 @@ export default {
           "/admin",
           "/manage-user",
           "/manage-author",
+          "/manage-category",
         ].includes(route.path)
     );
     const showFooter = computed(
@@ -46,6 +47,7 @@ export default {
           "/admin",
           "/manage-user",
           "/manage-author",
+          "/manage-category",
         ].includes(route.path)
     );
 
