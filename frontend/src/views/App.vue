@@ -12,7 +12,6 @@ import { useRoute } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-
 export default {
   components: {
     Navbar,
@@ -28,11 +27,10 @@ export default {
           "/register",
           "/forgot-password",
           "/reset-password",
-          "/change-password",
           "/contributor",
           "/addnews",
           "/admin",
-          "/manageUser"
+          "/manageUser",
         ].includes(route.path)
     );
     const showFooter = computed(
@@ -42,11 +40,10 @@ export default {
           "/register",
           "/forgot-password",
           "/reset-password",
-          "/change-password",
           "/contributor",
           "/addnews",
           "/admin",
-          "/manageUser"
+          "/manageUser",
         ].includes(route.path)
     );
 
