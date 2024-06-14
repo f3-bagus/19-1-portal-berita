@@ -23,7 +23,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/addnews" class="nav-link" aria-current="page" exact>
+            <router-link to="/add-news" class="nav-link" aria-current="page" exact>
               Add News
             </router-link>
           </li>

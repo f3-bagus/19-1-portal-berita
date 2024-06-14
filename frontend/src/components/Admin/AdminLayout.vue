@@ -50,8 +50,8 @@
               <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                 data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                  <router-link to="/manageUser" class="navbar-brand nav-link ps-3" exact>User Manager</router-link>
-                  <a class="nav-link" href="layout-sidenav-light.html">User Contributor</a>
+                  <router-link to="/manage-user" class="navbar-brand nav-link ps-3" exact>User Manager</router-link>
+                  <router-link to="/manage-author" class="navbar-brand nav-link ps-3" exact>User Author</router-link>
                 </nav>
               </div>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"

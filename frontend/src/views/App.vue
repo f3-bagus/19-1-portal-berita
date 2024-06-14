@@ -28,9 +28,10 @@ export default {
           "/forgot-password",
           "/reset-password",
           "/contributor",
-          "/addnews",
+          "/add-news",
           "/admin",
-          "/manageUser",
+          "/manage-user",
+          "/manage-author",
         ].includes(route.path)
     );
     const showFooter = computed(
@@ -41,9 +42,10 @@ export default {
           "/forgot-password",
           "/reset-password",
           "/contributor",
-          "/addnews",
+          "/add-news",
           "/admin",
-          "/manageUser",
+          "/manage-user",
+          "/manage-author",
         ].includes(route.path)
     );
 

@@ -13,6 +13,7 @@ import Contributor from "../views/contributor/Contributor.vue";
 import AddNews from "../views/contributor/AddNews.vue";
 import Admin from "../views/admin/Admin.vue";
 import ManageUser from "../views/admin/ManageUser.vue";
+import ManageAuthor from "../views/admin/ManageAuthor.vue";
 
 const routes = [
   {
@@ -73,7 +74,7 @@ const routes = [
     meta: { requiresAuth: true, role: 'author' }
   },
   {
-    path: "/addnews",
+    path: "/add-news",
     name: "AddNews",
     component: AddNews,
     meta: { requiresAuth: true, role: 'author' }
@@ -85,9 +86,15 @@ const routes = [
     meta: { requiresAuth: true, role: 'admin' }
   },
   {
-    path: "/manageUser",
+    path: "/manage-user",
     name: "ManageUser",
     component: ManageUser,
+    meta: { requiresAuth: true, role: 'admin' }
+  },
+  {
+    path: "/manage-author",
+    name: "ManageAuthor",
+    component: ManageAuthor,
     meta: { requiresAuth: true, role: 'admin' }
   },
 ];
