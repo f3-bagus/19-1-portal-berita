@@ -12,6 +12,8 @@ import ContactUs from "../views/ContactUs.vue";
 import SavedNews from "../views/SavedNews.vue";
 import Contributor from "../views/Contributor.vue";
 import AddNews from "../views/AddNews.vue";
+import Admin from "../views/Admin.vue";
+import ManageUser from "../views/ManageUser.vue";
 
 
 const routes = [
@@ -80,6 +82,16 @@ const routes = [
     path: "/addnews",
     name: "AddNews",
     component: AddNews,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+  },
+  {
+    path: "/manageUser",
+    name: "ManageUser",
+    component: ManageUser,
   },
 ];
 

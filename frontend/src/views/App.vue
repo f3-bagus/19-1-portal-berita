@@ -12,10 +12,12 @@ import { useRoute } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
+
 export default {
   components: {
     Navbar,
     Footer,
+    // AdminLayout,
   },
   setup() {
     const route = useRoute();
@@ -29,6 +31,8 @@ export default {
           "/change-password",
           "/contributor",
           "/addnews",
+          "/admin",
+          "/manageUser"
         ].includes(route.path)
     );
     const showFooter = computed(
@@ -41,6 +45,8 @@ export default {
           "/change-password",
           "/contributor",
           "/addnews",
+          "/admin",
+          "/manageUser"
         ].includes(route.path)
     );
 
