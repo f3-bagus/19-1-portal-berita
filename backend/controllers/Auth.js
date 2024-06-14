@@ -151,7 +151,7 @@ export const Login = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, msg: "Login berhasil", token: accessToken });
+      .json({ success: true, msg: "Login berhasil", token: accessToken, role: role});
   } catch (error) {
     console.error(error);
     res

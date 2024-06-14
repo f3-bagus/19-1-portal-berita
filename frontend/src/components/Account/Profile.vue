@@ -118,6 +118,7 @@ export default {
         await axios.delete("http://localhost:5000/Logout");
         // Clear local storage atau melakukan hal lain yang diperlukan
         // Redirect ke halaman login atau halaman lain yang sesuai
+          localStorage.removeItem('userRole'); 
         this.$router.push({ name: "Login" });
       } catch (error) {
         console.error("Error logging out:", error);
