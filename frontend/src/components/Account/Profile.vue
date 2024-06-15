@@ -16,15 +16,6 @@
             Edit Profile
           </button>
         </div>
-        <div class>
-          <button
-            variant="primary"
-            class="profile-button"
-            @click="changePassword"
-          >
-            Change Password
-          </button>
-        </div>
         <div class="margin-b">
           <button variant="primary" class="profile-button" @click="logout">
             Logout
@@ -112,24 +103,19 @@ export default {
     };
   },
   methods: {
-    // Fungsi untuk logout
     async logout() {
       try {
         await axios.delete("http://localhost:5000/Logout");
         // Clear local storage atau melakukan hal lain yang diperlukan
         // Redirect ke halaman login atau halaman lain yang sesuai
-          localStorage.removeItem('userRole'); 
+        localStorage.removeItem("userRole");
         this.$router.push({ name: "Login" });
       } catch (error) {
         console.error("Error logging out:", error);
-        // Tampilkan pesan kesalahan jika diperlukan
       }
     },
     editProfile() {
       this.$router.push({ name: "EditProfile" });
-    },
-    changePassword() {
-      this.$router.push({ name: "ChangePassword" });
     },
     goToSavedNews() {
       this.$router.push({ name: "SavedNews" });

@@ -5,7 +5,7 @@
       <div v-if="message" :class="`alert ${messageType}`" role="alert">
         {{ message }}
       </div>
-      <h6 class="justify-content-center mb-4">
+      <h6 class="justify-content-center mb-5">
         Lupa Password? Kirim Link Melalui email
       </h6>
       <div class="mb-3 d-flex justify-content-center">
@@ -53,24 +53,27 @@ export default {
       try {
         const response = await axios.post(
           "http://localhost:5000/forget-password",
-          {
-            email: this.email,
-          }
+          { email: this.email }
         );
 
         if (response.data.success) {
           this.showMessage(
-            "Email reset password telah dikirim.",
+            "Silakan reset password Anda melalui halaman reset password.",
             "alert-success"
           );
+          // Redirect to reset password page with token
+          this.$router.push({
+            name: "ResetPassword",
+            query: { token: response.data.resetToken },
+          });
         } else {
           this.showMessage(
-            "Gagal mengirim email reset password. Silakan coba lagi.",
+            "Gagal mengirim permintaan reset password. Silakan coba lagi.",
             "alert-danger"
           );
         }
       } catch (error) {
-        console.error("Error sending reset password email:", error);
+        console.error("Error sending reset password request:", error);
         this.showMessage(
           "Terjadi kesalahan. Silakan coba lagi.",
           "alert-danger"

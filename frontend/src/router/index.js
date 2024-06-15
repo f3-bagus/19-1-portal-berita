@@ -7,13 +7,14 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NewsPage from "../views/NewsPage.vue";
 import EditProfile from "../views/EditProfile.vue";
-import ChangePassword from "../views/ChangePassword.vue";
 import ContactUs from "../views/ContactUs.vue";
 import SavedNews from "../views/SavedNews.vue";
 import Contributor from "../views/contributor/Contributor.vue";
 import AddNews from "../views/contributor/AddNews.vue";
 import Admin from "../views/admin/Admin.vue";
 import ManageUser from "../views/admin/ManageUser.vue";
+import ManageAuthor from "../views/admin/ManageAuthor.vue";
+import ManageCategory from "../views/admin/ManageCategory.vue";
 
 const routes = [
   {
@@ -57,12 +58,6 @@ const routes = [
     name: "ResetPassword",
     component: ResetPassword,
   },
-
-  {
-    path: "/change-password",
-    name: "ChangePassword",
-    component: ChangePassword,
-  },
   {
     path: "/contact-us",
     name: "ContactUs",
@@ -80,7 +75,7 @@ const routes = [
     meta: { requiresAuth: true, role: 'author' }
   },
   {
-    path: "/addnews",
+    path: "/add-news",
     name: "AddNews",
     component: AddNews,
     meta: { requiresAuth: true, role: 'author' }
@@ -92,9 +87,21 @@ const routes = [
     meta: { requiresAuth: true, role: 'admin' }
   },
   {
-    path: "/manageUser",
+    path: "/manage-user",
     name: "ManageUser",
     component: ManageUser,
+    meta: { requiresAuth: true, role: 'admin' }
+  },
+  {
+    path: "/manage-author",
+    name: "ManageAuthor",
+    component: ManageAuthor,
+    meta: { requiresAuth: true, role: 'admin' }
+  },
+  {
+    path: "/manage-category",
+    name: "ManageCategory",
+    component: ManageCategory,
     meta: { requiresAuth: true, role: 'admin' }
   },
 ];
