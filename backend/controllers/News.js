@@ -116,7 +116,8 @@ export const getNews = async (req, res) => {
 export const getNewsById = async (req, res) => {
     try {
         const response = await News.findOne({
-            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url'],
+            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'createdAt'],
+            include : [{ model :Users, attributes: ['username'], as : 'author'}],
             where: {
                 news_id: req.params.id
             }
@@ -126,6 +127,7 @@ export const getNewsById = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 };
+
 // Update berita
 export const updateNews = async (req, res) => {
     try {
