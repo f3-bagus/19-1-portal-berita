@@ -1,22 +1,12 @@
 <template>
-    <div class="edit-profile-container">
+    <div class="edit-profile-container" v-if="isLoggedIn">
         <h1 class="edit-profile-heading">Edit Profile</h1>
         <hr class="edit-profile-divider" />
         <div class="edit-profile-content">
             <div class="edit-profile-picture">
-                <div>
-                    <img :src="profilePicture" class="profile-picture" />
-                </div>
-                <div>
-                    <label for="file-upload" class="custom-file-upload">
-                        Choose File
-                    </label>
-                    <input id="file-upload" type="file" @change="onFileChange" />
-                </div>
+                <img src="../../assets/Profile.svg" class="profile-picture" />
             </div>
             <div class="edit-profile-form">
-                <label>Full Name</label>
-                <input type="text" v-model="fullName" placeholder="Full Name" />
                 <label>Username</label>
                 <input type="text" v-model="username" placeholder="Username" />
                 <label>Email</label>
@@ -32,23 +22,18 @@ export default {
     name: 'EditProfile',
     data() {
         return {
-            profilePicture: 'https://via.placeholder.com/150',
-            fullName: '',
             username: '',
             email: ''
         }
     },
+    created() {
+        // Check login status from local storage or another method
+        const userRole = localStorage.getItem("userRole");
+        if (userRole) {
+            this.isLoggedIn = true;
+        }
+    },
     methods: {
-        onFileChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    this.profilePicture = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        },
         saveChanges() {
             alert('Profile changes saved!');
         }
