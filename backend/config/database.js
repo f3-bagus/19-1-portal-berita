@@ -5,6 +5,7 @@ const db = new Sequelize("sql12713709", "sql12713709", "4q3rtyVSHv", {
     dialect: "mysql"
 });
 
+
 const connectDB = async () => {
     try {
         await db.authenticate();
