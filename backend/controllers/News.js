@@ -105,7 +105,15 @@ export const createNewsController = async (req, res) => {
 export const getNews = async (req, res) => {
     try {
         const news = await News.findAll({
-            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status']
+            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
+            include: [{
+                model: Users,
+                attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                as: 'author'
+            }],
+            where: {
+                status: 'published'
+            }
         });
         res.status(200).json(news);
     } catch (error) {
