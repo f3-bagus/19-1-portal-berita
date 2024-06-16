@@ -17,6 +17,7 @@ import ManageCategory from "../views/admin/ManageCategory.vue";
 import ManageNews from "../views/admin/ManageNews.vue";
 import EditProfilePage from "../views/EditProfilePage.vue";
 import ManageMessages from "../views/admin/ManageMessages.vue";
+import ContributorProfile from "../views/contributor/Profile.vue";
 
 const routes = [
   {
@@ -74,49 +75,55 @@ const routes = [
     path: "/contributor",
     name: "Contributor",
     component: Contributor,
-    meta: { requiresAuth: true, role: 'author' }
+    meta: { requiresAuth: true, role: "author" },
   },
   {
     path: "/add-news",
     name: "AddNews",
     component: AddNews,
-    meta: { requiresAuth: true, role: 'author' }
+    meta: { requiresAuth: true, role: "author" },
+  },
+  {
+    path: "/author-profile",
+    name: "ContributorProfile",
+    component: ContributorProfile,
+    meta: { requiresAuth: true, role: "author" },
   },
   {
     path: "/admin",
     name: "Admin",
     component: Admin,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
   {
     path: "/manage-user",
     name: "ManageUser",
     component: ManageUser,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
   {
     path: "/manage-author",
     name: "ManageAuthor",
     component: ManageAuthor,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
   {
     path: "/manage-category",
     name: "ManageCategory",
     component: ManageCategory,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
   {
     path: "/manage-news",
     name: "ManageNews",
     component: ManageNews,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
   {
     path: "/manage-messages",
     name: "ManageMessages",
     component: ManageMessages,
-    meta: { requiresAuth: true, role: 'admin' }
+    meta: { requiresAuth: true, role: "admin" },
   },
 ];
 
@@ -126,13 +133,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const userRole = localStorage.getItem('userRole');
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const userRole = localStorage.getItem("userRole");
 
   if (requiresAuth && !userRole) {
-    next({ name: 'Login' });
+    next({ name: "Login" });
   } else if (requiresAuth && to.meta.role !== userRole) {
-    next({ name: 'LandingPage' });
+    next({ name: "LandingPage" });
   } else {
     next();
   }

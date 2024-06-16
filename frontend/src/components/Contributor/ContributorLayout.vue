@@ -18,17 +18,32 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto navbar-top">
           <li class="nav-item">
-            <router-link to="/contributor" class="nav-link" aria-current="page" exact>
+            <router-link
+              to="/contributor"
+              class="nav-link"
+              aria-current="page"
+              exact
+            >
               My Post
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/add-news" class="nav-link" aria-current="page" exact>
+            <router-link
+              to="/add-news"
+              class="nav-link"
+              aria-current="page"
+              exact
+            >
               Add News
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link profile-icon" aria-current="page" exact>
+            <router-link
+              to="/author-profile"
+              class="nav-link profile-icon"
+              aria-current="page"
+              exact
+            >
               <i class="bi bi-person-circle"></i>
             </router-link>
           </li>
@@ -79,7 +94,7 @@ export default {
 
 .profile-icon .bi-person-circle {
   font-size: 1.5rem;
-  color: #90B2C9 !important;
+  color: #90b2c9 !important;
 }
 
 .nav-link.profile-icon.router-link-active .bi-person-circle {
