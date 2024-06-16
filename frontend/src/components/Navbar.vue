@@ -48,19 +48,37 @@
               Category
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li v-for="category in categories" :key="category.categories_id">
+                <a
+                  class="dropdown-item"
+                  :href="`/category/${category.categories_id}`"
+                >
+                  {{ category.categories_name }}
+                </a>
+              </li>
+              <li v-if="errorMessage"><hr class="dropdown-divider" /></li>
+              <li v-if="errorMessage">
+                <a class="dropdown-item text-danger">{{ errorMessage }}</a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">
-            <router-link to="/contact-us" class="nav-link" aria-current="page" exact>
+            <router-link
+              to="/contact-us"
+              class="nav-link"
+              aria-current="page"
+              exact
+            >
               Contact Us
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link profile-icon" aria-current="page" exact>
+            <router-link
+              to="/profile"
+              class="nav-link profile-icon"
+              aria-current="page"
+              exact
+            >
               <i class="bi bi-person-circle"></i>
             </router-link>
           </li>
@@ -71,108 +89,37 @@
 </template>
 
 <script>
+import axios from "../../services/axios";
+
 export default {
   name: "Navbar",
+  data() {
+    return {
+      categories: [],
+      errorMessage: "",
+    };
+  },
+  created() {
+    this.fetchCategories();
+  },
+  methods: {
+    async fetchCategories() {
+      try {
+        const response = await axios.get("http://localhost:5000/categories");
+        this.categories = response.data;
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        if (error.response && error.response.status === 401) {
+          this.errorMessage = "You are not authorized to fetch categories.";
+        } else {
+          this.errorMessage = "An error occurred while fetching categories.";
+        }
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.navbar {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1030;
-}
-
-.navbar-top {
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-}
-
-.input-container {
-  position: relative;
-}
-
-.input-container .form-control {
-  padding-right: 2.5rem;
-}
-
-.search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.profile-icon .bi-person-circle {
-  font-size: 1.5rem;
-  color: #90B2C9 !important;
-}
-
-.nav-link.profile-icon.router-link-active .bi-person-circle {
-  color: #ffffff !important;
-}
-
-.search-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: #000;
-  cursor: pointer;
-}
-
-.search-button:hover .search-icon {
-  color: #9d9d9d;
-}
-
-.search-button:focus {
-  outline: none;
-}
-
-.router-link-active {
-  color: #ffffff !important;
-}
-
-.router-link-exact-active {
-  font-weight: bold;
-}
-
-/* Styles for mobile screens */
-@media (max-width: 768px) {
-  .navbar-collapse {
-    text-align: left;
-  }
-
-  .navbar-nav {
-    width: 100%;
-  }
-
-  .navbar-nav .nav-item {
-    width: 100%;
-    text-align: left;
-  }
-
-  .navbar-nav .nav-link {
-    padding-left: 15px;
-  }
-
-  .navbar-nav .profile-icon {
-    text-align: left;
-  }
-}
+/* Your CSS styles */
 </style>
