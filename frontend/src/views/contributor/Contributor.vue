@@ -103,6 +103,7 @@ export default {
 .news-post img {
     width: 25%;
     margin-right: 20px;
+    border-radius: 10px;
 }
 
 .title-mypost {

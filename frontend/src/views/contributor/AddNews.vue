@@ -11,8 +11,11 @@
           <textarea class="form-control" rows="5" v-model="content" required></textarea>
         </div>
         <div class="mb-3">
-          <label for="media" class="form-label">Add Media</label>
-          <input type="file" class="form-control" id="media" @change="handleFileUpload" required>
+          <label for="image-url" class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="image-url" v-model="imageUrl" @input="updateImagePreview" placeholder="Enter image URL">
+          <div v-if="imageUrl && isValidUrl(imageUrl)" class="mt-3">
+            <img :src="imageUrl" alt="Image Preview" class="img-thumbnail" />
+          </div>
         </div>
         <div class="mb-3">
           <select class="form-control" v-model="primaryCategory" required>
@@ -42,7 +45,7 @@
             <p>Apakah data atau berita yang dimasukkan valid? Setelah ini berita tidak bisa diedit dan bersifat
               permanen.</p>
             <div class="form-check mt-5">
-              <input class="form-check-input" type="checkbox" id="dataValidCheckbox">
+              <input class="form-check-input" type="checkbox" id="dataValidCheckbox" v-model="isDataValid">
               <label class="form-check-label" for="dataValidCheckbox">
                 Saya telah memastikan bahwa data atau berita yang dimasukkan valid.
               </label>
@@ -50,7 +53,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-            <button variant="primary" class="detail-button">Ya, Saya Mengerti</button>
+            <button type="button" class="btn btn-primary" :disabled="!isDataValid" @click="handleSubmit">
+              Ya, Saya Mengerti
+            </button>
           </div>
         </div>
       </div>
@@ -80,18 +85,31 @@ export default {
       category: '',
       primaryCategory: '',
       address: '',
-      categories: ['Category 1', 'Category 2', 'Category 3']
+      imageUrl: '',
+      categories: ['Category 1', 'Category 2', 'Category 3'],
+      isDataValid: false
     };
   },
   computed: {
     isFormValid() {
-      return this.title && this.content && this.primaryCategory && this.address;
+      return this.title && this.content && this.primaryCategory && this.address && this.imageUrl;
     }
   },
   methods: {
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      console.log(file);
+    isValidUrl(url) {
+      try {
+        new URL(url);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    },
+    updateImagePreview() {
+      if (this.isValidUrl(this.imageUrl)) {
+        this.$refs.imagePreview.src = this.imageUrl;
+      } else {
+        this.$refs.imagePreview.src = '';
+      }
     },
     formatAddress() {
       if (this.address && !this.address.includes('berita.com')) {
@@ -99,17 +117,22 @@ export default {
       }
     },
     submitPost() {
-      // Tambahkan alamat di awal konten pos
+      // Add address to the start of the post content
       const formattedContent = `${this.address} ${this.content}`;
 
       const postData = {
         title: this.title,
         content: formattedContent,
         category: this.category,
-        primaryCategory: this.primaryCategory
+        primaryCategory: this.primaryCategory,
+        imageUrl: this.imageUrl
       };
       console.log(postData);
-      // Di sini Anda bisa menambahkan kode untuk menangani pengiriman formulir, seperti melakukan panggilan API.
+      // Handle form submission, such as making an API call.
+    },
+    handleSubmit() {
+      this.submitPost();
+      this.$refs.confirmModalClose.click();
     }
   },
 };
@@ -120,12 +143,9 @@ export default {
   margin-top: 100px;
 }
 
-.news-post img {
-  width: 25%;
-  margin-right: 20px;
-}
-
-.title-mypost {
-  align-items: center;
+.img-thumbnail {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
 }
 </style>

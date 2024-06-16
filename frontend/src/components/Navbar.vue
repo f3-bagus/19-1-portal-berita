@@ -17,7 +17,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <form class="d-flex mx-auto search-bar">
+        <form class="d-flex mx-auto search-bar d-none d-lg-flex">
           <div class="input-container">
             <input
               class="form-control"
@@ -150,5 +150,29 @@ export default {
 
 .router-link-exact-active {
   font-weight: bold;
+}
+
+/* Styles for mobile screens */
+@media (max-width: 768px) {
+  .navbar-collapse {
+    text-align: left;
+  }
+
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-nav .nav-link {
+    padding-left: 15px;
+  }
+
+  .navbar-nav .profile-icon {
+    text-align: left;
+  }
 }
 </style>
