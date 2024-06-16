@@ -33,6 +33,7 @@ export default {
           "/manage-user",
           "/manage-author",
           "/manage-category",
+          "/manage-news",
         ].includes(route.path)
     );
     const showFooter = computed(
@@ -48,6 +49,7 @@ export default {
           "/manage-user",
           "/manage-author",
           "/manage-category",
+          "/manage-news",
         ].includes(route.path)
     );
 

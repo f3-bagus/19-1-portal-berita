@@ -57,26 +57,10 @@
                 <div class="sb-nav-link-icon"><i class="bi bi-bookmarks-fill"></i></div>
                 Category Management
               </router-link>
-              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                aria-expanded="false" aria-controls="collapsePages">
+              <router-link to="/manage-news" class="nav-link" >
                 <div class="sb-nav-link-icon"><i class="bi bi-newspaper"></i></div>
                 News Management
-                <div class="sb-sidenav-collapse-arrow"><i class="bi bi-caret-down-fill"></i></div>
-              </a>
-              <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth"
-                    aria-expanded="false" aria-controls="pagesCollapseAuth">
-                    Manage News
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                  </a>
-                  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError"
-                    aria-expanded="false" aria-controls="pagesCollapseError">
-                    Manage Approvals
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                  </a>
-                </nav>
-              </div>
+              </router-link>
               <a class="nav-link" href="tables.html">
                 <div class="sb-nav-link-icon"><i class="bi bi-messenger"></i></div>
                 Manage Messages
