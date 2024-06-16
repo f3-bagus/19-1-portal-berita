@@ -16,6 +16,7 @@ import ManageUser from "../views/admin/ManageUser.vue";
 import ManageAuthor from "../views/admin/ManageAuthor.vue";
 import ManageCategory from "../views/admin/ManageCategory.vue";
 import ManageNews from "../views/admin/ManageNews.vue";
+import ManageMessages from "../views/admin/ManageMessages.vue";
 
 const routes = [
   {
@@ -109,6 +110,12 @@ const routes = [
     path: "/manage-news",
     name: "ManageNews",
     component: ManageNews,
+    meta: { requiresAuth: true, role: 'admin' }
+  },
+  {
+    path: "/manage-messages",
+    name: "ManageMessages",
+    component: ManageMessages,
     meta: { requiresAuth: true, role: 'admin' }
   },
 ];
