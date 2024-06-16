@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "../../services/axios";
 import AuthLayout from "../components/Auth/AuthLayout.vue";
 
 export default {
@@ -52,7 +52,16 @@ export default {
     };
   },
   methods: {
+    validateEmail(email) {
+      const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      return re.test(email);
+    },
     async login() {
+      if (!this.validateEmail(this.email)) {
+        this.errorMessage = "Email tidak valid";
+        return;
+      }
+
       try {
         const response = await axios.post(
           "http://localhost:5000/api/Auth/Login",
@@ -67,6 +76,7 @@ export default {
         if (response.data.success) {
           const userRole = response.data.role;
           localStorage.setItem('userRole', userRole); // Store the role in local storage
+          localStorage.setItem('token', response.data.token); // Store the role in local storage
 
           if (userRole === 'admin') {
             this.$router.push({ name: "Admin" });
