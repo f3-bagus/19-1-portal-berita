@@ -6,7 +6,6 @@ import Register from "../views/Register.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import NewsPage from "../views/NewsPage.vue";
-import EditProfile from "../views/EditProfile.vue";
 import ContactUs from "../views/ContactUs.vue";
 import SavedNews from "../views/SavedNews.vue";
 import Contributor from "../views/contributor/Contributor.vue";
@@ -16,6 +15,7 @@ import ManageUser from "../views/admin/ManageUser.vue";
 import ManageAuthor from "../views/admin/ManageAuthor.vue";
 import ManageCategory from "../views/admin/ManageCategory.vue";
 import ManageNews from "../views/admin/ManageNews.vue";
+import EditProfilePage from "../views/EditProfilePage.vue";
 import ManageMessages from "../views/admin/ManageMessages.vue";
 
 const routes = [
@@ -37,7 +37,7 @@ const routes = [
   {
     path: "/edit-profile",
     name: "EditProfile",
-    component: EditProfile,
+    component: EditProfilePage,
   },
   {
     path: "/register",

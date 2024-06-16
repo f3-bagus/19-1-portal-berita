@@ -1,22 +1,12 @@
 <template>
-    <div class="edit-profile-container">
+    <div class="edit-profile-container" v-if="isLoggedIn">
         <h1 class="edit-profile-heading">Edit Profile</h1>
         <hr class="edit-profile-divider" />
         <div class="edit-profile-content">
             <div class="edit-profile-picture">
-                <div>
-                    <img :src="profilePicture" class="profile-picture" />
-                </div>
-                <div>
-                    <label for="file-upload" class="custom-file-upload">
-                        Choose File
-                    </label>
-                    <input id="file-upload" type="file" @change="onFileChange" />
-                </div>
+                <img src="../../assets/Profile.svg" class="profile-picture" />
             </div>
             <div class="edit-profile-form">
-                <label>Full Name</label>
-                <input type="text" v-model="fullName" placeholder="Full Name" />
                 <label>Username</label>
                 <input type="text" v-model="username" placeholder="Username" />
                 <label>Email</label>
@@ -28,32 +18,71 @@
 </template>
 
 <script>
+import axios from '../../../services/axios';
+
 export default {
     name: 'EditProfile',
     data() {
         return {
-            profilePicture: 'https://via.placeholder.com/150',
-            fullName: '',
             username: '',
-            email: ''
-        }
+            email: '',
+            isLoggedIn: false,
+            userId: null, // Add a property to store the user ID
+        };
     },
+    created() {
+        // Check login status from local storage or another method
+        const userRole = localStorage.getItem("userRole");
+        if (userRole) {
+            this.isLoggedIn = true;
+        }
+        this.fetchProfileData();
+    },
+    // watch: {
+    //     username(newUsername) {
+    //         this.username = newUsername;
+    //     },
+    //     email(newEmail) {
+    //         this.email = newEmail;
+    //     }
+    // },
     methods: {
-        onFileChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    this.profilePicture = e.target.result;
-                };
-                reader.readAsDataURL(file);
+        async fetchProfileData() {
+            try {
+                const response = await axios.get("me");
+                if (response.data.success) {
+                    const { username, email, user_id } = response.data.user;
+                    this.username = username;
+                    this.email = email;
+                    this.userId = user_id;
+
+                } else {
+                    // Handle if success is false or other error cases
+                    console.error("Failed to fetch profile data:", response.data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                // Handle any network errors or other exceptions
             }
         },
-        saveChanges() {
-            alert('Profile changes saved!');
+        async saveChanges() {
+            try {
+                const response = await axios.patch(`users/${this.userId}`, {
+                    username: String(this.username),
+                    email: String(this.email),
+                });
+
+                if (response.data.success) {
+                    console.log('Profile updated:', response.data);
+                } else {
+                    console.error('Failed to update profile:', response.data.error);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
         }
     }
-}
+};
 </script>
 
 <style scoped>

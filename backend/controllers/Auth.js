@@ -164,7 +164,7 @@ export const Login = async (req, res) => {
 export const Me = async (req, res) => {
   try {
     // Mengambil token dari cookie
-    const accessToken = req.cookies.accessToken;
+    const accessToken = req.header('Authorization')?.split(' ')[1];
 
     if (!accessToken) {
       return res

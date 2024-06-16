@@ -75,7 +75,7 @@ router.get('/auth/google/callback', async (req, res) => {
 
       console.log("Access token generated:", accessToken);
 
-      res.redirect(`http://localhost:3000/auth-success?token=${accessToken}`);
+      res.redirect(`http://localhost:5000/auth-success?token=${accessToken}`);
       // res.status(200).json({ msg: "Login successful" });
 
     } else {

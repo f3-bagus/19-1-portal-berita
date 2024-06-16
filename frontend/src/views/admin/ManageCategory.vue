@@ -20,7 +20,7 @@
                                 <tbody>
                                     <tr v-for="(category, index) in categories" :key="index">
                                         <th scope="row">{{ index + 1 }}</th>
-                                        <td>{{ category.name }}</td>
+                                        <td>{{ category.categories_name }}</td>
                                         <td class="d-flex gap-3">
                                             <button variant="primary" class="btn btn-warning"
                                                 @click="showUpdateModal(category)">
@@ -51,8 +51,8 @@
                                 <form @submit.prevent="createCategory">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name"
-                                            v-model="newCategory.name" required>
+                                        <input type="text" class="form-control" id="name" v-model="newCategory.categories_name"
+                                            required>
                                     </div>
                                     <button type="submit" class="btn btn-success">Create</button>
                                 </form>
@@ -75,7 +75,7 @@
                                     <div class="mb-3">
                                         <label for="update-name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="update-name"
-                                            v-model="currentCategory.name" required>
+                                            v-model="currentCategory.categories_name" required>
                                     </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
@@ -90,6 +90,7 @@
 
 
 <script>
+import axios from '../../../services/axios'
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
 
 export default {
@@ -104,52 +105,80 @@ export default {
                 name: 'LandingPage'
             });
         }
+        this.fetchCategories();
     },
     data() {
         return {
             showCreateModal: false,
             showUpdateModalFlag: false,
             newCategory: {
-                name: "",
+                categories_name: "",
             },
             currentCategory: null,
-            categories: [{
-                    name: "Category 1",
-                },
-                {
-                    name: "Category 2",
-                },
-                // Add more categories as needed
-            ],
+            categories: [], // Menggunakan array kosong untuk menampung kategori dari server
         };
     },
     methods: {
-        createCategory() {
-            this.categories.push({
-                ...this.newCategory
-            });
-            this.showCreateModal = false;
-            this.newCategory = {
-                name: "",
-            };
-        },
         showUpdateModal(category) {
             this.currentCategory = {
                 ...category
             };
             this.showUpdateModalFlag = true;
         },
-        updateCategory() {
-            const index = this.categories.findIndex(cat => cat.name === this.currentCategory.name);
-            if (index !== -1) {
-                this.categories.splice(index, 1, {
-                    ...this.currentCategory
-                });
+        async fetchCategories() {
+            try {
+                const response = await axios.get('categories');
+                this.categories = response.data; // Isi categories dengan data yang diterima dari server
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                // Handle error
             }
-            this.showUpdateModalFlag = false;
         },
-        deleteCategory(index) {
-            this.categories.splice(index, 1);
+        async createCategory() {
+            console.log(this.newCategory.categories_name)
+            try {
+                const response = await axios.post('categories',  {categories_name:this.newCategory.categories_name},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                this.fetchCategories()
+                // Jika berhasil tambahkan kategori ke array categories
+                this.categories.push(response.data);
+                this.showCreateModal = false;
+                this.newCategory.categories_name = ""; // reset form
+            } catch (error) {
+                console.error('Error creating category:', error);
+                // Handle error secara sesuai dengan kebutuhan Anda
+            }
+        },
+        async updateCategory() {
+            try {
+                console.log(this.currentCategory.categories_name)
+                const response = await axios.patch(`categories/${this.currentCategory.categories_id}`, {categories_name:this.currentCategory.categories_name});
+                // Update data di array categories
+                const index = this.categories.findIndex(cat => cat.categories_id === this.currentCategory.categories_id);
+                if (index !== -1) {
+                    this.categories.splice(index, 1, response.data);
+                }
+                this.showUpdateModalFlag = false;
+            } catch (error) {
+                console.error('Error updating category:', error);
+                // Handle error
+            }
+        },
+        async deleteCategory(index) {
+            try {
+                const categoryId = this.categories[index].categories_id;
+                await axios.delete(`categories/${categoryId}`);
+                // Hapus kategori dari array categories
+                this.categories.splice(index, 1);
+            } catch (error) {
+                console.error('Error deleting category:', error);
+                // Handle error
+            }
         },
     },
 };

@@ -3,14 +3,10 @@
     <h1 class="profile-heading">My Profile</h1>
     <hr class="profile-divider" />
     <div class="profile-content">
-      <img
-        src="https://via.placeholder.com/150"
-        size="10rem"
-        class="profile-picture"
-      />
-      <div class="profile-details">
-        <h3 class="profile-name">Nama User</h3>
-        <p class="profile-email">user@mail.com</p>
+      <img src="../../assets/Profile.svg" size="10rem" class="profile-picture" />
+      <div class="profile-details" v-if="isLoggedIn">
+        <h3 class="profile-name">{{ username }}</h3>
+        <p class="profile-email">{{ email }}</p>
         <div>
           <button variant="primary" class="profile-button" @click="editProfile">
             Edit Profile
@@ -22,9 +18,16 @@
           </button>
         </div>
       </div>
+      <div class="profile-details" v-else>
+        <div class="margin-b">
+          <button variant="primary" class="profile-button" @click="login">
+            Login
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container" v-if="isLoggedIn">
     <h4 class="heading">Saved News</h4>
     <div class="saved-list">
       <div class="saved-news-wrapper">
@@ -80,11 +83,7 @@
       <p>Notification for news</p>
       <div class="slider-container">
         <label class="switch">
-          <input
-            type="checkbox"
-            v-model="notificationsEnabled"
-            @change="toggleNotifications"
-          />
+          <input type="checkbox" v-model="notificationsEnabled" @change="toggleNotifications" />
           <span class="slider round"></span>
         </label>
       </div>
@@ -93,26 +92,47 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "../../../services/axios";
 
 export default {
   name: "Profile",
   data() {
     return {
+      isLoggedIn: false,
       notificationsEnabled: false,
+      username: '',
+      email: '',
     };
   },
   methods: {
+    async fetchProfileData() {
+      try {
+        const response = await axios.get("me");
+        if (response.data.success) {
+          const { username, email } = response.data.user;
+          this.username = username;
+          this.email = email;
+        } else {
+          // Handle if success is false or other error cases
+          console.error("Failed to fetch profile data:", response.data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+        // Handle any network errors or other exceptions
+      }
+    },
     async logout() {
       try {
         await axios.delete("http://localhost:5000/Logout");
-        // Clear local storage atau melakukan hal lain yang diperlukan
-        // Redirect ke halaman login atau halaman lain yang sesuai
         localStorage.removeItem("userRole");
+        this.isLoggedIn = false;
         this.$router.push({ name: "Login" });
       } catch (error) {
         console.error("Error logging out:", error);
       }
+    },
+    login() {
+      this.$router.push({ name: "Login" });
     },
     editProfile() {
       this.$router.push({ name: "EditProfile" });
@@ -121,12 +141,17 @@ export default {
       this.$router.push({ name: "SavedNews" });
     },
     toggleNotifications() {
-      alert(
-        `Notifications are now ${
-          this.notificationsEnabled ? "enabled" : "disabled"
-        }`
-      );
+      alert(`Notifications are now ${this.notificationsEnabled ? "enabled" : "disabled"}`);
     },
+  },
+  created() {
+    // Check login status from local storage or another method
+    const userRole = localStorage.getItem("userRole");
+    if (userRole) {
+      this.isLoggedIn = true;
+      // Fetch profile data when component is created and user is logged in
+      this.fetchProfileData();
+    }
   },
 };
 </script>

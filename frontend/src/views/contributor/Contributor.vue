@@ -73,12 +73,6 @@ export default {
     components: {
         ContributorLayout,
     },
-    created() {
-        const userRole = localStorage.getItem('userRole');
-        if (userRole !== 'author') {
-            this.$router.push({ name: 'LandingPage' });
-        }
-    },
     methods: {
         addNews() {
             this.$router.push({ name: "AddNews" });

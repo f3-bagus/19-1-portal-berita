@@ -5,7 +5,7 @@ import Users from "../models/UserModels.js";
 export const verifyToken = async (req, res, next) => {
     try {
         // Mengambil token dari cookie
-        const accessToken = req.cookies.accessToken;
+        const accessToken = req.header('Authorization')?.split(' ')[1];
 
         if (!accessToken) {
             return res.status(401).json({ msg: "Mohon Login dengan akun Anda" });

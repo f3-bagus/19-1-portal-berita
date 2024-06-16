@@ -94,11 +94,5 @@ export default {
     components: {
         AdminLayout,
     },
-    created() {
-        const userRole = localStorage.getItem('userRole');
-        if (userRole !== 'admin') {
-            this.$router.push({ name: 'Login' });
-        }
-    }
 };
 </script>

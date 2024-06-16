@@ -223,7 +223,6 @@ export default {
       author: '',
       imageUrl: '',
       date: '',
-      authorId: ''
     };
   },
   created() {
@@ -238,21 +237,9 @@ export default {
         this.content = data.content;
         this.imageUrl = data.image_url;
         this.date = this.formatDate(data.createdAt);
-        this.authorId = data.author_id;
-        this.fetchAuthor(this.authorId);
+        this.author = data.author.username;
       } catch (error) {
         console.error('Error fetching news:', error);
-      }
-    },
-    async fetchAuthor(authorId) {
-      try {
-        const response = await axios.get(`http://localhost:5000/users/${authorId}`);
-        const userData = response.data;
-        this.author = userData.username;
-        console.log(this.author)
-      } catch (error) {
-        console.log(authorId)
-        console.error('Error fetching author:', error);
       }
     },
     formatDate(dateString) {

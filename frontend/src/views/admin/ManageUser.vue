@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(user, index) in users" :key="index">
+                  <tr v-for="(user, index) in users" :key="user.user_id">
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
@@ -31,7 +31,7 @@
                       <button variant="primary" class="btn btn-warning" @click="showUpdateModal(user)">
                         Update
                       </button>
-                      <button variant="primary" class="btn btn-danger" @click="deleteUser(index)">
+                      <button variant="primary" class="btn btn-danger" @click="deleteUser(user.user_id)">
                         Delete
                       </button>
                     </td>
@@ -66,6 +66,10 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" v-model="newUser.password" required>
               </div>
+              <div class="mb-3">
+                <label for="confPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confPassword" v-model="newUser.confPassword" required>
+              </div>
               <button type="submit" class="btn btn-success">Create</button>
             </form>
           </div>
@@ -91,10 +95,6 @@
                 <label for="update-email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="update-email" v-model="currentUser.email" required>
               </div>
-              <div class="mb-3">
-                <label for="update-password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="update-password" v-model="currentUser.password" required>
-              </div>
               <button type="submit" class="btn btn-warning">Update</button>
             </form>
           </div>
@@ -104,19 +104,15 @@
   </AdminLayout>
 </template>
 
+
 <script>
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
+import axios from '../../../services/axios';
 
 export default {
   name: "ManageUser",
   components: {
     AdminLayout,
-  },
-  created() {
-    const userRole = localStorage.getItem('userRole');
-    if (userRole !== 'admin') {
-      this.$router.push({ name: 'LandingPage' });
-    }
   },
   data() {
     return {
@@ -126,39 +122,84 @@ export default {
         username: "",
         email: "",
         password: "",
-        role: "User",
+        confPassword: "",
+        role: "user",
       },
       currentUser: null,
-      users: [
-        { username: "Mark", email: "mark@example.com", password: "password1", role: "User" },
-        { username: "Jacob", email: "jacob@example.com", password: "password2", role: "User" },
-        // More users
-      ],
+      users: [],
     };
   },
   methods: {
-    createUser() {
-      this.users.push({ ...this.newUser });
-      this.showCreateModal = false;
-      this.newUser = { username: "", email: "", password: "", role: "User" };
+    async fetchUsers() {
+      try {
+        const response = await axios.get('users');
+        this.users = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createUser() {
+      try {
+        const response = await axios.post("users", {
+          username: this.newUser.username,
+          email: this.newUser.email,
+          password: this.newUser.password,
+          confPassword: this.newUser.confPassword,
+          role: this.newUser.role,
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        this.fetchUsers();
+        this.showCreateModal = false;
+      } catch (error) {
+        console.error(error);
+      }
     },
     showUpdateModal(user) {
-      this.currentUser = { ...user };
+      this.currentUser = { ...user, confPassword: user.password };
       this.showUpdateModalFlag = true;
     },
-    updateUser() {
-      const index = this.users.findIndex(user => user.email === this.currentUser.email);
-      if (index !== -1) {
-        this.users.splice(index, 1, { ...this.currentUser });
+    async updateUser() {
+      try {
+        const { user_id, username, email, role } = this.currentUser;
+        const response = await axios.patch(`users/${user_id}`, {
+          username,
+          email,
+          role,
+        }, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        const index = this.users.findIndex(user => user.user_id === user_id);
+        if (index !== -1) {
+          this.users.splice(index, 1, response.data);
+        }
+        this.showUpdateModalFlag = false; // Close modal on success
+        alert('User updated successfully'); // Show success alert
+      } catch (error) {
+        console.error(error);
       }
-      this.showUpdateModalFlag = false;
     },
-    deleteUser(index) {
-      this.users.splice(index, 1);
+    async deleteUser(userId) {
+      try {
+        await axios.delete(`users/${userId}`, {
+        });
+        this.users = this.users.filter(user => user.user_id !== userId);
+        alert('User deleted successfully'); // Show success alert
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
+  mounted() {
+    this.fetchUsers();
+  }
 };
 </script>
+
 
 <style scoped>
 .container-user {
@@ -236,11 +277,5 @@ export default {
 
 .btn-close {
   background-color: #085487;
-  /* background: #870808;
-  border: none;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #000;
-  cursor: pointer; */
 }
 </style>
