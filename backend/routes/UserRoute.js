@@ -12,8 +12,8 @@ import { verifyToken, isAdmin } from "../middleware/Auth.js";
 const router = express.Router();
 
 router.get('/users', verifyToken, isAdmin, getUsers);
-router.get('/users/:id', verifyToken, isAdmin, getUserById);
+router.get('/users/:id', verifyToken, getUserById);
 router.post('/users', verifyToken, isAdmin, createUser);
-router.patch('/users/:id', verifyToken, isAdmin, updateUser);
+router.patch('/users/:id', verifyToken, updateUser);
 router.delete('/users/:id', verifyToken, isAdmin, deleteUsers);
 export default router;
