@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <EditProfile />
+        <EditProfile :id="$route.params.id" />
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import EditProfile from '../components/Account/EditProfile.vue';
 
 export default {
-    name: 'App',
+    name: 'EditProfilePage',
     components: {
         EditProfile
     }
