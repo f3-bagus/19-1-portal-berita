@@ -30,6 +30,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response) {
       handleRemoveToken();
+      console.error(error.response)
     }
     return Promise.reject(error);
   }
