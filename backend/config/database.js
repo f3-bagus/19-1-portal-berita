@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize("berita_db", "root", "", {
-    host: "localhost",
+const db = new Sequelize("sql12713709", "ql12713709", "4q3rtyVSHv", {
+    host: "sql12.freemysqlhosting.net",
     dialect: "mysql"
 });
 
