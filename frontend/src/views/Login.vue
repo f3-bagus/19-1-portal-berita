@@ -5,14 +5,29 @@
         Login ke Berita.com dengan email dan kata sandi anda!
       </h6>
       <form @submit.prevent="login">
-        <input class="form-control" type="text" placeholder="Email" v-model="email" />
-        <input class="form-control mt-4" type="password" placeholder="Password" v-model="password" />
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Email"
+          v-model="email"
+        />
+        <input
+          class="form-control mt-4"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+        />
         <div v-if="errorMessage" class="alert alert-danger mt-3">
           {{ errorMessage }}
         </div>
         <div class="d-flex mt-3 justify-content-between">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="rememberMe" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="rememberMe"
+            />
             <label class="form-check-label" for="rememberMe">
               Remember me
             </label>
@@ -25,11 +40,18 @@
       </form>
       <h6 class="d-flex justify-content-center my-3">atau</h6>
       <div class="d-flex justify-content-center">
-        <img src="../assets/icon/google.svg" alt="Google Logo" class="google-logo" @click="loginWithGoogle" />
+        <img
+          src="../assets/icon/google.svg"
+          alt="Google Logo"
+          class="google-logo"
+          @click="loginWithGoogle"
+        />
       </div>
       <div class="d-flex justify-content-center mt-3">
-        <span class="me-2">Belum memiliki akun?</span><span class="text-danger" type="button"
-          @click="register">Daftar!</span>
+        <span class="me-2">Belum memiliki akun?</span
+        ><span class="text-danger" type="button" @click="register"
+          >Daftar!</span
+        >
       </div>
     </div>
   </AuthLayout>
@@ -75,12 +97,16 @@ export default {
 
         if (response.data.success) {
           const userRole = response.data.role;
-          localStorage.setItem('userRole', userRole); // Store the role in local storage
-          localStorage.setItem('token', response.data.token); // Store the role in local storage
+          const token = response.data.token;
+          localStorage.setItem("userRole", userRole); // Store the role in local storage
+          localStorage.setItem("token", token); // Store the token in local storage
 
-          if (userRole === 'admin') {
+          // Log to check if the token is set correctly
+          console.log("Stored token:", localStorage.getItem("token"));
+
+          if (userRole === "admin") {
             this.$router.push({ name: "Admin" });
-          } else if (userRole === 'author') {
+          } else if (userRole === "author") {
             this.$router.push({ name: "Contributor" });
           } else {
             this.$router.push({ name: "LandingPage" });
