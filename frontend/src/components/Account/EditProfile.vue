@@ -18,13 +18,17 @@
 </template>
 
 <script>
+import axios from '../../../services/axios';
+
 export default {
     name: 'EditProfile',
     data() {
         return {
             username: '',
-            email: ''
-        }
+            email: '',
+            isLoggedIn: false,
+            userId: null, // Add a property to store the user ID
+        };
     },
     created() {
         // Check login status from local storage or another method
@@ -32,13 +36,53 @@ export default {
         if (userRole) {
             this.isLoggedIn = true;
         }
+        this.fetchProfileData();
     },
+    // watch: {
+    //     username(newUsername) {
+    //         this.username = newUsername;
+    //     },
+    //     email(newEmail) {
+    //         this.email = newEmail;
+    //     }
+    // },
     methods: {
-        saveChanges() {
-            alert('Profile changes saved!');
+        async fetchProfileData() {
+            try {
+                const response = await axios.get("me");
+                if (response.data.success) {
+                    const { username, email, user_id } = response.data.user;
+                    this.username = username;
+                    this.email = email;
+                    this.userId = user_id;
+
+                } else {
+                    // Handle if success is false or other error cases
+                    console.error("Failed to fetch profile data:", response.data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                // Handle any network errors or other exceptions
+            }
+        },
+        async saveChanges() {
+            try {
+                const response = await axios.patch(`users/${this.userId}`, {
+                    username: String(this.username),
+                    email: String(this.email),
+                });
+
+                if (response.data.success) {
+                    console.log('Profile updated:', response.data);
+                } else {
+                    console.error('Failed to update profile:', response.data.error);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
         }
     }
-}
+};
 </script>
 
 <style scoped>
