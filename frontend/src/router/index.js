@@ -18,6 +18,7 @@ import ManageNews from "../views/admin/ManageNews.vue";
 import EditProfilePage from "../views/EditProfilePage.vue";
 import ManageMessages from "../views/admin/ManageMessages.vue";
 import ContributorProfile from "../views/contributor/Profile.vue";
+import CategoryNews from "../views/CategoryNews.vue";
 
 const routes = [
   {
@@ -70,6 +71,11 @@ const routes = [
     path: "/saved-news",
     name: "SavedNews",
     component: SavedNews,
+  },
+  {
+    path: "/category/:id",
+    name: "CategoryNews",
+    component: CategoryNews,
   },
   {
     path: "/contributor",
