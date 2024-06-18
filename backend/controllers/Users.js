@@ -4,7 +4,7 @@ import argon2 from "argon2";
 export const getUsers = async (req, res) => {
   try {
     const response = await Users.findAll({
-      attributes: ["user_id", "username", "email", "role"],
+      attributes: ["user_id", "username", "email", "role", "status"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -15,7 +15,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const response = await Users.findOne({
-      attributes: ["user_id", "username", "email", "role"],
+      attributes: ["user_id", "username", "email", "role", "status"],
       where: {
         user_id: req.params.id,
       },
