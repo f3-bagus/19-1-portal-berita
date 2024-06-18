@@ -14,13 +14,13 @@
       </div>
       <div class="col contact-us-content">
         <div class="contact-us-form">
+          <p v-if="message" class="alert alert-success">{{ message }}</p>
+          <p v-if="error" class="alert alert-danger">{{ error }}</p>
           <label>Subject</label>
           <input type="text" v-model="subject" placeholder="Subject" />
-          <label>Message Text</label>
-          <textarea v-model="messageText" placeholder="Message Text"></textarea>
+          <label>Message</label>
+          <textarea v-model="messageText" placeholder="Message"></textarea>
           <button class="send-button" @click="sendChanges">Send</button>
-          <p v-if="message">{{ message }}</p>
-          <p v-if="error">{{ error }}</p>
         </div>
       </div>
     </div>
@@ -48,10 +48,19 @@ export default {
           message_text: this.messageText,
         });
         this.message = response.data.msg;
-        this.subject = ""; // Clear subject input
-        this.messageText = ""; // Clear message text area
+        this.error = ""; // Clear any previous error message
+
+        // Clear the subject and message inputs
+        this.subject = ""; 
+        this.messageText = ""; 
+
+        // Set a timeout to clear the message after 5 seconds
+        setTimeout(() => {
+          this.message = "";
+        }, 5000);
       } catch (error) {
         this.error = error.response.data.error;
+        this.message = ""; // Clear any previous success message
         console.error("Error sending message:", error);
       }
     },
@@ -133,6 +142,27 @@ export default {
 
 .send-button:hover {
   background-color: #023362;
+}
+
+.alert {
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+  font-weight: 200;
+  text-align: left;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 @media (max-width: 426px) {
