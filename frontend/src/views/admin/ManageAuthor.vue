@@ -76,6 +76,11 @@
                                         <input type="password" class="form-control" id="password"
                                             v-model="newAuthor.password" required>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword"
+                                            v-model="newAuthor.confirmPassword" required>
+                                    </div>
                                     <button type="submit" class="btn btn-success">Create</button>
                                 </form>
                             </div>
@@ -108,6 +113,11 @@
                                         <label for="update-password" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="update-password"
                                             v-model="currentAuthor.password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="update-confirmPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="update-confirmPassword"
+                                            v-model="currentAuthor.confirmPassword" required>
                                     </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
@@ -144,6 +154,7 @@ export default {
                 username: "",
                 email: "",
                 password: "",
+                confirmPassword: "",
                 role: "Author",
                 verified: false, // Default unverified
             },
@@ -210,29 +221,44 @@ export default {
     },
     methods: {
         createAuthor() {
+            if (this.newAuthor.password !== this.newAuthor.confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
             this.authors.push({
-                ...this.newAuthor
+                username: this.newAuthor.username,
+                email: this.newAuthor.email,
+                password: this.newAuthor.password,
+                role: this.newAuthor.role,
+                verified: this.newAuthor.verified,
             });
             this.showCreateModal = false;
             this.newAuthor = {
                 username: "",
                 email: "",
                 password: "",
+                confirmPassword: "",
                 role: "Author",
                 verified: false,
             };
         },
         showUpdateModal(author) {
             this.currentAuthor = {
-                ...author
+                ...author,
+                confirmPassword: author.password,
             };
             this.showUpdateModalFlag = true;
         },
         updateAuthor() {
+            if (this.currentAuthor.password !== this.currentAuthor.confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
             const index = this.authors.findIndex(author => author.email === this.currentAuthor.email);
             if (index !== -1) {
                 this.authors.splice(index, 1, {
-                    ...this.currentAuthor
+                    ...this.currentAuthor,
+                    confirmPassword: undefined, // Remove confirmPassword before updating the list
                 });
             }
             this.showUpdateModalFlag = false;
@@ -308,24 +334,24 @@ export default {
 .modal-content {
     background-color: #fff;
     border-radius: 0.3rem;
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  outline: 0;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    outline: 0;
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .modal-body {
-  position: relative;
-  padding: 1rem;
+    position: relative;
+    padding: 1rem;
 }
 
 .btn-close {
-  background-color: #085487;
+    background-color: #085487;
 }
 </style>
