@@ -1,18 +1,30 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <router-link to="/" class="navbar-brand">
         <span class="text-danger">BERITA</span>
         <span class="text-light">.com</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      </router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <form class="d-flex mx-auto search-bar d-none d-lg-flex">
           <div class="input-container">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
             <button class="btn search-button" type="submit">
               <i class="bi bi-search search-icon"></i>
             </button>
@@ -25,46 +37,66 @@
             </router-link>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               Category
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li v-for="category in categories" :key="category.categories_id">
-                <a class="dropdown-item" :href="`/category/${category.categories_id}`">
+                <router-link
+                  class="dropdown-item"
+                  :to="`/category/${category.categories_id}`"
+                >
                   {{ category.categories_name }}
-                </a>
+                </router-link>
               </li>
               <li v-if="errorMessage">
                 <hr class="dropdown-divider" />
-              </li>
-              <li v-if="errorMessage">
-                <a class="dropdown-item text-danger">{{ errorMessage }}</a>
+                <span class="dropdown-item text-danger">{{
+                  errorMessage
+                }}</span>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <router-link to="/contact-us" class="nav-link" aria-current="page" exact>
+            <router-link to="/contact-us" class="nav-link" exact>
               Contact Us
             </router-link>
           </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-danger">5</span> <!-- Ganti dengan data dinamis jumlah notifikasi -->
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownNotification">
-            <li><a class="dropdown-item" href="#">Notification 1</a></li>
-            <li><a class="dropdown-item" href="#">Notification 2</a></li>
-            <hr>
-            <li><a class="dropdown-item" :href="`/notification`">See more...</a></li>
-            <!-- Tambahkan notifikasi dinamis sesuai data yang diperlukan -->
-          </ul>
-        </li>
-
+          <li v-if="isLoggedIn" class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownNotification"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-bell"></i>
+              <span class="badge bg-danger">5</span>
+              <!-- Replace with dynamic notification count -->
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownNotification"
+            >
+              <li><a class="dropdown-item" href="#">Notification 1</a></li>
+              <li><a class="dropdown-item" href="#">Notification 2</a></li>
+              <hr />
+              <li>
+                <a class="dropdown-item" :href="`/notification`">See more...</a>
+              </li>
+              <!-- Add dynamic notifications here -->
+            </ul>
+          </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link profile-icon" aria-current="page" exact>
+            <router-link to="/profile" class="nav-link profile-icon" exact>
               <i class="bi bi-person-circle"></i>
             </router-link>
           </li>
@@ -83,10 +115,12 @@ export default {
     return {
       categories: [],
       errorMessage: "",
+      isLoggedIn: false,
     };
   },
   created() {
     this.fetchCategories();
+    this.checkLoginStatus(); // Check login status on component creation
   },
   methods: {
     async fetchCategories() {
@@ -100,6 +134,15 @@ export default {
         } else {
           this.errorMessage = "An error occurred while fetching categories.";
         }
+      }
+    },
+    async checkLoginStatus() {
+      try {
+        const response = await axios.get("http://localhost:5000/me");
+        this.isLoggedIn = true; // Set isLoggedIn to true if user is authenticated
+      } catch (error) {
+        console.error("Error checking login status:", error);
+        this.isLoggedIn = false; // Set isLoggedIn to false if error or not logged in
       }
     },
   },
@@ -148,7 +191,7 @@ export default {
 
 .profile-icon .bi-person-circle {
   font-size: 1.5rem;
-  color: #90B2C9 !important;
+  color: #90b2c9 !important;
 }
 
 .nav-link.profile-icon.router-link-active .bi-person-circle {
