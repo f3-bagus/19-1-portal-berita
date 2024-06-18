@@ -13,7 +13,7 @@
       <p>{{ content }}</p>
     </div>
     <div class="button-container">
-      <button class="circle-button">
+      <button class="circle-button" @click="showShareModal">
         <i class="bi bi-share-fill button-icon"></i>
       </button>
       <button class="circle-button">
@@ -24,187 +24,36 @@
     <div class="container-comment">
       <div class="add-comment">
         <p class="title-comment">Tulis Komentar Anda</p>
-        <textarea
-          class="comment-textarea"
-          placeholder="Add a comment..."
-        ></textarea>
+        <textarea class="comment-textarea" placeholder="Add a comment..."></textarea>
         <button class="send-button" @click="sendComment">Kirim</button>
       </div>
     </div>
     <div class="comments">
       <div>
-        <img
-          src="https://via.placeholder.com/125"
-          size="10rem"
-          class="profile-picture"
-        />
+        <img src="https://via.placeholder.com/125" size="10rem" class="profile-picture" />
       </div>
       <div class="content-comment">
         <div class="title-time">
           <p class="username-comment">Nama User</p>
           <p class="time-comment">48 Minutes Ago</p>
         </div>
-        <p class="user-comment">
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You’ve nailed the design and the
-          responsiveness at various breakpoints works really well.
-        </p>
+        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
         <p class="text-right text-success">Reply</p>
       </div>
     </div>
-    <div class="reply-section d-flex">
-      <img
-        src="../assets/icon/reply-arrow.svg"
-        alt="Reply Logo"
-        class="reply-logo mt-4 me-3"
-      />
-      <div class="comments">
-        <div>
-          <img
-            src="https://via.placeholder.com/125"
-            size="10rem"
-            class="profile-picture"
-          />
-        </div>
-        <div class="content-comment">
-          <div class="title-time">
-            <p class="username-comment">Nama User</p>
-            <p class="time-comment">48 Minutes Ago</p>
-          </div>
-          <p class="user-comment">
-            Impressive! Though it seems the drag feature could be improved. But
-            overall it looks incredible. You’ve nailed the design and the
-            responsiveness at various breakpoints works really well.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reply-section d-flex">
-      <img
-        src="../assets/icon/reply-arrow.svg"
-        alt="Reply Logo"
-        class="reply-logo mt-4 me-3"
-      />
-      <div class="comments">
-        <div>
-          <img
-            src="https://via.placeholder.com/125"
-            size="10rem"
-            class="profile-picture"
-          />
-        </div>
-        <div class="content-comment">
-          <div class="title-time">
-            <p class="username-comment">Nama User</p>
-            <p class="time-comment">48 Minutes Ago</p>
-          </div>
-          <p class="user-comment">
-            Impressive! Though it seems the drag feature could be improved. But
-            overall it looks incredible. You’ve nailed the design and the
-            responsiveness at various breakpoints works really well.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reply-section d-flex">
-      <img
-        src="../assets/icon/reply-arrow.svg"
-        alt="Reply Logo"
-        class="reply-logo mt-4 me-3"
-      />
-      <div class="comments">
-        <div>
-          <img
-            src="https://via.placeholder.com/125"
-            size="10rem"
-            class="profile-picture"
-          />
-        </div>
-        <div class="content-comment">
-          <div class="title-time">
-            <p class="username-comment">Nama User</p>
-            <p class="time-comment">48 Minutes Ago</p>
-          </div>
-          <p class="user-comment">
-            Impressive! Though it seems the drag feature could be improved. But
-            overall it looks incredible. You’ve nailed the design and the
-            responsiveness at various breakpoints works really well.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="comments">
-      <div>
-        <img
-          src="https://via.placeholder.com/125"
-          size="20rem"
-          class="profile-picture"
-        />
-      </div>
-      <div class="content-comment">
-        <div class="title-time">
-          <p class="username-comment">Nama User</p>
-          <p class="time-comment">48 Minutes Ago</p>
-        </div>
-        <p class="user-comment">
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You’ve nailed the design and the
-          responsiveness at various breakpoints works really well.
-        </p>
-        <p class="text-right text-success">Reply</p>
-      </div>
-    </div>
-    <div class="reply-section d-flex">
-      <img
-        src="../assets/icon/reply-arrow.svg"
-        alt="Reply Logo"
-        class="reply-logo mt-4 me-3"
-      />
-      <div class="comments">
-        <div>
-          <img
-            src="https://via.placeholder.com/125"
-            size="10rem"
-            class="profile-picture"
-          />
-        </div>
-        <div class="content-comment">
-          <div class="title-time">
-            <p class="username-comment">Nama User</p>
-            <p class="time-comment">48 Minutes Ago</p>
-          </div>
-          <p class="user-comment">
-            Impressive! Though it seems the drag feature could be improved. But
-            overall it looks incredible. You’ve nailed the design and the
-            responsiveness at various breakpoints works really well.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reply-section d-flex">
-      <img
-        src="../assets/icon/reply-arrow.svg"
-        alt="Reply Logo"
-        class="reply-logo mt-4 me-3"
-      />
-      <div class="comments">
-        <div>
-          <img
-            src="https://via.placeholder.com/125"
-            size="10rem"
-            class="profile-picture"
-          />
-        </div>
-        <div class="content-comment">
-          <div class="title-time">
-            <p class="username-comment">Nama User</p>
-            <p class="time-comment">48 Minutes Ago</p>
-          </div>
-          <p class="user-comment">
-            Impressive! Though it seems the drag feature could be improved. But
-            overall it looks incredible. You’ve nailed the design and the
-            responsiveness at various breakpoints works really well.
-          </p>
+    <!-- Share Modal -->
+    <div v-if="isShareModalVisible" class="share-modal">
+      <div class="share-modal-content">
+        <button class="btn btn-danger mb-3 close-button" @click="hideShareModal">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="share-options">
+          <button class="share-option" @click="shareToFacebook"><i class="bi bi-facebook"></i> Facebook</button>
+          <button class="share-option" @click="shareToTwitter"><i class="bi bi-twitter"></i> Twitter</button>
+          <button class="share-option" @click="shareToWhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</button>
+          <button class="share-option" @click="shareToLine"><i class="bi bi-line"></i> Line</button>
+          <button class="share-option" @click="shareToTelegram"><i class="bi bi-telegram"></i> Telegram</button>
+          <button class="share-option" @click="copyLink"><i class="bi bi-link-45deg"></i> Copy Link</button>
         </div>
       </div>
     </div>
@@ -223,6 +72,7 @@ export default {
       author: '',
       imageUrl: '',
       date: '',
+      isShareModalVisible: false,
     };
   },
   created() {
@@ -248,17 +98,39 @@ export default {
     sendComment() {
       alert("Comment sent!");
     },
+    showShareModal() {
+      this.isShareModalVisible = true;
+    },
+    hideShareModal() {
+      this.isShareModalVisible = false;
+    },
+    shareToFacebook() {
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
+    },
+    shareToTwitter() {
+      window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href));
+    },
+    shareToWhatsApp() {
+      window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(window.location.href));
+    },
+    shareToLine() {
+      window.open('https://line.me/R/msg/text/?' + encodeURIComponent(window.location.href));
+    },
+    shareToTelegram() {
+      window.open('https://telegram.me/share/url?url=' + encodeURIComponent(window.location.href));
+    },
+    copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch((error) => {
+        console.error('Failed to copy: ', error);
+      });
+    },
   },
 };
-
 </script>
 
 <style scoped>
-.reply-logo {
-  width: 40px;
-  height: 40px;
-}
-
 .margin-top {
   margin-top: 100px;
 }
@@ -308,18 +180,6 @@ export default {
   margin-top: 25px;
   text-align: justify;
   line-height: 1.6;
-}
-
-.image-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.image-container img {
-  width: 49%;
-  border-radius: 10px;
 }
 
 .button-container {
@@ -458,5 +318,54 @@ export default {
   .image-container img:last-child {
     margin-bottom: 0;
   }
+}
+
+/* Share Modal Styles */
+.share-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.share-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  max-width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; 
+}
+
+.close-button:hover {
+  color: black;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.share-option:hover {
+  background-color: #e0e0e0;
 }
 </style>
