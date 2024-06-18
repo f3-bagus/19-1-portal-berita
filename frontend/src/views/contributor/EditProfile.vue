@@ -1,31 +1,37 @@
 <template>
-    <div class="edit-profile-container" v-if="isLoggedIn">
-        <h1 class="edit-profile-heading">Edit Profile</h1>
-        <hr class="edit-profile-divider" />
-        <div class="edit-profile-content">
-            <div class="edit-profile-picture">
-                <img src="../../assets/Profile.svg" class="profile-picture" />
-            </div>
-            <div class="edit-profile-form">
-                <label>Username</label>
-                <input type="text" v-model="username" placeholder="Username" />
-                <label>Email</label>
-                <input type="email" v-model="email" placeholder="Email" />
-                <label>Password</label>
-                <input type="password" v-model="password" placeholder="Password" />
-                <label>Confirm Password</label>
-                <input type="password" v-model="confPassword" placeholder="Confirm Password" />
-                <button class="save-button" @click="saveChanges">Save Changes</button>
+    <ContributorLayout>
+        <div class="edit-profile-container" v-if="isLoggedIn">
+            <h1 class="edit-profile-heading">Edit Profile</h1>
+            <hr class="edit-profile-divider" />
+            <div class="edit-profile-content">
+                <div class="edit-profile-picture">
+                    <img src="../../assets/Profile.svg" class="profile-picture" />
+                </div>
+                <div class="edit-profile-form">
+                    <label>Username</label>
+                    <input type="text" v-model="username" placeholder="Username" />
+                    <label>Email</label>
+                    <input type="email" v-model="email" placeholder="Email" />
+                    <label>Password</label>
+                    <input type="password" v-model="password" placeholder="Password" />
+                    <label>Confirm Password</label>
+                    <input type="password" v-model="confPassword" placeholder="Confirm Password" />
+                    <button class="save-button" @click="saveChanges">Save Changes</button>
+                </div>
             </div>
         </div>
-    </div>
+    </ContributorLayout>
 </template>
 
 <script>
 import axios from '../../../services/axios';
+import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
 
 export default {
     name: 'EditProfileAuthor',
+    components: {
+        ContributorLayout,
+    },
     data() {
         return {
             username: '',
