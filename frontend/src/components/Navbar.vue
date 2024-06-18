@@ -57,6 +57,8 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownNotification">
             <li><a class="dropdown-item" href="#">Notification 1</a></li>
             <li><a class="dropdown-item" href="#">Notification 2</a></li>
+            <hr>
+            <li><a class="dropdown-item" :href="`/notification`">See more...</a></li>
             <!-- Tambahkan notifikasi dinamis sesuai data yang diperlukan -->
           </ul>
         </li>

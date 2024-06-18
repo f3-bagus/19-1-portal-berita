@@ -19,6 +19,7 @@ import EditProfilePage from "../views/EditProfilePage.vue";
 import ManageMessages from "../views/admin/ManageMessages.vue";
 import ContributorProfile from "../views/contributor/Profile.vue";
 import CategoryNews from "../views/CategoryNews.vue";
+import Notification from "../views/Notification.vue";
 
 const routes = [
   {
@@ -76,6 +77,11 @@ const routes = [
     path: "/category/:id",
     name: "CategoryNews",
     component: CategoryNews,
+  },
+  {
+    path: "/notification",
+    name: "Notification",
+    component: Notification,
   },
   {
     path: "/contributor",
