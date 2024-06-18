@@ -28,11 +28,11 @@
                                         <td>{{ author.email }}</td>
                                         <td>*******</td>
                                         <td>{{ author.role }}</td>
-                                        <td>{{ author.verified ? 'Yes' : 'No' }}</td>
+                                        <td>{{ author.status }}</td>
                                         <td class="d-flex gap-3">
                                             <button variant="primary" class="btn btn-info"
                                                 @click="toggleVerification(author)">
-                                                {{ author.verified ? 'Unverify' : 'Verify' }}
+                                                {{ author.status === 'active' ? 'Unverify' : 'Verify' }}
                                             </button>
                                             <button variant="primary" class="btn btn-warning"
                                                 @click="showUpdateModal(author)">
@@ -68,8 +68,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email"
-                                            v-model="newAuthor.email" required>
+                                        <input type="email" class="form-control" id="email" v-model="newAuthor.email"
+                                            required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
@@ -104,11 +104,6 @@
                                         <input type="email" class="form-control" id="update-email"
                                             v-model="currentAuthor.email" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="update-password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="update-password"
-                                            v-model="currentAuthor.password" required>
-                                    </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
                             </div>
@@ -122,6 +117,7 @@
 
 <script>
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
+import axios from '../../../services/axios';
 
 export default {
     name: "ManageAuthor",
@@ -134,6 +130,8 @@ export default {
             this.$router.push({
                 name: 'LandingPage'
             });
+        } else {
+            this.fetchAuthors();
         }
     },
     data() {
@@ -144,104 +142,83 @@ export default {
                 username: "",
                 email: "",
                 password: "",
-                role: "Author",
-                verified: false, // Default unverified
+                confPassword: "",
+                role: "author",
+                status: "pending",
             },
             currentAuthor: null,
-            authors: [{
-                    username: "Mark",
-                    email: "mark@example.com",
-                    password: "password1",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                {
-                    username: "Jacob",
-                    email: "jacob@example.com",
-                    password: "password2",
-                    role: "Author",
-                    verified: false,
-                },
-                // More authors
-            ],
+            authors: [],
         };
     },
     methods: {
-        createAuthor() {
-            this.authors.push({
-                ...this.newAuthor
-            });
-            this.showCreateModal = false;
-            this.newAuthor = {
-                username: "",
-                email: "",
-                password: "",
-                role: "Author",
-                verified: false,
-            };
+        async fetchAuthors() {
+            try {
+                const response = await axios.get('users');
+                this.authors = response.data.filter(user => user.role === 'author');
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async createAuthor() {
+            try {
+                const response = await axios.post('users', {
+                    username: this.newAuthor.username,
+                    email: this.newAuthor.email,
+                    password: this.newAuthor.password,
+                    confPassword: this.newAuthor.confPassword,
+                    role: this.newAuthor.role,
+                    status: this.newAuthor.status,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                this.fetchAuthors();
+                this.showCreateModal = false;
+            } catch (error) {
+                console.error(error);
+            }
         },
         showUpdateModal(author) {
-            this.currentAuthor = {
-                ...author
-            };
+            this.currentAuthor = { ...author };
             this.showUpdateModalFlag = true;
         },
-        updateAuthor() {
-            const index = this.authors.findIndex(author => author.email === this.currentAuthor.email);
-            if (index !== -1) {
-                this.authors.splice(index, 1, {
-                    ...this.currentAuthor
+        async updateAuthor() {
+            try {
+                const { user_id, username, email, password, role, verified } = this.currentAuthor;
+                await axios.patch(`users/${user_id}`, {
+                    username,
+                    email,
+                    password,
+                    role,
+                    verified,
                 });
+                this.fetchAuthors();
+                this.showUpdateModalFlag = false;
+            } catch (error) {
+                console.error(error);
             }
-            this.showUpdateModalFlag = false;
         },
-        deleteAuthor(index) {
-            this.authors.splice(index, 1);
+        async deleteAuthor(userId) {
+            try {
+                await axios.delete(`users/${userId}`, {
+                });
+                this.users = this.users.filter(user => user.user_id !== userId);
+                alert('User deleted successfully'); // Show success alert
+            } catch (error) {
+                console.error(error);
+            }
         },
-        toggleVerification(author) {
-            author.verified = !author.verified;
+        async toggleVerification(author) {
+            try {
+                author.verified = !author.verified;
+                await axios.patch(`users/${author.user_id}`, {
+                    verified: author.verified,
+                });
+                this.fetchAuthors();
+            } catch (error) {
+                console.error(error);
+            }
         },
     },
 };
@@ -308,24 +285,24 @@ export default {
 .modal-content {
     background-color: #fff;
     border-radius: 0.3rem;
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  outline: 0;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    outline: 0;
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .modal-body {
-  position: relative;
-  padding: 1rem;
+    position: relative;
+    padding: 1rem;
 }
 
 .btn-close {
-  background-color: #085487;
+    background-color: #085487;
 }
 </style>
