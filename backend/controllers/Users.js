@@ -4,7 +4,7 @@ import argon2 from "argon2";
 export const getUsers = async (req, res) => {
   try {
     const response = await Users.findAll({
-      attributes: ["user_id", "username", "email", "role", "status"],
+      attributes: ["user_id", "username", "email", "role"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -15,7 +15,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const response = await Users.findOne({
-      attributes: ["user_id", "username", "email", "role", "status"],
+      attributes: ["user_id", "username", "email", "role"],
       where: {
         user_id: req.params.id,
       },
@@ -30,7 +30,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { username, email, password, confPassword, role } = req.body;
+  const { username, email, password, confPassword, role, } = req.body;
   if (password !== confPassword)
     return res.status(400).json({
       success: false,
@@ -57,12 +57,8 @@ export const updateUser = async (req, res) => {
         user_id: req.params.id,
       },
     });
+    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
 
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
-    }
-
-<<<<<<< HEAD
     if (
       req.user.role !== "admin" &&
       req.user.role !== "author" &&
@@ -105,41 +101,8 @@ export const updateUser = async (req, res) => {
       msg: "User updated successfully",
       user: updatedUser,
     });
-=======
-    const { username, email, password, confPassword, role } = req.body;
-    let hashPassword;
-
-    if (password === "" || password === null) {
-      hashPassword = user.password;
-    } else {
-      if (password !== confPassword) {
-        return res
-          .status(400)
-          .json({ msg: "Password and Confirm Password do not match" });
-      }
-      hashPassword = await argon2.hash(password);
-    }
-
-    // Update only the necessary fields
-    await Users.update(
-      {
-        username: username,
-        email: email,
-        password: hashPassword,
-        role: role,
-      },
-      {
-        where: {
-          user_id: user.user_id,
-        },
-      }
-    );
-
-    return res.status(200).json({ msg: "User Updated" });
->>>>>>> 67bd6376193fe55df149ed85d46662252f42148a
   } catch (error) {
-    console.error("Error updating profile:", error);
-    return res.status(400).json({ msg: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };
 export const deleteUsers = async (req, res) => {
