@@ -104,17 +104,33 @@ export const createNewsController = async (req, res) => {
 
 export const getNews = async (req, res) => {
     try {
-        const news = await News.findAll({
-            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
-            include: [{
-                model: Users,
-                attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
-                as: 'author'
-            }],
-            where: {
-                status: 'published'
-            }
-        });
+        let news;
+
+        if (req.user.role === 'admin') {
+            // Admin bisa melihat semua berita
+            news = await News.findAll({
+                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
+                include: [{
+                    model: Users,
+                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    as: 'author'
+                }]
+            });
+        } else {
+            // User hanya bisa melihat berita yang statusnya 'published'
+            news = await News.findAll({
+                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
+                include: [{
+                    model: Users,
+                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    as: 'author'
+                }],
+                where: {
+                    status: 'published'
+                }
+            });
+        }
+
         res.status(200).json(news);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -142,7 +158,14 @@ export const updateNews = async (req, res) => {
         const { title, content, categories_id, image_url } = req.body;
         const news_id = req.params.id;
 
-        const news = await News.findByPk(news_id);
+        const news = await News.findByPk(news_id, {
+            include: {
+                model: Users,
+                attributes: ['username'],
+                as: 'author'
+            }
+        });
+
         if (!news) {
             return res.status(404).json({ msg: "Berita tidak ditemukan" });
         }
@@ -153,11 +176,23 @@ export const updateNews = async (req, res) => {
         news.image_url = image_url;
         await news.save();
 
-        res.status(200).json({ msg: "Berita berhasil diperbarui" });
+        res.status(200).json({
+            msg: "Berita berhasil diupdate",
+            news: {
+                news_id: news.news_id,
+                title: news.title,
+                content: news.content,
+                categories_id: news.categories_id,
+                image_url: news.image_url,
+                author: {
+                    username: news.author.username
+                }
+            }
+        });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
-}
+};
 
 // Hapus berita
 export const deleteNews = async (req, res) => {

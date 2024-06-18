@@ -4,8 +4,8 @@ import Users from "../models/UserModels.js";
 // Middleware untuk verifikasi token
 export const verifyToken = async (req, res, next) => {
     try {
-        // Mengambil token dari cookie
-        const accessToken = req.header('Authorization')?.split(' ')[1];
+        // Mengambil token dari cookiess
+        const accessToken = req.cookies.accessToken;
 
         if (!accessToken) {
             return res.status(401).json({ msg: "Mohon Login dengan akun Anda" });
@@ -22,7 +22,6 @@ export const verifyToken = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ msg: "User tidak ditemukan" });
         }
-
         req.user = user;
         next();
     } catch (error) {

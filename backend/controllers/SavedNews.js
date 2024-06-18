@@ -74,3 +74,25 @@ export const getSavedNewsAdmin = async (req, res) => {
     }
 };
 
+//delete berdasarkan ID
+export const deleteSavedNews = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (req.user.role !== 'admin' && req.user.role !== 'user') {
+            return res.status(403).json({ msg: 'Akses terlarang, hanya admin atau user yang bisa mengakses.' });
+        }
+
+        const saved_news = await SavedNews.findByPk(id);
+
+        if (!saved_news) {
+            return res.status(404).json({ error: "saved_news not found" });
+        }
+
+        await saved_news.destroy();
+
+        res.status(200).json({ message: "saved_news deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

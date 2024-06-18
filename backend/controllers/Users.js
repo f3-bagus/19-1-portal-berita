@@ -59,37 +59,52 @@ export const updateUser = async (req, res) => {
     });
     if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
 
-    const { username, email, password, confPassword, role } = req.body;
-    let hashPassword;
-    if (password === "" || password === null) {
-      hashPassword = user.password;
-    } else {
-      if (password !== confPassword)
-        return res
-          .status(400)
-          .json({ msg: "Password dan Confirm Password tidak cocok" });
-      hashPassword = await argon2.hash(password);
+    if (
+      req.user.role !== "admin" &&
+      req.user.role !== "author" &&
+      req.user.role !== "user"
+    ) {
+      return res.status(403).json({
+        msg:
+          "Akses terlarang, hanya admin, author, atau user yang bisa memperbarui pengguna.",
+      });
     }
 
-    await Users.update(
-      {
-        username: username,
-        email: email,
-        password: hashPassword,
-        role: role,
-      },
-      {
-        where: {
-          user_id: user.user_id,
-        },
+    const { username, email, password, confPassword, role } = req.body;
+    const updatedData = {
+      username,
+      email,
+      role,
+    };
+
+    // Jika ingin update password , maka akan terupdated juga
+    if (password && confPassword) {
+      if (password !== confPassword) {
+        return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
       }
-    );
-    res.status(200).json({ msg: "User Updated" });
+      updatedData.password = await argon2.hash(password);
+    }
+
+    // Lakukan update
+    await Users.update(updatedData, {
+      where: {
+        user_id: user.user_id,
+      },
+    });
+
+    // Ambil kembali data user setelah diupdate
+    const updatedUser = await Users.findByPk(user.user_id, {
+      attributes: ["user_id", "username", "email", "role"],
+    });
+
+    res.status(200).json({
+      msg: "User updated successfully",
+      user: updatedUser,
+    });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
-
 export const deleteUsers = async (req, res) => {
   try {
     const user = await Users.findOne({
