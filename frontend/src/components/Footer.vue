@@ -5,10 +5,20 @@
         <div class="col-6 mb-3 mb-md-0">
           <h2 class="text-uppercase font-weight-bold"><span style="color: #AB533C;">BERITA</span>.com</h2>
           <div class="d-flex justify-content-center justify-content-md-start mb-2">
-            <div class="icon bg-light rounded-circle"></div>
-            <div class="icon bg-light rounded-circle"></div>
-            <div class="icon bg-light rounded-circle"></div>
-            <div class="icon bg-light rounded-circle"></div>
+            <div class="icon bg-light rounded-circle d-flex align-items-center justify-content-center">
+              <i class="bi bi-instagram text-dark"></i>
+            </div>
+            <div class="icon bg-light rounded-circle d-flex align-items-center justify-content-center">
+              <i class="bi bi-whatsapp text-dark"></i>
+            </div>
+            <div class="icon bg-light rounded-circle d-flex align-items-center justify-content-center">
+              <i class="bi bi-linkedin text-dark"></i>
+
+            </div>
+            <div class="icon bg-light rounded-circle d-flex align-items-center justify-content-center">
+              <i class="bi bi-twitter-x text-dark"></i>
+
+            </div>
           </div>
           <p class="footer-desc mt-5">Berita terkini, <br>terpercaya, terHot sepanjang masa</p>
         </div>
@@ -17,9 +27,9 @@
           <div class="row mt-4">
             <div class="col-4" v-for="(categoryGroup, index) in chunkedCategories" :key="index">
               <ul class="list-unstyled">
-                <a v-for="category in categoryGroup" :key="category.categories_id" href="">
-                  <li>{{ category.categories_name }}</li>
-                </a>
+                <li v-for="category in categoryGroup" :key="category.categories_id">
+                  <a :href="`/category/${category.categories_id}`">{{ category.categories_name }}</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -40,6 +50,7 @@ export default {
   data() {
     return {
       categories: [],
+      errorMessage: '',
     };
   },
   computed: {
@@ -62,7 +73,7 @@ export default {
         this.categories = response.data; 
       } catch (error) {
         console.error('Error fetching categories:', error);
-        // Handle error
+        this.errorMessage = 'Failed to load categories';
       }
     },
   },
@@ -90,6 +101,15 @@ footer {
   width: 40px;
   height: 40px;
   margin: 0 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-dark {
+  color: #000 !important;
+  font-size: 20px;
 }
 
 .footer-desc {

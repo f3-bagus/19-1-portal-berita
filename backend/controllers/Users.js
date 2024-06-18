@@ -57,20 +57,26 @@ export const updateUser = async (req, res) => {
         user_id: req.params.id,
       },
     });
-    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
     const { username, email, password, confPassword, role } = req.body;
     let hashPassword;
+
     if (password === "" || password === null) {
       hashPassword = user.password;
     } else {
-      if (password !== confPassword)
+      if (password !== confPassword) {
         return res
           .status(400)
-          .json({ msg: "Password dan Confirm Password tidak cocok" });
+          .json({ msg: "Password and Confirm Password do not match" });
+      }
       hashPassword = await argon2.hash(password);
     }
 
+    // Update only the necessary fields
     await Users.update(
       {
         username: username,
@@ -84,9 +90,11 @@ export const updateUser = async (req, res) => {
         },
       }
     );
-    res.status(200).json({ msg: "User Updated" });
+
+    return res.status(200).json({ msg: "User Updated" });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    console.error("Error updating profile:", error);
+    return res.status(400).json({ msg: error.message });
   }
 };
 

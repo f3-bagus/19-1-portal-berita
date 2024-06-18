@@ -90,10 +90,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .content-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 400px; /* Limit width for larger screens */
+  margin: auto; /* Center align content */
+  padding: 20px; /* Add padding around content */
 }
 
 .forgot-password-button {
@@ -102,9 +105,10 @@ export default {
   color: white;
   border: 0;
   border-radius: 8px;
-  padding: 5px 10px;
-  margin: 5px auto;
+  padding: 10px;
+  margin: 10px auto;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .forgot-password-button:hover {
@@ -126,5 +130,29 @@ export default {
 .alert-danger {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.font-size-small {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 767px) {
+  .content-wrapper {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .forgot-password-button {
+    min-width: auto; /* Allow button to shrink on smaller screens */
+    width: 100%;
+    padding: 10px;
+  }
 }
 </style>

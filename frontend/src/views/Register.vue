@@ -1,7 +1,7 @@
 <template>
   <AuthLayout>
     <div class="content-wrapper">
-      <h6 class="d-flex justify-content-center mb-5">
+      <h6 class="d-flex justify-content-center mb-4">
         Daftar ke Berita.com dan temukan berita terkini!
       </h6>
       <div v-if="message" :class="`alert ${messageType}`" role="alert">
@@ -15,19 +15,19 @@
           v-model="username"
         />
         <input
-          class="form-control my-4"
+          class="form-control my-2"
           type="text"
           placeholder="Email"
           v-model="email"
         />
         <input
-          class="form-control mt-4"
+          class="form-control mt-2"
           type="password"
           placeholder="Kata Sandi"
           v-model="password"
         />
         <input
-          class="form-control mt-4"
+          class="form-control mt-2"
           type="password"
           placeholder="Konfirmasi Kata Sandi"
           v-model="confPassword"
@@ -43,7 +43,7 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-secondary mt-4">Daftar</button>
+        <button type="submit" class="btn btn-secondary mt-1">Daftar</button>
       </form>
       <h6 class="d-flex justify-content-center my-3">atau</h6>
       <div class="d-flex justify-content-center">
@@ -152,10 +152,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .content-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 500px; /* Limit width for larger screens */
+  margin: auto; /* Center align content */
+  padding: 20px; /* Add padding around content */
 }
 
 .google-logo {
@@ -183,5 +186,36 @@ export default {
 .alert-danger {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .form-control,
+  .btn {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 8px 40%;
+  }
 }
 </style>
