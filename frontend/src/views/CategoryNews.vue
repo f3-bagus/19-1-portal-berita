@@ -2,7 +2,11 @@
   <div class="saved-news-container">
     <h1 class="saved-news-heading">{{ categoryTitle }}</h1>
     <hr class="saved-news-divider" />
-    <div v-for="news in filteredNewsList" :key="news.id" class="saved-wrap">
+    <div
+      v-for="news in filteredNewsList"
+      :key="news.news_id"
+      class="saved-wrap"
+    >
       <div class="saved-container">
         <div class="image-container">
           <img :src="news.image_url" alt="News Image" />
@@ -13,10 +17,11 @@
               {{ news.title }}
             </p>
             <p class="time-news">{{ news.timeAgo }}</p>
+            <p class="news-description">
+              {{ news.content.slice(0, 150)
+              }}{{ news.content.length > 150 ? "..." : "" }}
+            </p>
           </div>
-          <p class="news-description">
-            {{ news.description ? news.description.slice(0, 100) + "..." : "" }}
-          </p>
         </div>
       </div>
       <hr class="saved-news-divider-bottom" />

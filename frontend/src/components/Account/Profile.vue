@@ -3,7 +3,11 @@
     <h1 class="profile-heading">My Profile</h1>
     <hr class="profile-divider" />
     <div class="profile-content">
-      <img src="../../assets/Profile.svg" size="10rem" class="profile-picture" />
+      <img
+        src="../../assets/Profile.svg"
+        size="10rem"
+        class="profile-picture"
+      />
       <div class="profile-details" v-if="isLoggedIn">
         <h3 class="profile-name">{{ username }}</h3>
         <p class="profile-email">{{ email }}</p>
@@ -83,7 +87,11 @@
       <p>Notification for news</p>
       <div class="slider-container">
         <label class="switch">
-          <input type="checkbox" v-model="notificationsEnabled" @change="toggleNotifications" />
+          <input
+            type="checkbox"
+            v-model="notificationsEnabled"
+            @change="toggleNotifications"
+          />
           <span class="slider round"></span>
         </label>
       </div>
@@ -100,8 +108,8 @@ export default {
     return {
       isLoggedIn: false,
       notificationsEnabled: false,
-      username: '',
-      email: '',
+      username: "",
+      email: "",
     };
   },
   methods: {
@@ -141,7 +149,11 @@ export default {
       this.$router.push({ name: "SavedNews" });
     },
     toggleNotifications() {
-      alert(`Notifications are now ${this.notificationsEnabled ? "enabled" : "disabled"}`);
+      alert(
+        `Notifications are now ${
+          this.notificationsEnabled ? "enabled" : "disabled"
+        }`
+      );
     },
   },
   created() {

@@ -6,10 +6,14 @@
         <div class="image-news">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            alt="ImageNews">
+            alt="ImageNews"
+          />
           <div class="image-caption">
             <b>
-              <div class="title-caption">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</div>
+              <div class="title-caption">
+                Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+                Hotman
+              </div>
             </b>
             <div class="news-container mt-3">
               <h5 class="sub-caption">Berita.news</h5>
@@ -32,7 +36,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -40,7 +46,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -48,7 +56,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -56,7 +66,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -64,7 +76,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -72,7 +86,9 @@
             <div class="card-news-feed">
               <img
                 src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                class="image-news-feed" alt="ImageNews">
+                class="image-news-feed"
+                alt="ImageNews"
+              />
               <div class="title-terpopuler mt-2">
                 <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
               </div>
@@ -92,7 +108,9 @@
               <div class="card-terpopuler">
                 <img
                   src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                  class="image-news-feed" alt="ImageNews">
+                  class="image-news-feed"
+                  alt="ImageNews"
+                />
                 <div class="title-terpopuler mt-2">
                   <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
                 </div>
@@ -100,7 +118,9 @@
               <div class="card-terpopuler">
                 <img
                   src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                  class="image-news-feed" alt="ImageNews">
+                  class="image-news-feed"
+                  alt="ImageNews"
+                />
                 <div class="title-terpopuler mt-2">
                   <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
                 </div>
@@ -108,7 +128,9 @@
               <div class="card-terpopuler">
                 <img
                   src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                  class="image-news-feed" alt="ImageNews">
+                  class="image-news-feed"
+                  alt="ImageNews"
+                />
                 <div class="title-terpopuler mt-2">
                   <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
                 </div>
@@ -116,7 +138,9 @@
               <div class="card-terpopuler">
                 <img
                   src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                  class="image-news-feed" alt="ImageNews">
+                  class="image-news-feed"
+                  alt="ImageNews"
+                />
                 <div class="title-terpopuler mt-2">
                   <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
                 </div>
@@ -124,7 +148,9 @@
               <div class="card-terpopuler">
                 <img
                   src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                  class="image-news-feed" alt="ImageNews">
+                  class="image-news-feed"
+                  alt="ImageNews"
+                />
                 <div class="title-terpopuler mt-2">
                   <h5>Jakarta Masih Jadi Kota Terbaik Se-Indonesia</h5>
                 </div>
@@ -141,13 +167,18 @@
           <h5 class="title">Sport News</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+            class="image-news-feed"
+            alt="ImageNews"
+          />
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
         </div>
@@ -157,13 +188,18 @@
           <h5 class="title">Sport News</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+            class="image-news-feed"
+            alt="ImageNews"
+          />
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
         </div>
@@ -173,13 +209,18 @@
           <h5 class="title">Sport News</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+            class="image-news-feed"
+            alt="ImageNews"
+          />
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
         </div>
@@ -189,13 +230,18 @@
           <h5 class="title">Sport News</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+            class="image-news-feed"
+            alt="ImageNews"
+          />
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
         </div>
@@ -205,13 +251,18 @@
           <h5 class="title">Sport News</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <img
             src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+            class="image-news-feed"
+            alt="ImageNews"
+          />
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
         </div>
@@ -221,15 +272,21 @@
           <h5 class="title">Video 30 detik</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
-        <hr class="divider">
+        <hr class="divider" />
         <div class="news d-flex">
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
+            <h2>
+              Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah
+              Hotman
+            </h2>
             <h6 class="news-time text-secondary">10 menit yang lalu</h6>
           </div>
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item custom-video-width" src="https://www.youtube.com/embed/mbJnAPBfH7I"
-              allowfullscreen></iframe>
+            <iframe
+              class="embed-responsive-item custom-video-width"
+              src="https://www.youtube.com/embed/mbJnAPBfH7I"
+              allowfullscreen
+            ></iframe>
           </div>
           <!-- <video controls width="1000">
                 <source src="https://youtu.be/mbJnAPBfH7I?si=E23sjStYkyjmvvDR" type="video/mp4">
@@ -287,7 +344,7 @@ export default {
 }
 
 .title {
-  color: #AB533C;
+  color: #ab533c;
   font-size: 25px;
 }
 
@@ -318,7 +375,7 @@ export default {
 }
 
 .sub-caption {
-  color: #AB533C;
+  color: #ab533c;
   margin-right: 20px;
 }
 

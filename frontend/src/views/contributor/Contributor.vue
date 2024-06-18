@@ -25,7 +25,6 @@
     </ContributorLayout>
 </template>
 
-
 <script>
 import axios from "../../../services/axios";
 import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
@@ -99,25 +98,25 @@ export default {
 
 <style>
 .margin-top {
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 .title-mypost button {
-    --bs-btn-bg: #ff3300 !important;
-    --bs-btn-hover-bg: #c24121 !important;
-    --bs-btn-active-bg: #c2412;
-    border: 0 !important;
-    color: white;
+  --bs-btn-bg: #ff3300 !important;
+  --bs-btn-hover-bg: #c24121 !important;
+  --bs-btn-active-bg: #c2412;
+  border: 0 !important;
+  color: white;
 }
 
 .news-post img {
-    width: 25%;
-    margin-right: 20px;
-    border-radius: 10px;
-    object-fit: cover;
+  width: 25%;
+  margin-right: 20px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .title-mypost {
-    align-items: center;
+  align-items: center;
 }
 </style>
