@@ -9,7 +9,7 @@
         </div>
         <div class="saved-news-text">
           <div class="row">
-            <p class="saved-news" @click="handleNewsClick(news.id)">
+            <p class="saved-news" @click="handleNewsClick(news.news_id)">
               {{ news.title }}
             </p>
             <p class="time-news">{{ news.timeAgo }}</p>
