@@ -7,55 +7,16 @@
             </div>
             <hr>
             <div class="contributor-news mt-5">
-                <div class="news-post d-flex">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
+                <div v-for="(news, index) in newsList" :key="news.news_id" class="news-post d-flex mt-5 mb-4">
+                    <img :src="news.image_url" alt="">
                     <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
+                        <h5>{{ news.title }}</h5>
+                        <span class="text-secondary mt-4">{{ news.status }} -
+                            <span>{{ formatDate(news.createdAt) }}</span>
                         </span>
                         <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2" @click="viewPost(news.news_id)">View
+                                Post</button>
                         </div>
                     </div>
                 </div>
@@ -66,6 +27,7 @@
 
 
 <script>
+import axios from "../../../services/axios";
 import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
 
 export default {
@@ -73,7 +35,39 @@ export default {
     components: {
         ContributorLayout,
     },
+    data() {
+        return {
+            newsList: [],
+        };
+    },
+    created() {
+        // this.fetchAuthorId();
+        this.fetchNews();
+    },
     methods: {
+        // async fetchAuthorId() {
+        //     try {
+        //         const userId = this.$route.params.id; // Assuming the user ID is passed as a route parameter
+        //         const response = await axios.get(`/users/${userId}`);
+        //         this.userId = response.data.user_id;
+        //     } catch (error) {
+        //         console.error('Failed to fetch author ID:', error);
+        //     }
+        // },
+        async fetchNews() {
+            try {
+                const response = await axios.get('/news');
+                this.newsList = response.data;
+            } catch (error) {
+                console.error('Failed to fetch news:', error);
+            }
+        },
+        formatDate(dateString) {
+            return moment(dateString).format('dddd, D MMMM YYYY HH.mm [WIB]');
+        },
+        viewPost(newsId) {
+            this.$router.push({ name: "News", params: { id: newsId } });
+        },
         addNews() {
             this.$router.push({ name: "AddNews" });
         },
@@ -98,6 +92,7 @@ export default {
     width: 25%;
     margin-right: 20px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .title-mypost {
