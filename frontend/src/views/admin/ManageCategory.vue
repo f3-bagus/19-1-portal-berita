@@ -148,7 +148,8 @@ export default {
                 // Jika berhasil tambahkan kategori ke array categories
                 this.categories.push(response.data);
                 this.showCreateModal = false;
-                this.newCategory.categories_name = ""; // reset form
+                this.newCategory.categories_name = "";
+                alert(response.data.msg);
             } catch (error) {
                 console.error('Error creating category:', error);
                 // Handle error secara sesuai dengan kebutuhan Anda
@@ -163,7 +164,9 @@ export default {
                 if (index !== -1) {
                     this.categories.splice(index, 1, response.data);
                 }
+                this.fetchCategories();
                 this.showUpdateModalFlag = false;
+                alert(response.data.msg);
             } catch (error) {
                 console.error('Error updating category:', error);
                 // Handle error
@@ -175,6 +178,7 @@ export default {
                 await axios.delete(`categories/${categoryId}`);
                 // Hapus kategori dari array categories
                 this.categories.splice(index, 1);
+                alert('Category deleted successfully');
             } catch (error) {
                 console.error('Error deleting category:', error);
                 // Handle error

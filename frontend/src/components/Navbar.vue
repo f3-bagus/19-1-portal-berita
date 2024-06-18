@@ -1,10 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <router-link to="/" class="navbar-brand">
         <span class="text-danger">BERITA</span>
         <span class="text-light">.com</span>
-      </a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -49,36 +49,54 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li v-for="category in categories" :key="category.categories_id">
-                <a
+                <router-link
                   class="dropdown-item"
-                  :href="`/category/${category.categories_id}`"
+                  :to="`/category/${category.categories_id}`"
                 >
                   {{ category.categories_name }}
-                </a>
+                </router-link>
               </li>
-              <li v-if="errorMessage"><hr class="dropdown-divider" /></li>
               <li v-if="errorMessage">
-                <a class="dropdown-item text-danger">{{ errorMessage }}</a>
+                <hr class="dropdown-divider" />
+                <span class="dropdown-item text-danger">{{
+                  errorMessage
+                }}</span>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <router-link
-              to="/contact-us"
-              class="nav-link"
-              aria-current="page"
-              exact
-            >
+            <router-link to="/contact-us" class="nav-link" exact>
               Contact Us
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link
-              to="/profile"
-              class="nav-link profile-icon"
-              aria-current="page"
-              exact
+          <li v-if="isLoggedIn" class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownNotification"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
+              <i class="bi bi-bell"></i>
+              <span class="badge bg-danger">5</span>
+              <!-- Replace with dynamic notification count -->
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownNotification"
+            >
+              <li><a class="dropdown-item" href="#">Notification 1</a></li>
+              <li><a class="dropdown-item" href="#">Notification 2</a></li>
+              <hr />
+              <li>
+                <a class="dropdown-item" :href="`/notification`">See more...</a>
+              </li>
+              <!-- Add dynamic notifications here -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link profile-icon" exact>
               <i class="bi bi-person-circle"></i>
             </router-link>
           </li>
@@ -97,10 +115,12 @@ export default {
     return {
       categories: [],
       errorMessage: "",
+      isLoggedIn: false,
     };
   },
   created() {
     this.fetchCategories();
+    this.checkLoginStatus(); // Check login status on component creation
   },
   methods: {
     async fetchCategories() {
@@ -116,10 +136,115 @@ export default {
         }
       }
     },
+    async checkLoginStatus() {
+      try {
+        const response = await axios.get("http://localhost:5000/me");
+        this.isLoggedIn = true; // Set isLoggedIn to true if user is authenticated
+      } catch (error) {
+        console.error("Error checking login status:", error);
+        this.isLoggedIn = false; // Set isLoggedIn to false if error or not logged in
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-/* Your CSS styles */
+.navbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
+}
+
+.navbar-top {
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container .form-control {
+  padding-right: 2.5rem;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.profile-icon .bi-person-circle {
+  font-size: 1.5rem;
+  color: #90b2c9 !important;
+}
+
+.nav-link.profile-icon.router-link-active .bi-person-circle {
+  color: #ffffff !important;
+}
+
+.search-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.search-button:hover .search-icon {
+  color: #9d9d9d;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.router-link-active {
+  color: #ffffff !important;
+}
+
+.router-link-exact-active {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse {
+    text-align: left;
+  }
+
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-nav .nav-link {
+    padding-left: 15px;
+  }
+
+  .navbar-nav .profile-icon {
+    text-align: left;
+  }
+}
 </style>

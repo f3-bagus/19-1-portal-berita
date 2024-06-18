@@ -7,55 +7,16 @@
             </div>
             <hr>
             <div class="contributor-news mt-5">
-                <div class="news-post d-flex">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
+                <div v-for="(news, index) in filteredNewsList" :key="news.news_id" class="news-post d-flex mt-5 mb-4">
+                    <img :src="news.image_url" alt="">
                     <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
+                        <h5>{{ news.title }}</h5>
+                        <span class="text-secondary mt-4">{{ news.status }} -
+                            <span>{{ formatDate(news.createdAt) }}</span>
                         </span>
                         <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="news-post d-flex mt-5">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-                        alt="">
-                    <div class="news-title">
-                        <h5>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h5>
-                        <span class="text-secondary mt-4">Published -
-                            <span>June 8 2024</span>
-                        </span>
-                        <div>
-                            <button variant="primary" class="detail-button mt-2">View Post</button>
+                            <button variant="primary" class="detail-button mt-2" @click="viewPost(news.news_id)">View
+                                Post</button>
                         </div>
                     </div>
                 </div>
@@ -64,8 +25,8 @@
     </ContributorLayout>
 </template>
 
-
 <script>
+import axios from "../../../services/axios";
 import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
 
 export default {
@@ -73,7 +34,61 @@ export default {
     components: {
         ContributorLayout,
     },
+    data() {
+        return {
+            newsList: [],
+            user_id: null,
+        };
+    },
+    created() {
+        // this.fetchAuthorId();
+        this.fetchProfileData();
+        this.fetchNews();
+    },
+    computed: {
+        filteredNewsList() {
+            return this.newsList.filter(news => news.author.user_id === this.user_id);
+        }
+    },
     methods: {
+        // async fetchAuthorId() {
+        //     try {
+        //         const userId = this.$route.params.id; // Assuming the user ID is passed as a route parameter
+        //         const response = await axios.get(`/users/${userId}`);
+        //         this.userId = response.data.user_id;
+        //     } catch (error) {
+        //         console.error('Failed to fetch author ID:', error);
+        //     }
+        // },
+        async fetchProfileData() {
+            try {
+                const response = await axios.get("me");
+                if (response.data.success) {
+                    const { user_id} = response.data.user;
+                    this.user_id = user_id
+                } else {
+                    // Handle if success is false or other error cases
+                    console.error("Failed to fetch profile data:", response.data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                // Handle any network errors or other exceptions
+            }
+        },
+        async fetchNews() {
+            try {
+                const response = await axios.get('/news');
+                this.newsList = response.data;
+            } catch (error) {
+                console.error('Failed to fetch news:', error);
+            }
+        },
+        formatDate(dateString) {
+            return moment(dateString).format('dddd, D MMMM YYYY HH.mm [WIB]');
+        },
+        viewPost(newsId) {
+            this.$router.push({ name: "News", params: { id: newsId } });
+        },
         addNews() {
             this.$router.push({ name: "AddNews" });
         },
@@ -83,24 +98,25 @@ export default {
 
 <style>
 .margin-top {
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 .title-mypost button {
-    --bs-btn-bg: #ff3300 !important;
-    --bs-btn-hover-bg: #c24121 !important;
-    --bs-btn-active-bg: #c2412;
-    border: 0 !important;
-    color: white;
+  --bs-btn-bg: #ff3300 !important;
+  --bs-btn-hover-bg: #c24121 !important;
+  --bs-btn-active-bg: #c2412;
+  border: 0 !important;
+  color: white;
 }
 
 .news-post img {
-    width: 25%;
-    margin-right: 20px;
-    border-radius: 10px;
+  width: 25%;
+  margin-right: 20px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .title-mypost {
-    align-items: center;
+  align-items: center;
 }
 </style>

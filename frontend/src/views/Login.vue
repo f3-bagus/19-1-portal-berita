@@ -137,26 +137,54 @@ export default {
 };
 </script>
 
-<style>
-.content-wrapper form button {
-  padding: 5px 44%;
-}
-
-@media (max-width: 767px) {
-  .content-wrapper form button {
-    padding: 5px 43%;
-  }
-}
-
+<style scoped>
 .content-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 500px; /* Limit width for larger screens */
+  margin: auto; /* Center align content */
+  padding: 20px; /* Add padding around content */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.alert {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-check-input {
+  margin-right: 5px;
 }
 
 .google-logo {
   width: 30px;
   height: 30px;
-  cursor: pointer;
-  /* Add cursor pointer to indicate it's clickable */
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .form-control,
+  .btn {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 8px 40%;
+  }
 }
 </style>

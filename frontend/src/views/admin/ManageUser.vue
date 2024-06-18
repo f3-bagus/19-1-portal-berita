@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(user, index) in users" :key="user.user_id">
+                  <tr v-for="(user, index) in filteredUsers" :key="user.user_id">
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
@@ -95,6 +95,15 @@
                 <label for="update-email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="update-email" v-model="currentUser.email" required>
               </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" v-model="currentUser.password" required>
+              </div>
+              <div class="mb-3">
+                <label for="confPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confPassword" v-model="currentUser.confPassword"
+                  required>
+              </div>
               <button type="submit" class="btn btn-warning">Update</button>
             </form>
           </div>
@@ -103,7 +112,6 @@
     </div>
   </AdminLayout>
 </template>
-
 
 <script>
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
@@ -129,6 +137,11 @@ export default {
       users: [],
     };
   },
+  computed: {
+    filteredUsers() {
+      return this.users.filter(user => user.role !== 'author');
+    },
+  },
   methods: {
     async fetchUsers() {
       try {
@@ -153,6 +166,7 @@ export default {
         });
         this.fetchUsers();
         this.showCreateModal = false;
+        alert('User created successfully');
       } catch (error) {
         console.error(error);
       }
@@ -163,22 +177,21 @@ export default {
     },
     async updateUser() {
       try {
-        const { user_id, username, email, role } = this.currentUser;
-        const response = await axios.patch(`users/${user_id}`, {
+        const { user_id, username, email, password, confPassword, role } = this.currentUser;
+        await axios.patch(`users/${user_id}`, {
           username,
           email,
-          role,
+          password,
+          confPassword,
+          role
         }, {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            'Content-Type': 'application/json'
           }
         });
-        const index = this.users.findIndex(user => user.user_id === user_id);
-        if (index !== -1) {
-          this.users.splice(index, 1, response.data);
-        }
-        this.showUpdateModalFlag = false; // Close modal on success
-        alert('User updated successfully'); // Show success alert
+        this.fetchUsers();
+        this.showUpdateModalFlag = false;
+        alert('User updated successfully');
       } catch (error) {
         console.error(error);
       }
@@ -188,7 +201,7 @@ export default {
         await axios.delete(`users/${userId}`, {
         });
         this.users = this.users.filter(user => user.user_id !== userId);
-        alert('User deleted successfully'); // Show success alert
+        alert('User deleted successfully');
       } catch (error) {
         console.error(error);
       }
@@ -199,7 +212,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 .container-user {
