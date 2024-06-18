@@ -22,13 +22,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(news, index) in newsList" :key="index">
+                                    <tr v-for="(news, index) in newsList" :key="news.news_id">
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ news.title }}</td>
                                         <td>{{ news.content }}</td>
-                                        <td>{{ news.category }}</td>
+                                        <td>{{ getCategoryName(news.categories_id) }}</td>
                                         <td>
-                                            <img v-if="news.image" :src="news.image" alt="News Image" class="img-thumbnail" />
+                                            <img v-if="news.image_url" :src="news.image_url" alt="News Image" class="img-thumbnail" />
                                         </td>
                                         <td>{{ news.status }}</td>
                                         <td class="gap-2">
@@ -36,7 +36,7 @@
                                                 <button class="btn btn-warning" @click="showUpdateModal(news)">
                                                     Update
                                                 </button>
-                                                <button class="btn btn-danger" @click="deleteNews(index)">
+                                                <button class="btn btn-danger" @click="deleteNews(news.news_id)">
                                                     Delete
                                                 </button>
                                             </div>
@@ -68,21 +68,14 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="category" class="form-label">Category</label>
-                                        <select class="form-select" id="category" v-model="newNews.category" required>
+                                        <select class="form-select" id="category" v-model="newNews.categories_id" required>
                                             <option value="">Select Category</option>
-                                            <option v-for="cat in categories" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
+                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="image" class="form-label">Image URL</label>
-                                        <input type="text" class="form-control" id="image" v-model="newNews.image">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="status" class="form-label">Status</label>
-                                        <select class="form-select" id="status" v-model="newNews.status" required>
-                                            <option value="draft">Draft</option>
-                                            <option value="published">Published</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="image" v-model="newNews.image_url">
                                     </div>
                                     <button type="submit" class="btn btn-success">Create</button>
                                 </form>
@@ -111,14 +104,14 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-category" class="form-label">Category</label>
-                                        <select class="form-select" id="update-category" v-model="currentNews.category" required>
+                                        <select class="form-select" id="update-category" v-model="currentNews.categories_id" required>
                                             <option value="">Select Category</option>
-                                            <option v-for="cat in categories" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
+                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-image" class="form-label">Image URL</label>
-                                        <input type="text" class="form-control" id="update-image" v-model="currentNews.image">
+                                        <input type="text" class="form-control" id="update-image" v-model="currentNews.image_url">
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-status" class="form-label">Status</label>
@@ -139,6 +132,7 @@
 </template>
 
 <script>
+import axios from '../../../services/axios';
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
 
 export default {
@@ -153,49 +147,86 @@ export default {
             newNews: {
                 title: "",
                 content: "",
-                category: "",
-                image: "",
-                status: "draft",
+                categories_id: "",
+                image_url: "",
+                status: "",
             },
             currentNews: null,
-            newsList: [
-                { title: "News 1", content: "Content 1", category: "Category A", image: "https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200", status: "draft" },
-                { title: "News 2", content: "Content 2", category: "Category B", image: "https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200", status: "published" },
-                // Add more news items as needed
-            ],
-            categories: [
-                { id: 1, name: "Category A" },
-                { id: 2, name: "Category B" },
-                // Add more categories as needed
-            ],
+            newsList: [],
+            categories: [],
         };
     },
+    created() {
+        this.fetchNews();
+        this.fetchCategories();
+    },
     methods: {
-        createNews() {
-            this.newsList.push({ ...this.newNews });
-            this.showCreateModal = false;
-            this.newNews = {
-                title: "",
-                content: "",
-                category: "",
-                image: "",
-                status: "draft",
-            };
+        async fetchNews() {
+            try {
+                const response = await axios.get('/news');
+                this.newsList = response.data;
+            } catch (error) {
+                console.error('Failed to fetch news:', error);
+            }
+        },
+        async fetchCategories() {
+            try {
+                const response = await axios.get('/categories');
+                this.categories = response.data.map(category => ({
+                    id: category.categories_id,
+                    name: category.categories_name
+                }));
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+            }
+        },
+        async createNews() {
+            try {
+                const response = await axios.post('/news/create', this.newNews);
+                this.newsList.push(response.data);
+                this.showCreateModal = false;
+                this.newNews = {
+                    title: "",
+                    content: "",
+                    categories_id: "",
+                    image_url: "",
+                    status: "",
+                };
+                this.fetchNews();
+                alert('News created successfully');
+            } catch (error) {
+                console.error('Failed to create news:', error);
+            }
         },
         showUpdateModal(news) {
             this.currentNews = { ...news };
             this.showUpdateModalFlag = true;
         },
-        updateNews() {
-            const index = this.newsList.findIndex(item => item.title === this.currentNews.title);
-            if (index !== -1) {
-                this.newsList.splice(index, 1, { ...this.currentNews });
+        async updateNews() {
+            try {
+                const response = await axios.patch(`/news/${this.currentNews.news_id}`, this.currentNews);
+                const index = this.newsList.findIndex(item => item.news_id === this.currentNews.news_id);
+                if (index !== -1) {
+                    this.newsList.splice(index, 1, response.data);
+                }
+                this.showUpdateModalFlag = false;
+            } catch (error) {
+                console.error('Failed to update news:', error);
             }
-            this.showUpdateModalFlag = false;
         },
-        deleteNews(index) {
-            this.newsList.splice(index, 1);
+        async deleteNews(newsId) {
+            try {
+                await axios.delete(`/news/${newsId}`);
+                this.newsList = this.newsList.filter(news => news.news_id !== newsId);
+                alert('News deleted successfully');
+            } catch (error) {
+                console.error('Failed to delete news:', error);
+            }
         },
+        getCategoryName(categoryId) {
+            const category = this.categories.find(cat => cat.id === categoryId);
+            return category ? category.name : 'Unknown Category';
+        }
     },
 };
 </script>
