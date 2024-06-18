@@ -5,6 +5,7 @@ import {
   verifyNews,
   getNews,
   getNewsById,
+  getNewsByAuthor,
   updateNews,
   deleteNews,
 } from "../controllers/News.js";
@@ -23,4 +24,3 @@ router.patch("/news/:id", verifyToken, isAdmin, updateNews);
 router.delete("/news/:id", verifyToken, isAdmin, deleteNews);
 
 export default router;
-//  news route
