@@ -87,7 +87,7 @@ export default {
       this.$router.push({ name: "Login" });
     },
     editProfile() {
-      this.$router.push({ name: "EditProfile" });
+      this.$router.push({ name: "EditProfileAuthor" });
     },
     goToSavedNews() {
       this.$router.push({ name: "SavedNews" });

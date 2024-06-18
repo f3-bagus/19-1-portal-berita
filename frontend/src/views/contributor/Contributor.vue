@@ -6,35 +6,37 @@
         <button class="btn btn-primary" @click="addNews">Add News</button>
       </div>
       <hr />
-      <div class="contributor-news mt-5" v-if="newsList.length">
+      <div class="contributor-news mt-5">
         <div
-          class="news-post d-flex"
-          v-for="news in newsList"
+          v-for="(news, index) in newsList"
           :key="news.news_id"
+          class="news-post d-flex mt-5 mb-4"
         >
           <img :src="news.image_url" alt="" />
           <div class="news-title">
             <h5>{{ news.title }}</h5>
             <span class="text-secondary mt-4"
-              >Published -
+              >{{ news.status }} -
               <span>{{ formatDate(news.createdAt) }}</span>
             </span>
             <div>
-              <button variant="primary" class="detail-button mt-2">
+              <button
+                variant="primary"
+                class="detail-button mt-2"
+                @click="viewPost(news.news_id)"
+              >
                 View Post
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div v-else>
-        <p>No posts available.</p>
-      </div>
     </div>
   </ContributorLayout>
 </template>
 
 <script>
+import axios from "../../../services/axios";
 import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
 import axios from "axios";
 
@@ -48,38 +50,37 @@ export default {
       newsList: [],
     };
   },
+  created() {
+    // this.fetchAuthorId();
+    this.fetchNews();
+  },
   methods: {
+    // async fetchAuthorId() {
+    //     try {
+    //         const userId = this.$route.params.id; // Assuming the user ID is passed as a route parameter
+    //         const response = await axios.get(`/users/${userId}`);
+    //         this.userId = response.data.user_id;
+    //     } catch (error) {
+    //         console.error('Failed to fetch author ID:', error);
+    //     }
+    // },
     async fetchNews() {
       try {
-        const response = await axios.patch(
-          `news/author/${this.$route.params.authorId}`
-        );
-        console.log("API Response:", response.data); // Tambahkan log untuk memeriksa respons API
+        const response = await axios.get("/news");
         this.newsList = response.data;
       } catch (error) {
-        console.error("Error fetching news:", error); // Log kesalahan
-        this.newsList = []; // Kosongkan daftar berita jika terjadi kesalahan
+        console.error("Failed to fetch news:", error);
       }
+    },
+    formatDate(dateString) {
+      return moment(dateString).format("dddd, D MMMM YYYY HH.mm [WIB]");
+    },
+    viewPost(newsId) {
+      this.$router.push({ name: "News", params: { id: newsId } });
     },
     addNews() {
       this.$router.push({ name: "AddNews" });
     },
-    formatDate(dateString) {
-      try {
-        const options = { year: "numeric", month: "long", day: "numeric" };
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) {
-          throw new Error("Invalid date");
-        }
-        return date.toLocaleDateString(undefined, options);
-      } catch (error) {
-        console.error("Error formatting date:", error);
-        return "Invalid Date";
-      }
-    },
-  },
-  mounted() {
-    this.fetchNews();
   },
 };
 </script>
@@ -101,6 +102,7 @@ export default {
   width: 25%;
   margin-right: 20px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .title-mypost {

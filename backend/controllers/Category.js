@@ -51,23 +51,29 @@ export const createCategories = async (req, res) => {
 // Mengupdate kategori berdasarkan ID
 export const updateCategories = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name } = req.body;
+      const { id } = req.params;
+      const { categories_name } = req.body;
 
-    // Cari kategori yang akan diupdate
-    const category = await Category.findByPk(id);
+      // Cari kategori yang akan diupdate
+      const category = await Category.findByPk(id);
 
-    if (!category) {
-      return res.status(404).json({ error: "Category not found" });
-    }
+      if (!category) {
+          return res.status(404).json({ error: "Category not found" });
+      }
 
-    // Lakukan update nama kategori
-    category.name = name;
-    await category.save();
+      // Lakukan update nama kategori
+      category.categories_name = categories_name;
+      await category.save();
 
-    res.status(200).json(category);
+      res.status(200).json({
+          msg: "Kategori berhasil diupdate",
+          category: {
+              categories_id: category.categories_id,
+              categories_name: category.categories_name
+          }
+      });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message });
   }
 };
 

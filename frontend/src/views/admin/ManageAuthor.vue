@@ -110,9 +110,14 @@
                                             v-model="currentAuthor.email" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="update-confirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="update-confirmPassword"
-                                            v-model="currentAuthor.confirmPassword" required>
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password"
+                                            v-model="currentAuthor.password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confPassword"
+                                            v-model="currentAuthor.confPassword" required>
                                     </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
@@ -194,22 +199,28 @@ export default {
         showUpdateModal(author) {
             this.currentAuthor = {
                 ...author,
-                confirmPassword: author.password,
+                password: author.password,
+                confPassword: author.password,
             };
             this.showUpdateModalFlag = true;
         },
         async updateAuthor() {
             try {
-                const { user_id, username, email, password, role, verified } = this.currentAuthor;
+                const { user_id, username, email, password, confPassword, role } = this.currentAuthor;
                 await axios.patch(`users/${user_id}`, {
                     username,
                     email,
                     password,
-                    role,
-                    verified,
+                    confPassword,
+                    role
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
                 this.fetchAuthors();
                 this.showUpdateModalFlag = false;
+                alert('Author updated successfully');
             } catch (error) {
                 console.error(error);
             }
@@ -225,10 +236,19 @@ export default {
         },
         async toggleVerification(author) {
             try {
-                author.verified = !author.verified;
-                await axios.patch(`users/${author.user_id}`, {
-                    verified: author.verified,
-                });
+                if (author.status === 'pending') {
+                    const response = await axios.post('/validate-author', {
+                        user_id: author.user_id
+                    });
+                    if (response.data.success) {
+                        author.status = 'active';
+                    } else {
+                        alert('Gagal melakukan validasi author');
+                    }
+                    alert('Author verified successfully');
+                } else {
+                    alert('Author sudah diverifikasi sebelumnya');
+                }
                 this.fetchAuthors();
             } catch (error) {
                 console.error(error);
