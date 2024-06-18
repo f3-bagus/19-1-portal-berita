@@ -37,8 +37,9 @@ export const getAllMessages = async (req, res) => {
                 {
                     model: Users,
                     attributes: ['user_id', 'username', 'email']
-                }],
-            attributes: []
+                }
+            ],
+            attributes: ['message_id', 'message_text']
         });
 
         res.status(200).json(messages);
@@ -48,12 +49,12 @@ export const getAllMessages = async (req, res) => {
 };
 
 // Admin melihat isi pesan user berdasarkan user_id
-export const getMessagesByUserId = async (req, res) => {
+export const getMessagesByMessageId = async (req, res) => {
     try {
-        const { user_id } = req.params;
+        const { message_id } = req.params;
 
         const messages = await ContactMessages.findAll({
-            where: { user_id },
+            where: { message_id },
             include: [
                 {
                     model: Users,
