@@ -28,11 +28,15 @@
                                         <td>{{ news.content }}</td>
                                         <td>{{ getCategoryName(news.categories_id) }}</td>
                                         <td>
-                                            <img v-if="news.image_url" :src="news.image_url" alt="News Image" class="img-thumbnail" />
+                                            <img v-if="news.image_url" :src="news.image_url" alt="News Image"
+                                                class="img-thumbnail" />
                                         </td>
                                         <td>{{ news.status }}</td>
                                         <td class="gap-2">
                                             <div class="d-flex flex-column flex-sm-row gap-2">
+                                                <button class="btn btn-info" @click="toggleVerification(news)">
+                                                    {{ news.status === 'published' ? 'Unverify' : 'Verify' }}
+                                                </button>
                                                 <button class="btn btn-warning" @click="showUpdateModal(news)">
                                                     Update
                                                 </button>
@@ -54,23 +58,28 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Create News</h5>
-                                <button class="btn btn-danger" @click="showCreateModal = false"><i class="bi bi-x-lg"></i></button>
+                                <button class="btn btn-danger" @click="showCreateModal = false"><i
+                                        class="bi bi-x-lg"></i></button>
                             </div>
                             <div class="modal-body">
                                 <form @submit.prevent="createNews">
                                     <div class="mb-3">
                                         <label for="title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" id="title" v-model="newNews.title" required>
+                                        <input type="text" class="form-control" id="title" v-model="newNews.title"
+                                            required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Content</label>
-                                        <textarea class="form-control" id="content" v-model="newNews.content" required></textarea>
+                                        <textarea class="form-control" id="content" v-model="newNews.content"
+                                            required></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="category" class="form-label">Category</label>
-                                        <select class="form-select" id="category" v-model="newNews.categories_id" required>
+                                        <select class="form-select" id="category" v-model="newNews.categories_id"
+                                            required>
                                             <option value="">Select Category</option>
-                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name
+                                                }}</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
@@ -90,35 +99,34 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Update News</h5>
-                                <button class="btn btn-danger" @click="showUpdateModalFlag = false"><i class="bi bi-x-lg"></i></button>
+                                <button class="btn btn-danger" @click="showUpdateModalFlag = false"><i
+                                        class="bi bi-x-lg"></i></button>
                             </div>
                             <div class="modal-body">
                                 <form @submit.prevent="updateNews">
                                     <div class="mb-3">
                                         <label for="update-title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" id="update-title" v-model="currentNews.title" required>
+                                        <input type="text" class="form-control" id="update-title"
+                                            v-model="currentNews.title" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-content" class="form-label">Content</label>
-                                        <textarea class="form-control" id="update-content" v-model="currentNews.content" required></textarea>
+                                        <textarea class="form-control" id="update-content" v-model="currentNews.content"
+                                            required></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-category" class="form-label">Category</label>
-                                        <select class="form-select" id="update-category" v-model="currentNews.categories_id" required>
+                                        <select class="form-select" id="update-category"
+                                            v-model="currentNews.categories_id" required>
                                             <option value="">Select Category</option>
-                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+                                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name
+                                                }}</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="update-image" class="form-label">Image URL</label>
-                                        <input type="text" class="form-control" id="update-image" v-model="currentNews.image_url">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="update-status" class="form-label">Status</label>
-                                        <select class="form-select" id="update-status" v-model="currentNews.status" required>
-                                            <option value="draft">Draft</option>
-                                            <option value="published">Published</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="update-image"
+                                            v-model="currentNews.image_url">
                                     </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
@@ -149,7 +157,6 @@ export default {
                 content: "",
                 categories_id: "",
                 image_url: "",
-                status: "",
             },
             currentNews: null,
             newsList: [],
@@ -193,9 +200,18 @@ export default {
                     status: "",
                 };
                 this.fetchNews();
-                alert('News created successfully');
+                alert(response.data.msg);
             } catch (error) {
                 console.error('Failed to create news:', error);
+            }
+        },
+        async toggleVerification(news) {
+            try {
+                const response = await axios.post('/news/verify', { news_id: news.news_id });
+                alert(response.data.msg);
+                this.fetchNews();
+            } catch (error) {
+                console.error('Failed to verify news:', error);
             }
         },
         showUpdateModal(news) {
@@ -204,12 +220,15 @@ export default {
         },
         async updateNews() {
             try {
-                const response = await axios.patch(`/news/${this.currentNews.news_id}`, this.currentNews);
-                const index = this.newsList.findIndex(item => item.news_id === this.currentNews.news_id);
-                if (index !== -1) {
-                    this.newsList.splice(index, 1, response.data);
-                }
+                const response = await axios.patch(`/news/${this.currentNews.news_id}`, {
+                    title: this.currentNews.title,
+                    content: this.currentNews.content,
+                    categories_id: this.currentNews.categories_id,
+                    image_url: this.currentNews.image_url,
+                });
                 this.showUpdateModalFlag = false;
+                this.fetchNews();
+                alert(response.data.msg);
             } catch (error) {
                 console.error('Failed to update news:', error);
             }
