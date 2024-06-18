@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(user, index) in users" :key="user.user_id">
+                  <tr v-for="(user, index) in filteredUsers" :key="user.user_id">
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
@@ -104,7 +104,6 @@
   </AdminLayout>
 </template>
 
-
 <script>
 import AdminLayout from "../../components/Admin/AdminLayout.vue";
 import axios from '../../../services/axios';
@@ -128,6 +127,11 @@ export default {
       currentUser: null,
       users: [],
     };
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.filter(user => user.role !== 'author');
+    },
   },
   methods: {
     async fetchUsers() {
@@ -153,6 +157,7 @@ export default {
         });
         this.fetchUsers();
         this.showCreateModal = false;
+        alert('User created successfully');
       } catch (error) {
         console.error(error);
       }
@@ -188,7 +193,7 @@ export default {
         await axios.delete(`users/${userId}`, {
         });
         this.users = this.users.filter(user => user.user_id !== userId);
-        alert('User deleted successfully'); // Show success alert
+        alert('User deleted successfully');
       } catch (error) {
         console.error(error);
       }
@@ -199,7 +204,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 .container-user {
