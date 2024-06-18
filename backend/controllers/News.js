@@ -104,17 +104,33 @@ export const createNewsController = async (req, res) => {
 
 export const getNews = async (req, res) => {
     try {
-        const news = await News.findAll({
-            attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
-            include: [{
-                model: Users,
-                attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
-                as: 'author'
-            }],
-            where: {
-                status: 'published'
-            }
-        });
+        let news;
+
+        if (req.user.role === 'admin') {
+            // Admin bisa melihat semua berita
+            news = await News.findAll({
+                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
+                include: [{
+                    model: Users,
+                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    as: 'author'
+                }]
+            });
+        } else {
+            // User hanya bisa melihat berita yang statusnya 'published'
+            news = await News.findAll({
+                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
+                include: [{
+                    model: Users,
+                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    as: 'author'
+                }],
+                where: {
+                    status: 'published'
+                }
+            });
+        }
+
         res.status(200).json(news);
     } catch (error) {
         res.status(500).json({ error: error.message });
