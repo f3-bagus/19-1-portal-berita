@@ -11,6 +11,10 @@
                 <input type="text" v-model="username" placeholder="Username" />
                 <label>Email</label>
                 <input type="email" v-model="email" placeholder="Email" />
+                <label>Password</label>
+                <input type="password" v-model="password" placeholder="Password" />
+                <label>Confirm Password</label>
+                <input type="password" v-model="confPassword" placeholder="Confirm Password" />
                 <button class="save-button" @click="saveChanges">Save Changes</button>
             </div>
         </div>
@@ -26,26 +30,19 @@ export default {
         return {
             username: '',
             email: '',
+            password: '',
+            confPassword: '',
             isLoggedIn: false,
             userId: null, // Add a property to store the user ID
         };
     },
     created() {
-        // Check login status from local storage or another method
         const userRole = localStorage.getItem("userRole");
         if (userRole) {
             this.isLoggedIn = true;
         }
         this.fetchProfileData();
     },
-    // watch: {
-    //     username(newUsername) {
-    //         this.username = newUsername;
-    //     },
-    //     email(newEmail) {
-    //         this.email = newEmail;
-    //     }
-    // },
     methods: {
         async fetchProfileData() {
             try {
@@ -54,31 +51,39 @@ export default {
                     const { username, email, user_id } = response.data.user;
                     this.username = username;
                     this.email = email;
-                    this.userId = user_id;
-
+                    this.userId = user_id; // Store the user ID
                 } else {
-                    // Handle if success is false or other error cases
                     console.error("Failed to fetch profile data:", response.data.error);
                 }
             } catch (error) {
                 console.error("Error fetching profile data:", error);
-                // Handle any network errors or other exceptions
             }
         },
         async saveChanges() {
             try {
-                const response = await axios.patch(`users/${this.userId}`, {
-                    username: String(this.username),
-                    email: String(this.email),
-                });
+                if (this.password !== this.confPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
 
-                if (response.data.success) {
-                    console.log('Profile updated:', response.data);
+                const updateData = {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                    confPassword: this.confPassword,
+                };
+
+                const response = await axios.patch(`/users/${this.userId}`, updateData);
+                if (response.status === 200) {
+                    alert('Profile updated successfully');
+                    this.$router.push('/profile');
                 } else {
-                    console.error('Failed to update profile:', response.data.error);
+                    alert('Failed to update profile');
+                    console.error('Failed to update profile:', response.data.msg);
                 }
             } catch (error) {
-                console.error('Error updating profile:', error);
+                console.error("Error updating profile:", error);
+                alert('An error occurred while updating the profile');
             }
         }
     }
