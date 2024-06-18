@@ -1,43 +1,53 @@
 <template>
-  <div class="profile-container">
-    <h1 class="profile-heading">My Profile</h1>
-    <hr class="profile-divider" />
-    <div class="profile-content">
-      <img
-        src="../../assets/Profile.svg"
-        size="10rem"
-        class="profile-picture"
-      />
-      <div class="profile-details" v-if="isLoggedIn">
-        <h3 class="profile-name">{{ username }}</h3>
-        <p class="profile-email">{{ email }}</p>
-        <div>
-          <button variant="primary" class="profile-button" @click="editProfile">
-            Edit Profile
-          </button>
+  <ContributorLayout>
+    <div class="profile-container">
+      <h1 class="profile-heading">My Profile</h1>
+      <hr class="profile-divider" />
+      <div class="profile-content">
+        <img
+          src="../../assets/Profile.svg"
+          size="10rem"
+          class="profile-picture"
+        />
+        <div class="profile-details" v-if="isLoggedIn">
+          <h3 class="profile-name">{{ username }}</h3>
+          <p class="profile-email">{{ email }}</p>
+          <div>
+            <button
+              variant="primary"
+              class="profile-button"
+              @click="editProfile"
+            >
+              Edit Profile
+            </button>
+          </div>
+          <div class="margin-b">
+            <button variant="primary" class="profile-button" @click="logout">
+              Logout
+            </button>
+          </div>
         </div>
-        <div class="margin-b">
-          <button variant="primary" class="profile-button" @click="logout">
-            Logout
-          </button>
-        </div>
-      </div>
-      <div class="profile-details" v-else>
-        <div class="margin-b">
-          <button variant="primary" class="profile-button" @click="login">
-            Login
-          </button>
+        <div class="profile-details" v-else>
+          <div class="margin-b">
+            <button variant="primary" class="profile-button" @click="login">
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ContributorLayout>
 </template>
 
 <script>
+import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
 import axios from "../../../services/axios";
 
 export default {
   name: "ContributorProfile",
+  components: {
+    ContributorLayout,
+  },
   data() {
     return {
       isLoggedIn: false,
