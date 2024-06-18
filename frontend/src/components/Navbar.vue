@@ -48,6 +48,19 @@
               Contact Us
             </router-link>
           </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="navbarDropdownNotification" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-danger">5</span> <!-- Ganti dengan data dinamis jumlah notifikasi -->
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownNotification">
+            <li><a class="dropdown-item" href="#">Notification 1</a></li>
+            <li><a class="dropdown-item" href="#">Notification 2</a></li>
+            <!-- Tambahkan notifikasi dinamis sesuai data yang diperlukan -->
+          </ul>
+        </li>
+
           <li class="nav-item">
             <router-link to="/profile" class="nav-link profile-icon" aria-current="page" exact>
               <i class="bi bi-person-circle"></i>

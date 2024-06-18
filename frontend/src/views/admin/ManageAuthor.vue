@@ -76,6 +76,11 @@
                                         <input type="password" class="form-control" id="password"
                                             v-model="newAuthor.password" required>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword"
+                                            v-model="newAuthor.confirmPassword" required>
+                                    </div>
                                     <button type="submit" class="btn btn-success">Create</button>
                                 </form>
                             </div>
@@ -103,6 +108,11 @@
                                         <label for="update-email" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="update-email"
                                             v-model="currentAuthor.email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="update-confirmPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="update-confirmPassword"
+                                            v-model="currentAuthor.confirmPassword" required>
                                     </div>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </form>
@@ -180,7 +190,8 @@ export default {
             }
         },
         showUpdateModal(author) {
-            this.currentAuthor = { ...author };
+            this.currentAuthor = { ...author,
+                confirmPassword: author.password, };
             this.showUpdateModalFlag = true;
         },
         async updateAuthor() {

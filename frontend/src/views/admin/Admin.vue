@@ -12,32 +12,32 @@
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body d-flex justify-content-between align-items-center">
-                                    <h3> News</h3>
-                                    <h1 class="jumlah">{{ newsCount }}</h1>
+                                    <h4> News</h4>
+                                    <h3 class="jumlah">{{ newsCount }}</h3>
                                 </div>
                             </div>      
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
                                 <div class="card-body d-flex justify-content-between align-items-center">
-                                    <h3>User</h3>
-                                    <h1 class="jumlah">{{ userCount }}</h1>
+                                    <h4>User</h4>
+                                    <h3 class="jumlah">{{ userCount }}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body d-flex justify-content-between align-items-center">
-                                    <h3>Category</h3>
-                                    <h1 class="jumlah">{{ categoryCount }}</h1>
+                                    <h4>Category</h4>
+                                    <h3 class="jumlah">{{ categoryCount }}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body d-flex justify-content-between align-items-center">
-                                    <h3>Messages</h3>
-                                    <h1 class="jumlah">{{ messageCount }}</h1>
+                                    <h4>Messages</h4>
+                                    <h3 class="jumlah">{{ messageCount }}</h3>
                                 </div>
                             </div>
                         </div>
