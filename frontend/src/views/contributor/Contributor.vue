@@ -7,7 +7,7 @@
             </div>
             <hr>
             <div class="contributor-news mt-5">
-                <div v-for="(news, index) in newsList" :key="news.news_id" class="news-post d-flex mt-5 mb-4">
+                <div v-for="(news, index) in filteredNewsList" :key="news.news_id" class="news-post d-flex mt-5 mb-4">
                     <img :src="news.image_url" alt="">
                     <div class="news-title">
                         <h5>{{ news.title }}</h5>
@@ -38,11 +38,18 @@ export default {
     data() {
         return {
             newsList: [],
+            user_id: null,
         };
     },
     created() {
         // this.fetchAuthorId();
+        this.fetchProfileData();
         this.fetchNews();
+    },
+    computed: {
+        filteredNewsList() {
+            return this.newsList.filter(news => news.author.user_id === this.user_id);
+        }
     },
     methods: {
         // async fetchAuthorId() {
@@ -54,6 +61,21 @@ export default {
         //         console.error('Failed to fetch author ID:', error);
         //     }
         // },
+        async fetchProfileData() {
+            try {
+                const response = await axios.get("me");
+                if (response.data.success) {
+                    const { user_id} = response.data.user;
+                    this.user_id = user_id
+                } else {
+                    // Handle if success is false or other error cases
+                    console.error("Failed to fetch profile data:", response.data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                // Handle any network errors or other exceptions
+            }
+        },
         async fetchNews() {
             try {
                 const response = await axios.get('/news');

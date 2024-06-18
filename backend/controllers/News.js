@@ -121,7 +121,7 @@ export const getNews = async (req, res) => {
                 attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
                 include: [{
                     model: Users,
-                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    attributes: ['user_id', 'username'], // Attribut 'name' diganti menjadi 'username'
                     as: 'author'
                 }]
             });
@@ -131,7 +131,7 @@ export const getNews = async (req, res) => {
                 attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
                 include: [{
                     model: Users,
-                    attributes: ['username'], // Attribut 'name' diganti menjadi 'username'
+                    attributes: ['user_id', 'username'], // Attribut 'name' diganti menjadi 'username'
                     as: 'author'
                 }],
                 where: {
