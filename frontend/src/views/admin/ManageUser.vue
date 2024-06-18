@@ -95,6 +95,15 @@
                 <label for="update-email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="update-email" v-model="currentUser.email" required>
               </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" v-model="currentUser.password" required>
+              </div>
+              <div class="mb-3">
+                <label for="confPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confPassword" v-model="currentUser.confPassword"
+                  required>
+              </div>
               <button type="submit" class="btn btn-warning">Update</button>
             </form>
           </div>
@@ -168,22 +177,21 @@ export default {
     },
     async updateUser() {
       try {
-        const { user_id, username, email, role } = this.currentUser;
-        const response = await axios.patch(`users/${user_id}`, {
+        const { user_id, username, email, password, confPassword, role } = this.currentUser;
+        await axios.patch(`users/${user_id}`, {
           username,
           email,
-          role,
+          password,
+          confPassword,
+          role
         }, {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            'Content-Type': 'application/json'
           }
         });
-        const index = this.users.findIndex(user => user.user_id === user_id);
-        if (index !== -1) {
-          this.users.splice(index, 1, response.data);
-        }
-        this.showUpdateModalFlag = false; // Close modal on success
-        alert('User updated successfully'); // Show success alert
+        this.fetchUsers();
+        this.showUpdateModalFlag = false;
+        alert('User updated successfully');
       } catch (error) {
         console.error(error);
       }
