@@ -39,7 +39,7 @@
                                                 Update
                                             </button>
                                             <button variant="primary" class="btn btn-danger"
-                                                @click="deleteAuthor(index)">
+                                                @click="deleteAuthor(author.user_id)">
                                                 Delete
                                             </button>
                                         </td>
@@ -77,9 +77,9 @@
                                             v-model="newAuthor.password" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="confirmPassword"
-                                            v-model="newAuthor.confirmPassword" required>
+                                        <label for="confPassword" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confPassword"
+                                            v-model="newAuthor.confPassword" required>
                                     </div>
                                     <button type="submit" class="btn btn-success">Create</button>
                                 </form>
@@ -185,13 +185,17 @@ export default {
                 });
                 this.fetchAuthors();
                 this.showCreateModal = false;
+                alert('Author created successfully');
             } catch (error) {
                 console.error(error);
             }
         },
+
         showUpdateModal(author) {
-            this.currentAuthor = { ...author,
-                confirmPassword: author.password, };
+            this.currentAuthor = {
+                ...author,
+                confirmPassword: author.password,
+            };
             this.showUpdateModalFlag = true;
         },
         async updateAuthor() {
@@ -212,10 +216,9 @@ export default {
         },
         async deleteAuthor(userId) {
             try {
-                await axios.delete(`users/${userId}`, {
-                });
-                this.users = this.users.filter(user => user.user_id !== userId);
-                alert('User deleted successfully'); // Show success alert
+                await axios.delete(`users/${userId}`);
+                this.fetchAuthors();
+                alert('Author deleted successfully');
             } catch (error) {
                 console.error(error);
             }
