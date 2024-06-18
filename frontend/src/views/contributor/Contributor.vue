@@ -38,7 +38,6 @@
 <script>
 import axios from "../../../services/axios";
 import ContributorLayout from "../../components/Contributor/ContributorLayout.vue";
-import axios from "axios";
 
 export default {
   name: "Contributor",
