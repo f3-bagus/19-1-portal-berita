@@ -16,7 +16,7 @@
       <button class="circle-button" @click="showShareModal">
         <i class="bi bi-share-fill button-icon"></i>
       </button>
-      <button class="circle-button">
+      <button class="circle-button" @click="saveToSavedNews">
         <i class="bi bi-bookmark-fill button-icon"></i>
       </button>
     </div>
@@ -37,7 +37,8 @@
           <p class="username-comment">Nama User</p>
           <p class="time-comment">48 Minutes Ago</p>
         </div>
-        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
+        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks
+          incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
         <p class="text-right text-success">Reply</p>
       </div>
     </div>
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../services/axios';
 
 export default {
   name: "News",
@@ -94,6 +95,21 @@ export default {
     },
     formatDate(dateString) {
       return moment(dateString).format('dddd, D MMMM YYYY HH.mm [WIB]');
+    },
+    async saveToSavedNews() {
+      try {
+        const response = await axios.post('saved-news', {
+          news_id: this.$route.params.id
+        });
+
+        // Handle response jika perlu
+        console.log(response.data); // Misalnya, menampilkan pesan sukses
+
+        alert('Berita berhasil disimpan!');
+      } catch (error) {
+        console.error('Error saving news:', error);
+        alert('Gagal menyimpan berita. Silakan coba lagi.');
+      }
     },
     sendComment() {
       alert("Comment sent!");
@@ -341,7 +357,7 @@ export default {
   width: 300px;
   max-width: 80%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative; 
+  position: relative;
 }
 
 .close-button:hover {

@@ -3,80 +3,20 @@
     <h1 class="saved-news-heading">Saved News</h1>
     <hr class="saved-news-divider" />
     <div class="saved-wrap">
-      <div class="saved-container">
+      <div v-for="savedItem in savedNews" :key="savedItem.saved_id" class="saved-container">
         <div class="image-container">
-          <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            alt="Image 1">
+          <img :src="savedItem.news.image_url" :alt="savedItem.news.title">
         </div>
         <div class="saved-news-text">
           <div class="row">
-            <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
-            <p class="time-news">48 Minutes Ago</p>
+            <p class="saved-news">{{ savedItem.news.title }}</p>
+            <p class="time-news">{{ formatDate(savedItem.savedAt) }}</p>
             <div class="button-more">
-              <button class="more-button" @click="toggleDropdown">
+              <button class="more-button" @click="toggleDropdown(savedItem.saved_id)">
                 <i class="bi bi-three-dots button-icon"></i>
               </button>
-              <div v-if="dropdownOpen" class="dropdown-menu">
-                <button @click="shareNews" class="dropdown-item">
-                  <i class="bi bi-share-fill"></i> Bagikan Berita
-                </button>
-                <button @click="deleteNews" class="dropdown-item">
-                  <i class="bi bi-trash-fill"></i> Hapus Berita
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr class="saved-news-divider-bottom" />
-    </div>
-    <div class="saved-wrap">
-      <div class="saved-container">
-        <div class="image-container">
-          <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            alt="Image 1">
-        </div>
-        <div class="saved-news-text">
-          <div class="row">
-            <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
-            <p class="time-news">48 Minutes Ago</p>
-            <div class="button-more">
-              <button class="more-button" @click="toggleDropdown">
-                <i class="bi bi-three-dots button-icon"></i>
-              </button>
-              <div v-if="dropdownOpen" class="dropdown-menu">
-                <button @click="shareNews" class="dropdown-item">
-                  <i class="bi bi-share-fill"></i> Bagikan Berita
-                </button>
-                <button @click="deleteNews" class="dropdown-item">
-                  <i class="bi bi-trash-fill"></i> Hapus Berita
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr class="saved-news-divider-bottom" />
-    </div>
-    <div class="saved-wrap">
-      <div class="saved-container">
-        <div class="image-container">
-          <img src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            alt="Image 1">
-        </div>
-        <div class="saved-news-text">
-          <div class="row">
-            <p class="saved-news">Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</p>
-            <p class="time-news">48 Minutes Ago</p>
-            <div class="button-more">
-              <button class="more-button" @click="toggleDropdown">
-                <i class="bi bi-three-dots button-icon"></i>
-              </button>
-              <div v-if="dropdownOpen" class="dropdown-menu">
-                <button @click="shareNews" class="dropdown-item">
-                  <i class="bi bi-share-fill"></i> Bagikan Berita
-                </button>
-                <button @click="deleteNews" class="dropdown-item">
+              <div v-if="dropdownOpen === savedItem.saved_id" class="dropdown-menu">
+                <button @click="deleteNews(savedItem.saved_id)" class="dropdown-item">
                   <i class="bi bi-trash-fill"></i> Hapus Berita
                 </button>
               </div>
@@ -90,38 +30,57 @@
 </template>
 
 <script>
+import axios from '../../services/axios';
+import moment from 'moment';
+
 export default {
   name: 'SavedNews',
   data() {
     return {
-      dropdownOpen: false,
-    }
+      savedNews: [],
+      dropdownOpen: null,
+    };
   },
   methods: {
-    toggleDropdown() {
-      this.dropdownOpen = !this.dropdownOpen;
+    async fetchSavedNews() {
+      try {
+        const response = await axios.get('saved-news');
+        this.savedNews = response.data;
+      } catch (error) {
+        console.error('Error fetching saved news:', error);
+      }
     },
-    shareNews() {
-      alert('Berita akan dibagikan!');
-      this.dropdownOpen = false;
+    toggleDropdown(savedId) {
+      this.dropdownOpen = this.dropdownOpen === savedId ? null : savedId;
     },
-    deleteNews() {
-      alert('Berita akan dihapus!');
-      this.dropdownOpen = false;
+    formatDate(dateString) {
+      return moment(dateString).format('dddd, D MMMM YYYY HH.mm [WIB]');
+    },
+    async deleteNews(savedId) {
+      try {
+        await axios.delete(`/saved-news/${savedId}`);
+        this.savedNews = this.savedNews.filter(item => item.saved_id !== savedId);
+        alert('Berita berhasil dihapus!');
+      } catch (error) {
+        console.error('Error deleting news:', error);
+        alert('Gagal menghapus berita.');
+      }
+      this.dropdownOpen = null;
     },
     handleClickOutside(event) {
       if (!this.$el.contains(event.target)) {
-        this.dropdownOpen = false;
+        this.dropdownOpen = null;
       }
     }
   },
   mounted() {
+    this.fetchSavedNews();
     document.addEventListener('click', this.handleClickOutside);
   },
   beforeDestroy() {
     document.removeEventListener('click', this.handleClickOutside);
   }
-}
+};
 </script>
 
 <style scoped>
