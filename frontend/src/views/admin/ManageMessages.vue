@@ -27,49 +27,11 @@
                         <button class="btn btn-danger" @click="deleteMessage(message.message_id, index)">
                           Delete
                         </button>
-                        <button class="btn btn-info" @click="showReplyModal(message)">
-                          Reply
-                        </button>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reply Message Modal -->
-        <div class="modal" tabindex="-1" v-if="showReplyModalFlag">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Reply to Message</h5>
-                <button class="btn btn-danger" @click="showReplyModalFlag = false">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form @submit.prevent="replyMessage">
-                  <div class="mb-3">
-                    <label for="reply-name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="reply-name" v-model="replyMessageDetails.user.username" disabled />
-                  </div>
-                  <div class="mb-3">
-                    <label for="reply-email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="reply-email" v-model="replyMessageDetails.user.email" disabled />
-                  </div>
-                  <div class="mb-3">
-                    <label for="reply-original-message" class="form-label">Original Message</label>
-                    <textarea class="form-control" id="reply-original-message" v-model="replyMessageDetails.message_text" disabled></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="reply-message" class="form-label">Your Reply</label>
-                    <textarea class="form-control" id="reply-message" v-model="replyMessageDetails.reply" required></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-info">Send Reply</button>
-                </form>
-              </div>
             </div>
           </div>
         </div>
@@ -120,19 +82,6 @@ export default {
         alert('Message deleted successfully');
       } catch (error) {
         console.error('Error deleting message:', error);
-      }
-    },
-    showReplyModal(message) {
-      this.showReplyModalFlag = true;
-      this.replyMessageDetails = { ...message };
-    },
-    async replyMessage() {
-      try {
-        // Implement your logic to send reply using POST Axios request
-        // After successful reply, close the modal
-        this.showReplyModalFlag = false;
-      } catch (error) {
-        console.error('Error replying message:', error);
       }
     },
   },
