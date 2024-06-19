@@ -3,43 +3,12 @@ import Users from "../models/UserModels.js";
 
 // Middleware untuk verifikasi token
 export const verifyToken = async (req, res, next) => {
-<<<<<<< HEAD
-    try {
-        // Mengambil token dari cookie
-        const accessToken = req.header('Authorization')?.split(' ')[1];
-
-        if (!accessToken) {
-            return res.status(401).json({ msg: "Mohon Login dengan akun Anda" });
-        }
-
-        const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-
-        const user = await Users.findOne({
-            where: {
-                user_id: decoded.user_id
-            }
-        });
-
-        if (!user) {
-            return res.status(404).json({ msg: "User tidak ditemukan" });
-        }
-
-        req.user = user;
-        next();
-    } catch (error) {
-        console.error(error);
-        if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
-            return res.status(401).json({ msg: "Token tidak valid, mohon login kembali" });
-        }
-        res.status(500).json({ msg: "Terjadi kesalahan pada server" });
-=======
   try {
     // Mengambil token dari cookie
     const accessToken = req.header("Authorization")?.split(" ")[1];
 
     if (!accessToken) {
       return res.status(401).json({ msg: "Mohon Login dengan akun Anda" });
->>>>>>> 5cac318a3defe0d77359ff5bc93f47aad846a7fc
     }
 
     const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
