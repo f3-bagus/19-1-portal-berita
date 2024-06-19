@@ -8,5 +8,6 @@ const router = express.Router();
 router.post('/saved-news', verifyToken, isUser, saveNews);
 router.get('/saved-news', verifyToken, isUser, getSavedNews);
 router.get('/saved/admin/:user_id', verifyToken, isAdmin, getSavedNewsAdmin);
-router.delete('/saved-news/:newsId', verifyToken, isUser, deleteSavedNews);
+router.delete('/saved-news/:id', verifyToken, deleteSavedNews);
+
 export default router;

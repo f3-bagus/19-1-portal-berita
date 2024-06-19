@@ -28,7 +28,7 @@ POST http://localhost:5000/news/verify
 Content-Type: application/json
 
 {
-  "news_id":"2"
+  "news_id":"1"
 }
 
 ###//////####
@@ -64,8 +64,8 @@ POST http://localhost:5000/News
 Content-Type: application/json
 
 {
-  "title": "Timnas Jerman Kalah ",
-  "content": "Timnas Jerman Harus Meraih kemenangan dari slovekia dalam lanjutan Babak penyisihan Piala Eropa",
+  "title": "Timnas Indonesia Kalah Menghadapi Iraq",
+  "content": "Timnas Indonesia Harus Mengakui Kekalahan dari Iraq dalam lanjutan Babak penyisihan Piala Dunia",
   "categories_id":"1",
   "image_url":"https://www.google.com/imgres?q=timnas&imgurl=https%3A%2F%2Fimgcdn.solopos.com%2F%40space%2F2024%2F05%2Ftimnas-indonesia.jpg&imgrefurl=https%3A%2F%2Fsport.solopos.com%2Fada-12-laga-timnas-indonesia-di-bulan-juni-2024-ini-jadwal-lengkapnya-1934518&docid=tEsadcmVrQbLrM&tbnid=VETWgmawcfiUjM&vet=12ahUKEwjsl725sceGAxXRcWwGHSd1EDgQM3oECFwQAA..i&w=600&h=450&hcb=2&itg=1&ved=2ahUKEwjsl725sceGAxXRcWwGHSd1EDgQM3oECFwQAA"
 }
@@ -98,7 +98,7 @@ Content-Type: application/json
 GET http://localhost:5000/notifications
 
 ### User Membaca Notifikasi ###
-PATCH http://localhost:5000/notifications/2/read
+PATCH http://localhost:5000/notifications/1/read
 
 ###
 DELETE http://localhost:5000/logout

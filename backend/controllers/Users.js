@@ -4,7 +4,7 @@ import argon2 from "argon2";
 export const getUsers = async (req, res) => {
   try {
     const response = await Users.findAll({
-      attributes: ["user_id", "username", "email", "role"],
+      attributes: ["user_id", "username", "email", "role", "status"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -15,7 +15,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const response = await Users.findOne({
-      attributes: ["user_id", "username", "email", "role"],
+      attributes: ["user_id", "username", "email", "role", "status"],
       where: {
         user_id: req.params.id,
       },
@@ -30,7 +30,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { username, email, password, confPassword, role, } = req.body;
+  const { username, email, password, confPassword, role } = req.body;
   if (password !== confPassword)
     return res.status(400).json({
       success: false,
@@ -57,54 +57,47 @@ export const updateUser = async (req, res) => {
         user_id: req.params.id,
       },
     });
-    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
 
-    if (
-      req.user.role !== "admin" &&
-      req.user.role !== "author" &&
-      req.user.role !== "user"
-    ) {
-      return res.status(403).json({
-        msg:
-          "Akses terlarang, hanya admin, author, atau user yang bisa memperbarui pengguna.",
-      });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const { username, email, password, confPassword, role } = req.body;
-    const updatedData = {
-      username,
-      email,
-      role,
-    };
+    let hashPassword;
 
-    // Jika ingin update password , maka akan terupdated juga
-    if (password && confPassword) {
+    if (password === "" || password === null) {
+      hashPassword = user.password;
+    } else {
       if (password !== confPassword) {
-        return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok" });
+        return res
+          .status(400)
+          .json({ msg: "Password and Confirm Password do not match" });
       }
-      updatedData.password = await argon2.hash(password);
+      hashPassword = await argon2.hash(password);
     }
 
-    // Lakukan update
-    await Users.update(updatedData, {
-      where: {
-        user_id: user.user_id,
+    // Update only the necessary fields
+    await Users.update(
+      {
+        username: username,
+        email: email,
+        password: hashPassword,
+        role: role,
       },
-    });
+      {
+        where: {
+          user_id: user.user_id,
+        },
+      }
+    );
 
-    // Ambil kembali data user setelah diupdate
-    const updatedUser = await Users.findByPk(user.user_id, {
-      attributes: ["user_id", "username", "email", "role"],
-    });
-
-    res.status(200).json({
-      msg: "User updated successfully",
-      user: updatedUser,
-    });
+    return res.status(200).json({ msg: "User Updated" });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    console.error("Error updating profile:", error);
+    return res.status(400).json({ msg: error.message });
   }
 };
+
 export const deleteUsers = async (req, res) => {
   try {
     const user = await Users.findOne({
