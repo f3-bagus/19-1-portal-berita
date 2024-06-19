@@ -3,11 +3,7 @@
     <h1 class="profile-heading">My Profile</h1>
     <hr class="profile-divider" />
     <div class="profile-content">
-      <img
-        src="../../assets/Profile.svg"
-        size="10rem"
-        class="profile-picture"
-      />
+      <img src="../../assets/Profile.svg" size="10rem" class="profile-picture" />
       <div class="profile-details" v-if="isLoggedIn">
         <h3 class="profile-name">{{ username }}</h3>
         <p class="profile-email">{{ email }}</p>
@@ -35,38 +31,11 @@
     <h4 class="heading">Saved News</h4>
     <div class="saved-list">
       <div class="saved-news-wrapper">
-        <div class="saved-container">
+        <div v-for="(news, index) in savedNews" :key="index" class="saved-container">
           <div class="image-container">
-            <img
-              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 1"
-            />
+            <img :src="news.news.image_url" :alt="'Image ' + (index + 1)" />
           </div>
-          <p class="saved-news">
-            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
-          </p>
-        </div>
-        <div class="saved-container">
-          <div class="image-container">
-            <img
-              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 2"
-            />
-          </div>
-          <p class="saved-news">
-            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
-          </p>
-        </div>
-        <div class="saved-container">
-          <div class="image-container">
-            <img
-              src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-              alt="Image 3"
-            />
-          </div>
-          <p class="saved-news">
-            Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman
-          </p>
+          <p class="saved-news">{{ news.news.title }}</p>
         </div>
       </div>
       <div class="button-more-saved">
@@ -87,11 +56,7 @@
       <p>Notification for news</p>
       <div class="slider-container">
         <label class="switch">
-          <input
-            type="checkbox"
-            v-model="notificationsEnabled"
-            @change="toggleNotifications"
-          />
+          <input type="checkbox" v-model="onNotif" @change="toggleNotifications" />
           <span class="slider round"></span>
         </label>
       </div>
@@ -107,10 +72,16 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      notificationsEnabled: false,
+      notificationsEnabled: true,
       username: "",
       email: "",
+      savedNews: [],
     };
+  },
+  computed: {
+    onNotif() {
+      return localStorage.getItem('notif') ? true : false;
+    }
   },
   methods: {
     async fetchProfileData() {
@@ -129,10 +100,24 @@ export default {
         // Handle any network errors or other exceptions
       }
     },
+    async fetchSavedNews() {
+      try {
+        const response = await axios.get("/saved-news");
+        if (response.status === 200) {
+          const savedNews = response.data;
+          this.savedNews = savedNews.slice(0, 3);
+        } else {
+          console.error("Failed to fetch saved news:", response.data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching saved news:", error);
+      }
+    },
     async logout() {
       try {
         await axios.delete("http://localhost:5000/Logout");
         localStorage.removeItem("userRole");
+        localStorage.removeItem("token");
         this.isLoggedIn = false;
         this.$router.push({ name: "Login" });
       } catch (error) {
@@ -149,9 +134,16 @@ export default {
       this.$router.push({ name: "SavedNews" });
     },
     toggleNotifications() {
+      if (!localStorage.getItem("notif")) {
+        localStorage.setItem("notif", 1);
+        location.reload();
+        this.notificationsEnabled = false;
+      } else {
+        localStorage.removeItem("notif");
+        location.reload();
+      }
       alert(
-        `Notifications are now ${
-          this.notificationsEnabled ? "enabled" : "disabled"
+        `Notifications are now ${this.notificationsEnabled ? "enabled" : "disabled"
         }`
       );
     },
@@ -163,6 +155,7 @@ export default {
       this.isLoggedIn = true;
       // Fetch profile data when component is created and user is logged in
       this.fetchProfileData();
+      this.fetchSavedNews();
     }
   },
 };
@@ -377,11 +370,11 @@ export default {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #0da13a;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(26px);
 }
 
