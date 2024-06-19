@@ -13,7 +13,6 @@ const db = new Sequelize("sql12713709", "sql12713709", "4q3rtyVSHv", {
 //     dialect: "mysql"
 // });
 
-
 // const db = new Sequelize("berita_db", "root", "", {
 //         host: "localhost",
 //         dialect: "mysql"
@@ -21,12 +20,12 @@ const db = new Sequelize("sql12713709", "sql12713709", "4q3rtyVSHv", {
     
 
 const connectDB = async () => {
-    try {
-        await db.authenticate();
-        console.log("Koneksi Ke Database MySQL Berhasil.");
-    } catch (error) {
-        console.error("Unable to connect to the database:", error);
-    }
+  try {
+    await db.authenticate();
+    console.log("Koneksi Ke Database MySQL Berhasil.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 };
 
 connectDB();

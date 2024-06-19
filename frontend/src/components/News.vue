@@ -24,22 +24,28 @@
     <div class="container-comment">
       <div class="add-comment">
         <p class="title-comment">Tulis Komentar Anda</p>
-        <textarea class="comment-textarea" placeholder="Add a comment..."></textarea>
+        <textarea
+          v-model="newComment"
+          class="comment-textarea"
+          placeholder="Add a comment..."
+        ></textarea>
         <button class="send-button" @click="sendComment">Kirim</button>
       </div>
     </div>
-    <div class="comments">
+    <div v-for="comment in comments" :key="comment.comment_id" class="comments">
       <div>
-        <img src="https://via.placeholder.com/125" size="10rem" class="profile-picture" />
+        <img
+          src="https://via.placeholder.com/125"
+          class="profile-picture"
+          alt="Profile Picture"
+        />
       </div>
       <div class="content-comment">
         <div class="title-time">
-          <p class="username-comment">Nama User</p>
-          <p class="time-comment">48 Minutes Ago</p>
+          <p class="username-comment">{{ comment.user.username }}</p>
+          <p class="time-comment">{{ formatDate(comment.createdAt) }}</p>
         </div>
-        <p class="user-comment">Impressive! Though it seems the drag feature could be improved. But overall it looks
-          incredible. You’ve nailed the design and the responsiveness at various breakpoints works really well.</p>
-        <p class="text-right text-success">Reply</p>
+        <p class="user-comment">{{ comment.comment_text }}</p>
       </div>
     </div>
     <!-- Share Modal -->
@@ -63,6 +69,7 @@
 
 <script>
 import axios from '../../services/axios';
+import moment from "moment";
 
 export default {
   name: "News",
@@ -73,11 +80,14 @@ export default {
       author: '',
       imageUrl: '',
       date: '',
+      newComment: "",
+      comments: [],
       isShareModalVisible: false,
     };
   },
   created() {
     this.fetchNews();
+    this.fetchComments();
   },
   methods: {
     async fetchNews() {
@@ -91,6 +101,41 @@ export default {
         this.author = data.author.username;
       } catch (error) {
         console.error('Error fetching news:', error);
+      }
+    },
+    async fetchComments() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/comments/${this.$route.params.id}`
+        );
+        this.comments = response.data;
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    },
+    async sendComment() {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (!accessToken) {
+          throw new Error("Access token not found");
+        }
+
+        const response = await axios.post(
+          "http://localhost:5000/comments",
+          {
+            news_id: this.$route.params.id,
+            comment_text: this.newComment,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        this.newComment = "";
+        this.fetchComments();
+      } catch (error) {
+        console.error("Error sending comment:", error);
       }
     },
     formatDate(dateString) {
@@ -110,9 +155,6 @@ export default {
         console.error('Error saving news:', error);
         alert('Gagal menyimpan berita. Silakan coba lagi.');
       }
-    },
-    sendComment() {
-      alert("Comment sent!");
     },
     showShareModal() {
       this.isShareModalVisible = true;
