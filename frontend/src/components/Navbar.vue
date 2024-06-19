@@ -5,26 +5,14 @@
         <span class="text-danger">BERITA</span>
         <span class="text-light">.com</span>
       </router-link>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <form class="d-flex mx-auto search-bar d-none d-lg-flex">
           <div class="input-container">
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
             <button class="btn search-button" type="submit">
               <i class="bi bi-search search-icon"></i>
             </button>
@@ -37,22 +25,13 @@
             </router-link>
           </li>
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Category
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li v-for="category in categories" :key="category.categories_id">
-                <router-link
-                  class="dropdown-item"
-                  :to="`/category/${category.categories_id}`"
-                >
+                <router-link class="dropdown-item" :to="`/category/${category.categories_id}`">
                   {{ category.categories_name }}
                 </router-link>
               </li>
@@ -69,7 +48,15 @@
               Contact Us
             </router-link>
           </li>
-          <li v-if="isLoggedIn" class="nav-item dropdown">
+          <ul class="navbar-nav">
+            <li v-if="isLoggedIn && onNotif" class="nav-item">
+              <router-link class="nav-link notif-icon" to="/notification">
+                <i class="bi bi-bell"></i>
+                <span class="badge bg-danger">{{ notifications.length }}</span>
+              </router-link>
+            </li>
+          </ul>
+          <!-- <li v-if="isLoggedIn" class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -79,8 +66,7 @@
               aria-expanded="false"
             >
               <i class="bi bi-bell"></i>
-              <span class="badge bg-danger">5</span>
-              <!-- Replace with dynamic notification count -->
+              <span class="badge bg-danger">{{ this.notifications.length }}</span>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-end"
@@ -92,9 +78,8 @@
               <li>
                 <a class="dropdown-item" :href="`/notification`">See more...</a>
               </li>
-              <!-- Add dynamic notifications here -->
             </ul>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link to="/profile" class="nav-link profile-icon" exact>
               <i class="bi bi-person-circle"></i>
@@ -116,16 +101,38 @@ export default {
       categories: [],
       errorMessage: "",
       isLoggedIn: false,
+      notifications: [],
+      isNotif: true,
     };
   },
   created() {
     this.fetchCategories();
-    this.checkLoginStatus(); // Check login status on component creation
+    this.checkLoginStatus();
+    this.fetchNotifications();
+    this.checkNotif();
+  },
+  computed: {
+    onNotif() {
+      return localStorage.getItem('notif') ? true : false;
+    },
   },
   methods: {
+    async fetchNotifications() {
+        
+      try {
+        if (localStorage.getItem('userRole')!=='author') {
+        const response = await axios.get('/notifications');
+        this.notifications = response.data;
+      } else {
+        this.notifications = [];
+      }
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async fetchCategories() {
       try {
-        const response = await axios.get("http://localhost:5000/categories");
+        const response = await axios.get("/categories");
         this.categories = response.data;
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -138,13 +145,23 @@ export default {
     },
     async checkLoginStatus() {
       try {
-        const response = await axios.get("http://localhost:5000/me");
+        const response = await axios.get("/me");
         this.isLoggedIn = true; // Set isLoggedIn to true if user is authenticated
       } catch (error) {
         console.error("Error checking login status:", error);
         this.isLoggedIn = false; // Set isLoggedIn to false if error or not logged in
       }
     },
+    async checkNotif() {
+      try {
+        if (localStorage.getItem("notif")) {
+          this.isNotif = true;
+        }
+      } catch (error) {
+        console.error("Error checking :", error);
+        this.isNotif = false;
+      }
+    }
   },
 };
 </script>
@@ -196,6 +213,10 @@ export default {
 
 .nav-link.profile-icon.router-link-active .bi-person-circle {
   color: #ffffff !important;
+}
+
+.icon-bell {
+  font-size: 1.5rem; 
 }
 
 .search-button {
