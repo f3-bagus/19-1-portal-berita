@@ -4,20 +4,17 @@
       <div class="col-lg-12 col-12">
         <h5 class="title mb-4">Headline News</h5>
         <div class="image-news">
-          <img
-            :src="latestHeadline.image_url"
-            alt="ImageNews">
+          <img :src="latestHeadline.image_url" alt="ImageNews">
           <div class="image-caption">
             <b>
               <div class="title-caption">{{ latestHeadline.title }}</div>
             </b>
             <div class="news-container mt-3">
               <h5 class="sub-caption">Berita.news</h5>
-              <h6 class="time-news">4 jam yang lalu</h6>
+              <h6 class="time-news">{{ formatDate(latestHeadline.createdAt) }}</h6>
               <button variant="primary" class="detail-button" @click="handleNewsClick(latestHeadline.news_id)">
                 Selengkapnya
               </button>
-
             </div>
           </div>
         </div>
@@ -30,7 +27,8 @@
             </button> -->
           </div>
           <div class="news-feeds-list mt-4">
-            <div class="card-news-feed hover-pointer" v-for="news in latestNews" :key="news.id" @click="handleNewsClick(news.news_id)">
+            <div class="card-news-feed hover-pointer" v-for="news in latestNews" :key="news.id"
+              @click="handleNewsClick(news.news_id)">
               <img :src="news.image_url" class="image-news-feed" :alt="news.title">
               <div class="title-terpopuler mt-2">
                 <h5>{{ news.title }}</h5>
@@ -42,105 +40,18 @@
     </div>
 
     <div class="category-news mt-5">
-      <div class="category-content">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Sport News</h5>
+      <div class="category-content" v-for="category in newsByCategory" :key="category.id">
+        <div class="title-content d-flex justify-content-between mt-5">
+          <h5 class="title">{{ category.categories_name }}</h5>
           <i class="bi bi-arrow-right-circle-fill"></i>
         </div>
         <hr class="divider">
-        <div class="news d-flex">
-          <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
+        <div class="news d-flex" v-for="news in category.news" :key="news.id">
+          <img :src="news.image_url" class="image-news-feed" alt="ImageNews">
           <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
+            <h2>{{ news.title }}</h2>
+            <h6 class="news-time text-secondary">{{ formatDate(news.createdAt) }}</h6>
           </div>
-        </div>
-      </div>
-      <div class="category-content mt-5">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Sport News</h5>
-          <i class="bi bi-arrow-right-circle-fill"></i>
-        </div>
-        <hr class="divider">
-        <div class="news d-flex">
-          <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
-          <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
-          </div>
-        </div>
-      </div>
-      <div class="category-content mt-5">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Sport News</h5>
-          <i class="bi bi-arrow-right-circle-fill"></i>
-        </div>
-        <hr class="divider">
-        <div class="news d-flex">
-          <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
-          <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
-          </div>
-        </div>
-      </div>
-      <div class="category-content mt-5">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Sport News</h5>
-          <i class="bi bi-arrow-right-circle-fill"></i>
-        </div>
-        <hr class="divider">
-        <div class="news d-flex">
-          <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
-          <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
-          </div>
-        </div>
-      </div>
-      <div class="category-content mt-5">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Sport News</h5>
-          <i class="bi bi-arrow-right-circle-fill"></i>
-        </div>
-        <hr class="divider">
-        <div class="news d-flex">
-          <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/03/29/vina-sebelum-7-hari_169.jpeg?w=1200"
-            class="image-news-feed" alt="ImageNews">
-          <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
-          </div>
-        </div>
-      </div>
-      <div class="category-content margin-top">
-        <div class="title-content d-flex justify-content-between">
-          <h5 class="title">Video 30 detik</h5>
-          <i class="bi bi-arrow-right-circle-fill"></i>
-        </div>
-        <hr class="divider">
-        <div class="news d-flex">
-          <div class="news-title">
-            <h2>Fakta Terkini Kasus Vina Cirebon, Polemik Pegi hingga Langkah Hotman</h2>
-            <h6 class="news-time text-secondary">10 menit yang lalu</h6>
-          </div>
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item custom-video-width" src="https://www.youtube.com/embed/mbJnAPBfH7I"
-              allowfullscreen></iframe>
-          </div>
-          <!-- <video controls width="1000">
-                <source src="https://youtu.be/mbJnAPBfH7I?si=E23sjStYkyjmvvDR" type="video/mp4">
-                Your browser does not support the video tag.
-            </video> -->
         </div>
       </div>
     </div>
@@ -158,6 +69,8 @@ export default {
       latestNews: [],
       categories: [],
       newsList: [],
+      filterNews: [],
+      newsByCategory: [], // New variable to store categorized news
     };
   },
   methods: {
@@ -165,7 +78,7 @@ export default {
       try {
         const response = await axios.get("/news");
         this.newsList = response.data;
-        this.latestHeadline = this.newsList[0]; 
+        this.latestHeadline = this.newsList[0];
         this.latestNews = this.newsList.slice(1, 13);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -175,21 +88,49 @@ export default {
       try {
         const response = await axios.get("/categories");
         this.categories = response.data;
+        await this.fetchNewsByCategory();
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     },
+    async fetchNewsByCategory() {
+      try {
+        const categoryPromises = this.categories.map(async (category) => {
+          const response = await axios.get(`/news?category=${category.id}`);
+          // category.news = response.data.slice(0, 1);
+          return { ...category, news: response.data.filter(news => news.categories_id === category.categories_id).slice(0, 1) }; // Returning the full category with news
+        });
+        this.newsByCategory = await Promise.all(categoryPromises);
+        console.log(this.newsByCategory)// Storing categorized news in the new variable
+      } catch (error) {
+        console.error("Error fetching news by category:", error);
+      }
+    },
     handleNewsClick(newsId) {
-    // Contoh: Redirect ke halaman detail berita berdasarkan newsId
-    this.$router.push({ path: `/news/${newsId}` });
-  },
+      this.$router.push({ path: `/news/${newsId}` });
+    },
+    formatDate(dateString) {
+      const date = moment(dateString);
+      const now = moment();
+      const diffMinutes = now.diff(date, 'minutes');
+      const diffHours = now.diff(date, 'hours');
+
+      if (diffMinutes < 60) {
+        return `${diffMinutes} menit yang lalu`;
+      } else if (diffHours < 24) {
+        return `${diffHours} jam yang lalu`;
+      } else {
+        return date.format('dddd, D MMMM YYYY HH.mm [WIB]');
+      }
+    },
   },
   mounted() {
     this.fetchNews();
     this.fetchCategories();
-  }
+  },
 };
 </script>
+
 
 
 <style>
@@ -208,10 +149,12 @@ export default {
 .hover-pointer {
   cursor: pointer;
 }
-.card-news-feed img{
+
+.card-news-feed img {
   width: 100%;
   height: 70%;
 }
+
 .vertical-divider {
   border-left: 1px solid #000;
   height: 100%;
@@ -353,7 +296,7 @@ export default {
 }
 
 .news img {
-  width: 50%;
+  width: 35%;
 }
 
 .divider {
