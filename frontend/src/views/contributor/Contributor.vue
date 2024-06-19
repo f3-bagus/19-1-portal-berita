@@ -7,11 +7,12 @@
             </div>
             <hr>
             <div class="contributor-news mt-5">
-                <div v-for="(news, index) in filteredNewsList" :key="news.news_id" class="news-post d-flex mt-5 mb-4">
+                <div v-for="(news, index) in filteredNewsList" :key="news.news_id"
+                    class="news-post d-flex flex-column flex-md-row mt-5 mb-4">
                     <img :src="news.image_url" alt="">
                     <div class="news-title">
-                        <h5>{{ news.title }}</h5>
-                        <span class="text-secondary mt-4">{{ news.status }} -
+                        <h5 class="title-news">{{ news.title }}</h5>
+                        <span class="text-secondary mt-4 status-date">{{ news.status }} -
                             <span>{{ formatDate(news.createdAt) }}</span>
                         </span>
                         <div>
@@ -64,7 +65,7 @@ export default {
             try {
                 const response = await axios.get("me");
                 if (response.data.success) {
-                    const { user_id} = response.data.user;
+                    const { user_id } = response.data.user;
                     this.user_id = user_id
                 } else {
                     // Handle if success is false or other error cases
@@ -98,25 +99,41 @@ export default {
 
 <style>
 .margin-top {
-  margin-top: 100px;
+    margin-top: 100px;
 }
 
 .title-mypost button {
-  --bs-btn-bg: #ff3300 !important;
-  --bs-btn-hover-bg: #c24121 !important;
-  --bs-btn-active-bg: #c2412;
-  border: 0 !important;
-  color: white;
+    --bs-btn-bg: #ff3300 !important;
+    --bs-btn-hover-bg: #c24121 !important;
+    --bs-btn-active-bg: #c2412;
+    border: 0 !important;
+    color: white;
 }
 
 .news-post img {
-  width: 25%;
-  margin-right: 20px;
-  border-radius: 10px;
-  object-fit: cover;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .news-post {
+        flex-direction: row;
+    }
+
+    .news-post img {
+        width: 25%;
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
 }
 
 .title-mypost {
-  align-items: center;
+    align-items: center;
+}
+
+.status-date {
+    font-size: 13px;
 }
 </style>
