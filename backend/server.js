@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 app.use(
   cors({
     credentials: true,
-    origin: "https://fe-msib-6-portal-berita-01.educalab.id/",
+    origin: "fe-msib-6-portal-berita-01.educalab.id/",
   })
 );
 app.use(bodyParser.json());
