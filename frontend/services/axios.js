@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL:  'http://localhost:5000/',
+  baseURL:  'https://api-msib-6-portal-berita-01.educalab.id/',
 });
 
 const handleRemoveToken = async () => {
