@@ -31,12 +31,14 @@ app.use(function(req, res, next) {
 app.use(
   cors({
     credentials: true,
-    origin: "fe-msib-6-portal-berita-01.educalab.id/",
+    origin: "https://fe-msib-6-portal-berita-01.educalab.id",
   })
 );
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 app.get("/", (req, res) => {
   res.send(`<h1> API BERITA </h1>

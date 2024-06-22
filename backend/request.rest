@@ -48,7 +48,14 @@ Content-Type: application/json
   "role":"author"
 }
 
+###
+POST https://api-msib-6-portal-berita-01.educalab.id/api/auth/login
+Content-Type: application/json
 
+{
+  "email": "admin@gmail.com",
+  "password": "Admin123"
+}
 ### //Login Author// ####
 POST http://localhost:5000/login
 Content-Type: application/json
