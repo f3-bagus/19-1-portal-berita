@@ -113,38 +113,63 @@ export const createNewsController = async (req, res) => {
 
 export const getNews = async (req, res) => {
   try {
-      let whereCondition = {};
+      let news;
 
-      if (req.user) {
-          if (req.user.role === 'admin' || req.user.role === 'author') {
-              // Admin dan Author bisa melihat semua berita (published & draft)
-              whereCondition = {
-                  status: ['published', 'draft']
-              };
-          } else if (req.user.role === 'user') {
-              // User biasa hanya bisa melihat berita yang published
-              whereCondition = {
+      if (req.user && req.user.role === 'admin') {
+          // Admin bisa melihat semua berita
+          news = await News.findAll({
+              attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
+              include: [{
+                  model: Users,
+                  attributes: ['user_id', 'username'],
+                  as: 'author'
+              }]
+          });
+      } else if (req.user) {
+          // Pengguna biasa hanya bisa melihat berita yang statusnya 'published'
+          news = await News.findAll({
+              attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
+              include: [{
+                  model: Users,
+                  attributes: ['user_id', 'username'],
+                  as: 'author'
+              }],
+              where: {
                   status: 'published'
-              };
-          }
+              }
+          });
       } else {
-          // Pengguna yang belum login hanya bisa melihat berita yang published
-          whereCondition = {
-              status: 'published'
-          };
+          // Tamu hanya bisa melihat berita yang statusnya 'published' tanpa informasi penulis
+          news = await News.findAll({
+              attributes: ['news_id', 'title', 'content', 'categories_id', 'image_url', 'createdAt'],
+              where: {
+                  status: 'published'
+              }
+          });
       }
-      const news = await News.findAll({
-          attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
-          include: [{
-              model: Users,
-              attributes: ['username'],
-              as: 'author'
-          }],
-          where: whereCondition
-      });
+
       res.status(200).json(news);
   } catch (error) {
       res.status(500).json({ error: error.message });
+  }
+};
+
+// Get published news for guests (tamu)
+export const getPublishedNewsForGuest = async (req, res) => {
+  try {
+    if (req.user === null) {// User not found
+      return next();   // Allow guest access
+  }
+    const news = await News.findAll({
+      attributes: ['news_id', 'title', 'content', 'categories_id', 'image_url', 'createdAt'],
+      where: {
+        status: 'published'
+      }
+    });
+
+    res.status(200).json(news);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 

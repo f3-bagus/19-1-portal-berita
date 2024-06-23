@@ -37,24 +37,26 @@ Content-Type: application/json
 GET http://localhost:5000/me
 
 ###
-POST http://localhost:5000/register
+POST https://api-msib-6-portal-berita-01.educalab.id/register
 Content-Type: application/json
 
 {
-  "username": "Author",
-  "email": "author@gmail.com",
-  "password": "author123",
-  "confPassword": "author123",
-  "role":"author"
+  "username": "User35",
+  "email": "user35@gmail.com",
+  "password": "user35",
+  "confPassword": "user35",
+  "role":"user"
 }
 
+###
+GET https://api-msib-6-portal-berita-01.educalab.id
 ###
 POST https://api-msib-6-portal-berita-01.educalab.id/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@gmail.com",
-  "password": "Admin123"
+  "email": "user35@gmail.com",
+  "password": "user35"
 }
 ### //Login Author// ####
 POST http://localhost:5000/login
