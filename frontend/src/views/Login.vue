@@ -84,15 +84,16 @@ export default {
         return;
       }
 
-      try {
-        const response = await axios.post(
-          "https://api-msib-6-portal-berita-01.educalab.id/api/auth/Login",
-          {
-            email: this.email,
-            password: this.password,
-          }
-        );
-
+      
+    try {
+    const response = await axios.post("https://api-msib-6-portal-berita-01.educalab.id/api/auth/Login", {
+      email:this.email,
+      password:this.password
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
         console.log(response.data); // Log the response data
 
         if (response.data.success) {
