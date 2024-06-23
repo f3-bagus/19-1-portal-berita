@@ -163,13 +163,11 @@ export const Login = async (req, res) => {
 // Me
 export const Me = async (req, res) => {
   try {
-    // Mengambil token dari cookie
-    const accessToken = req.header('Authorization')?.split(' ')[1];
+    // Mengambil token dari cookie atau header
+    const accessToken = req.cookies.accessToken || req.headers.authorization?.split(' ')[1];
 
     if (!accessToken) {
-      return res
-        .status(401)
-        .json({ success: false, msg: "Mohon Login dengan akun Anda" });
+      return res.status(401).json({ success: false, msg: "Mohon Login dengan akun Anda" });
     }
 
     const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
@@ -183,28 +181,16 @@ export const Me = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, msg: "User tidak ditemukan" });
+      return res.status(404).json({ success: false, msg: "User tidak ditemukan" });
     }
 
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.error(error);
-    if (
-      error.name === "JsonWebTokenError" ||
-      error.name === "TokenExpiredError"
-    ) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          msg: "Token tidak valid, mohon login kembali",
-        });
+    if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, msg: "Token tidak valid, mohon login kembali" });
     }
-    res
-      .status(500)
-      .json({ success: false, msg: "Terjadi kesalahan pada server" });
+    res.status(500).json({ success: false, msg: "Terjadi kesalahan pada server" });
   }
 };
 
