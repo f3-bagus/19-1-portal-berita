@@ -146,7 +146,7 @@ export default {
       this.$router.push({ name: "Login" });
     },
     loginWithGoogle() {
-      window.location.href = "http://localhost:5000/auth/google";
+      window.location.href = "http://localhost:5000/auth/google/callback";
     },
   },
 };

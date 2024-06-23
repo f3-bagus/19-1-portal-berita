@@ -86,7 +86,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "https://api-msib-6-portal-berita-01.educalab.id/Login",
+          "https://api-msib-6-portal-berita-01.educalab.id/api/auth/Login",
           {
             email: this.email,
             password: this.password,
@@ -131,7 +131,7 @@ export default {
     },
     loginWithGoogle() {
       // Redirect to Google OAuth URL
-      window.location.href = "http://localhost:5000/auth/google";
+      window.location.href = "http://localhost:5000/auth/google/callback";
     },
   },
 };
