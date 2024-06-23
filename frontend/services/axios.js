@@ -3,20 +3,21 @@ import axios from "axios";
 const instance = axios.create({
   baseURL:  'https://api-msib-6-portal-berita-01.educalab.id/',
 });
-
-const handleRemoveToken = async () => {
+// Fungsi untuk menghapus token dari localStorage
+const handleRemoveToken = () => {
   try {
-    await localStorage.removeItem('token');
+    localStorage.removeItem('token');
   } catch (error) {
-    throw error;
+    console.error('Error removing token:', error);
   }
 };
 
+// Interceptor untuk menambahkan token ke setiap permintaan jika tersedia
 instance.interceptors.request.use(
-  async (config) => {
-    const token = await localStorage.getItem('token');
+  (config) => {
+    const token = localStorage.getItem('token');
     if (token && config.headers) {
-      config.headers.Authorization = "Bearer " + token;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -25,12 +26,13 @@ instance.interceptors.request.use(
   }
 );
 
+// Interceptor untuk menangani respons
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response) {
+    if (error.response && error.response.status === 401) {
       handleRemoveToken();
-      console.error(error.response)
+      console.error('Unauthorized, token removed:', error.response.data);
     }
     return Promise.reject(error);
   }
