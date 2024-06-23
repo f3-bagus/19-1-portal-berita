@@ -115,7 +115,7 @@ export default {
     },
     async logout() {
       try {
-        await axios.delete("http://localhost:5000/Logout");
+        await axios.delete("https://api-msib-6-portal-berita-01.educalab.id/Logout");
         localStorage.removeItem("userRole");
         localStorage.removeItem("token");
         this.isLoggedIn = false;
