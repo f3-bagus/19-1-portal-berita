@@ -86,7 +86,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "https://api-msib-6-portal-berita-01.educalab.id",
+          "https://api-msib-6-portal-berita-01.educalab.id/Login",
           {
             email: this.email,
             password: this.password,

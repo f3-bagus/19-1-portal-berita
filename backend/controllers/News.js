@@ -112,38 +112,40 @@ export const createNewsController = async (req, res) => {
 };
 
 export const getNews = async (req, res) => {
-    try {
-        let news;
+  try {
+      let whereCondition = {};
 
-        if (req.user.role === 'admin') {
-            // Admin bisa melihat semua berita
-            news = await News.findAll({
-                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
-                include: [{
-                    model: Users,
-                    attributes: ['user_id', 'username'], // Attribut 'name' diganti menjadi 'username'
-                    as: 'author'
-                }]
-            });
-        } else {
-            // User hanya bisa melihat berita yang statusnya 'published'
-            news = await News.findAll({
-                attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status', 'createdAt'],
-                include: [{
-                    model: Users,
-                    attributes: ['user_id', 'username'], // Attribut 'name' diganti menjadi 'username'
-                    as: 'author'
-                }],
-                where: {
-                    status: 'published'
-                }
-            });
-        }
-
-        res.status(200).json(news);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+      if (req.user) {
+          if (req.user.role === 'admin' || req.user.role === 'author') {
+              // Admin dan Author bisa melihat semua berita (published & draft)
+              whereCondition = {
+                  status: ['published', 'draft']
+              };
+          } else if (req.user.role === 'user') {
+              // User biasa hanya bisa melihat berita yang published
+              whereCondition = {
+                  status: 'published'
+              };
+          }
+      } else {
+          // Pengguna yang belum login hanya bisa melihat berita yang published
+          whereCondition = {
+              status: 'published'
+          };
+      }
+      const news = await News.findAll({
+          attributes: ['news_id', 'title', 'content', 'categories_id', 'author_id', 'image_url', 'status'],
+          include: [{
+              model: Users,
+              attributes: ['username'],
+              as: 'author'
+          }],
+          where: whereCondition
+      });
+      res.status(200).json(news);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 };
 
 export const getNewsById = async (req, res) => {
