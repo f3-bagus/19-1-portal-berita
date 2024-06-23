@@ -102,7 +102,7 @@ export default {
       }
 
       try {
-        const response = await axios.post("http://localhost:5000/Register", {
+        const response = await axios.post("https://api-msib-6-portal-berita-01.educalab.id/Register", {
           username: this.username,
           email: this.email,
           password: this.password,
