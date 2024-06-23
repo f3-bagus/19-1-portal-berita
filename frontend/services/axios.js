@@ -3,6 +3,7 @@ import axios from "axios";
 const instance = axios.create({
   baseURL:  'https://api-msib-6-portal-berita-01.educalab.id/',
 });
+
 // Fungsi untuk menghapus token dari localStorage
 const handleRemoveToken = () => {
   try {
