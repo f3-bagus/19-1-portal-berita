@@ -86,7 +86,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/Auth/Login",
+          "https://api-msib-6-portal-berita-01.educalab.id",
           {
             email: this.email,
             password: this.password,
