@@ -51,9 +51,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Create News Modal -->
-                <div class="modal" tabindex="-1" v-if="showCreateModal">
+             <!-- Create News Modal -->
+                 <div class="modal" tabindex="-1" v-if="showCreateModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -92,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <!-- Update News Modal -->
                 <div class="modal" tabindex="-1" v-if="showUpdateModalFlag">
                     <div class="modal-dialog">
@@ -137,13 +136,13 @@
             </main>
         </div>
     </AdminLayout>
-</template>
-
-<script>
-import axios from '../../../services/axios';
-import AdminLayout from "../../components/Admin/AdminLayout.vue";
-
-export default {
+  </template>
+  
+  <script>
+  import axios from '../../../services/axios';
+  import AdminLayout from "../../components/Admin/AdminLayout.vue";
+  
+  export default {
     name: "ManageNews",
     components: {
         AdminLayout,
@@ -168,13 +167,13 @@ export default {
         this.fetchCategories();
     },
     methods: {
-        async fetchNews() {
-            try {
-                const response = await axios.get('/news');
-                this.newsList = response.data;
-            } catch (error) {
-                console.error('Failed to fetch news:', error);
-            }
+      async fetchNews() {
+    try {
+        const response = await axios.get('/news');
+        this.newsList = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } catch (error) {
+        console.error('Failed to fetch news:', error);
+    }
         },
         async fetchCategories() {
             try {
@@ -186,7 +185,7 @@ export default {
             } catch (error) {
                 console.error('Failed to fetch categories:', error);
             }
-        },
+        }, 
         async createNews() {
             try {
                 const response = await axios.post('/news/create', this.newNews);
@@ -206,14 +205,18 @@ export default {
             }
         },
         async toggleVerification(news) {
-            try {
-                const response = await axios.post('/news/verify', { news_id: news.news_id });
-                alert(response.data.msg);
-                this.fetchNews();
-            } catch (error) {
-                console.error('Failed to verify news:', error);
-            }
-        },
+  const action = news.status === 'published' ? 'unverify' : 'verify';
+  console.log(`Toggling verification for news ID: ${news.news_id}, action: ${action}`);
+  try {
+    const response = await axios.post('/news/verify', { news_id: news.news_id, action });
+    console.log('Response from server:', response.data);
+    alert(response.data.msg);
+    this.fetchNews(); // Memperbarui daftar berita
+  } catch (error) {
+    console.error('Failed to change news status:', error);
+  }
+}
+,
         showUpdateModal(news) {
             this.currentNews = { ...news };
             this.showUpdateModalFlag = true;
@@ -247,98 +250,99 @@ export default {
             return category ? category.name : 'Unknown Category';
         }
     },
-};
-</script>
-
-<style scoped>
-/* Add your scoped styles here */
-.container-news {
+  };
+  </script>
+  
+  <style scoped>
+  /* Add your scoped styles here */
+  .container-news {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     border-radius: 0.5rem;
     background: #085487;
     color: white;
-}
-
-.table-rounded {
+  }
+  
+  .table-rounded {
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 0.5rem;
     overflow: hidden;
-}
-
-.table-rounded th,
-.table-rounded td {
+  }
+  
+  .table-rounded th,
+  .table-rounded td {
     border: 1px solid #dee2e6;
-}
-
-.col-no {
+  }
+  
+  .col-no {
     width: 5%;
-}
-
-.col-title {
+  }
+  
+  .col-title {
     width: 15%;
-}
-
-.col-content {
+  }
+  
+  .col-content {
     width: 25%;
-}
-
-.col-category {
+  }
+  
+  .col-category {
     width: 15%;
-}
-
-.col-image {
+  }
+  
+  .col-image {
     width: 10%;
-}
-
-.col-status {
+  }
+  
+  .col-status {
     width: 10%;
-}
-
-.col-action {
+  }
+  
+  .col-action {
     width: 20%;
-}
-
-.modal {
+  }
+  
+  .modal {
     display: block;
     background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-dialog {
+  }
+  
+  .modal-dialog {
     margin: 1.75rem auto;
-}
-
-.modal-content {
+  }
+  
+  .modal-content {
     background-color: #fff;
     border-radius: 0.3rem;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     outline: 0;
-}
-
-.modal-header {
+  }
+  
+  .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1rem;
     border-bottom: 1px solid #dee2e6;
-}
-
-.modal-body {
+  }
+  
+  .modal-body {
     position: relative;
     padding: 1rem;
-}
-
-.btn-close {
+  }
+  
+  .btn-close {
     background-color: #085487;
     color: white;
     border: none;
     padding: 0.5rem 0.75rem;
     cursor: pointer;
     border-radius: 0.2rem;
-}
-
-.btn-close:hover {
+  }
+  
+  .btn-close:hover {
     background-color: #074b71;
-}
-</style>
+  }
+  </style>
+  

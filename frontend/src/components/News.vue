@@ -92,7 +92,7 @@ export default {
   methods: {
     async fetchNews() {
       try {
-        const response = await axios.get(`https://api-msib-6-portal-berita-01.educalab.id/news/${this.$route.params.id}`);
+        const response = await axios.get(`http://localhost:5000/news/${this.$route.params.id}`);
         const data = response.data;
         this.title = data.title;
         this.content = data.content;
@@ -106,7 +106,7 @@ export default {
     async fetchComments() {
       try {
         const response = await axios.get(
-          `https://api-msib-6-portal-berita-01.educalab.id/comments/${this.$route.params.id}`
+          `http://localhost:5000/comments/${this.$route.params.id}`
         );
         this.comments = response.data;
       } catch (error) {
@@ -121,7 +121,7 @@ export default {
         }
 
         const response = await axios.post(
-          "https://api-msib-6-portal-berita-01.educalab.id/comments",
+          "http://localhost:5000/comments",
           {
             news_id: this.$route.params.id,
             comment_text: this.newComment,

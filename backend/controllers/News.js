@@ -42,7 +42,7 @@ export const addNews = async (req, res) => {
 };
 
 export const verifyNews = async (req, res) => {
-  const { news_id } = req.body;
+  const { news_id, action } = req.body;
 
   try {
     const news = await News.findByPk(news_id);
@@ -51,65 +51,67 @@ export const verifyNews = async (req, res) => {
       return res.status(404).json({ msg: "Berita tidak ditemukan" });
     }
 
-    if (news.status !== "draft") {
-      return res.status(400).json({ msg: "Berita sudah diverifikasi" });
+    if (action === 'verify') {
+      if (news.status === "published") {
+        return res.status(400).json({ msg: "Berita sudah diverifikasi" });
+      }
+
+      news.status = "published";
+      await news.save();
+
+      // Kirim notifikasi kepada semua pengguna
+      const users = await Users.findAll({ where: { role: "user" } });
+      for (const user of users) {
+        await Notifications.create({
+          user_id: user.user_id,
+          notification_text: `Ada berita terbaru ${news.title}`,
+        });
+      }
+
+      return res.status(200).json({ msg: "Berita berhasil diverifikasi dan dipublikasikan" });
     }
 
-    news.status = "published";
-    await news.save();
+    if (action === 'unverify') {
+      if (news.status === "draft") {
+        return res.status(400).json({ msg: "Berita sudah dalam status draft" });
+      }
 
-    // Kirim notifikasi kepada semua pengguna
-    const users = await Users.findAll({ where: { role: "user" } });
-    for (const user of users) {
-      await Notifications.create({
-        user_id: user.user_id,
-        notification_text: `Ada berita terbaru ${news.title}`,
-      });
+      news.status = "draft";
+      await news.save();
+
+      return res.status(200).json({ msg: "Berita berhasil diubah menjadi draft" });
     }
 
-    //  const author = await Users.findByPk(news.author_id);
-    //  if (author) {
-    //      await Notifications.create({
-    //          user_id: author.user_id,
-    //          notification_text: `Berita Anda "${news.title}" telah diverifikasi dan dipublikasikan oleh admin`
-    //      });
-    //  }
-
-    res
-      .status(200)
-      .json({ msg: "Berita berhasil diverifikasi dan dipublikasikan" });
+    res.status(400).json({ msg: "Aksi tidak valid" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
 };
+
+// controllers/News.js
 export const createNewsController = async (req, res) => {
   try {
     const { title, content, categories_id, image_url } = req.body;
 
-    // Verifikasi bahwa pengguna adalah admin
-    if (req.user.role !== "admin") {
-      return res
-        .status(403)
-        .json({
-          msg: "Hanya admin yang dapat menambahkan berita secara langsung",
-        });
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ msg: "Hanya admin yang dapat menambahkan berita secara langsung" });
     }
 
-    // Buat berita baru dengan status "published"
     const newNews = await News.create({
       title,
       content,
       categories_id,
       image_url,
       author_id: req.user.user_id,
-      status: "published", // Set status sebagai published untuk admin
+      status: "published",
     });
 
-    res.status(201).json({ msg: "News Create succesfully" });
+    res.status(201).json({ msg: "News created successfully", news: newNews });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msg: error.message });
   }
 };
+
 
 export const getNews = async (req, res) => {
   try {
@@ -236,41 +238,41 @@ export const deleteNews = async (req, res) => {
   }
 };
 
-// get news by author
-export const getNewsByAuthor = async (req, res) => {
-  const { authorId } = req.params;
+// // get news by author
+// export const getNewsByAuthor = async (req, res) => {
+//   const { authorId } = req.params;
 
-  try {
-    const news = await News.findAll({
-      where: {
-        author_id: authorId,
-        status: "published",
-      },
-      attributes: [
-        "news_id",
-        "title",
-        "content",
-        "categories_id",
-        "image_url",
-        "createdAt",
-      ],
-      include: [
-        {
-          model: Users,
-          attributes: ["username"],
-          as: "author",
-        },
-      ],
-    });
+//   try {
+//     const news = await News.findAll({
+//       where: {
+//         author_id: authorId,
+//         status: "published",
+//       },
+//       attributes: [
+//         "news_id",
+//         "title",
+//         "content",
+//         "categories_id",
+//         "image_url",
+//         "createdAt",
+//       ],
+//       include: [
+//         {
+//           model: Users,
+//           attributes: ["username"],
+//           as: "author",
+//         },
+//       ],
+//     });
 
-    if (news.length === 0) {
-      return res
-        .status(404)
-        .json({ msg: "Berita tidak ditemukan untuk author ini" });
-    }
+//     if (news.length === 0) {
+//       return res
+//         .status(404)
+//         .json({ msg: "Berita tidak ditemukan untuk author ini" });
+//     }
 
-    res.status(200).json(news);
-  } catch (error) {
-    res.status(500).json({ msg: error.message });
-  }
-};
+//     res.status(200).json(news);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };

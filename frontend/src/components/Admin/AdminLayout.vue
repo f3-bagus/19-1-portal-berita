@@ -93,7 +93,7 @@ export default {
   methods: {
     async logout() {
       try {
-        await axios.delete("https://api-msib-6-portal-berita-01.educalab.id/Logout");
+        await axios.delete("http://localhost:5000/Logout");
         // Clear local storage or perform other necessary actions
         localStorage.removeItem('userRole'); // Adjust this based on how you store user data
         // Redirect to the login page or another appropriate page

@@ -41,22 +41,25 @@ export default {
     };
   },
   computed: {
-    filteredNewsList() {
-      if (!this.newsList || this.newsList.length === 0) return [];
-      const categoryId = parseInt(this.$route.params.id);
-      return this.newsList.filter((news) => news.categories_id === categoryId);
-    },
+  filteredNewsList() {
+    if (!this.newsList || this.newsList.length === 0) return [];
+    const categoryId = parseInt(this.$route.params.id);
+    return this.newsList.filter((news) => news.categories_id === categoryId);
   },
+},
   methods: {
     async fetchNews() {
-      try {
-        const response = await axios.get("/news");
-        this.newsList = response.data;
-        this.fetchCategoryTitle();
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      }
-    },
+  try {
+    const response = await axios.get("/news");
+    this.newsList = response.data;
+    // Urutkan berita berdasarkan createdAt dari yang terbaru ke terlama
+    this.newsList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    this.fetchCategoryTitle();
+  } catch (error) {
+    console.error("Error fetching news:", error);
+  }
+},
+
     async fetchCategoryTitle() {
       try {
         const categoryId = this.$route.params.id;
@@ -165,3 +168,4 @@ export default {
   }
 }
 </style>
+//category news

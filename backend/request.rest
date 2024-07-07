@@ -3,8 +3,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-  "email": "admin@gmail.com",
-  "password": "Admin123"
+  "email": "author@gmail.com",
+  "password": "author123"
 }
 
 ### Verifikasi Author Oleh admin
@@ -37,27 +37,18 @@ Content-Type: application/json
 GET http://localhost:5000/me
 
 ###
-POST https://api-msib-6-portal-berita-01.educalab.id/register
+POST http://localhost:5000/register
 Content-Type: application/json
 
 {
-  "username": "User35",
-  "email": "user35@gmail.com",
-  "password": "user35",
-  "confPassword": "user35",
-  "role":"user"
+  "username": "Author",
+  "email": "author@gmail.com",
+  "password": "author123",
+  "confPassword": "author123",
+  "role":"author"
 }
 
-###
-GET https://api-msib-6-portal-berita-01.educalab.id
-###
-POST https://api-msib-6-portal-berita-01.educalab.id/api/auth/login
-Content-Type: application/json
 
-{
-  "email": "user35@gmail.com",
-  "password": "user35"
-}
 ### //Login Author// ####
 POST http://localhost:5000/login
 Content-Type: application/json
@@ -69,7 +60,7 @@ Content-Type: application/json
 
 //Author Menambahkan Berita
 ###
-POST http://localhost:5000/News
+GET http://localhost:5000/News/user
 Content-Type: application/json
 
 {
@@ -139,7 +130,8 @@ Content-Type: application/json
 "comment_id":"2"
 }
 
-##admin melihat semua comments
+//admin melihat semua comments
+##
 GET http://localhost:5000/comments
 Content-Type: application/json
 

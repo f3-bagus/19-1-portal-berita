@@ -269,3 +269,4 @@ export default {
   }
 }
 </style>
+//navbar vue

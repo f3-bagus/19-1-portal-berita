@@ -22,9 +22,6 @@
         <div class="news-feed mt-5">
           <div class="news-feed-title d-flex justify-content-between">
             <h5 class="title">News Feed</h5>
-            <!-- <button variant="primary" class="detail-button" @click="toNews">
-              See More
-            </button> -->
           </div>
           <div class="news-feeds-list mt-4">
             <div class="card-news-feed hover-pointer" v-for="news in latestNews" :key="news.id"
@@ -60,6 +57,7 @@
 
 <script>
 import axios from "../../services/axios";
+import moment from "moment";
 
 export default {
   name: "LandingPage",
@@ -68,16 +66,30 @@ export default {
       latestHeadline: {},
       latestNews: [],
       categories: [],
-      newsList: [],
-      filterNews: [],
-      newsByCategory: [], // New variable to store categorized news
+      newsByCategory: [],
+      isLoggedIn: false, // Assuming you have a mechanism to check user login status
     };
   },
   methods: {
-    async fetchNews() {
+     async fetchNews() {
       try {
         const response = await axios.get("/news");
         this.newsList = response.data;
+        // Urutkan berita berdasarkan createdAt dari yang terbaru ke terlama
+        this.newsList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        // Filter berita yang harus ditampilkan sesuai statusnya
+        this.latestHeadline = this.newsList.find(news => news.status === 'published');
+        this.latestNews = this.newsList.filter(news => news.status === 'published').slice(1, 13);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    },
+    async fetchNewsUser() { //get news user yang blm login jadi dilandingpage bisa menampilan news bagi user yang blm login
+      try {
+        const response = await axios.get("/news/user");
+        this.newsList = response.data;
+        // Urutkan berita berdasarkan createdAt dari yang terbaru ke terlama
+        this.newsList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         this.latestHeadline = this.newsList[0];
         this.latestNews = this.newsList.slice(1, 13);
       } catch (error) {
@@ -106,6 +118,8 @@ export default {
         console.error("Error fetching news by category:", error);
       }
     },
+
+
     handleNewsClick(newsId) {
       this.$router.push({ path: `/news/${newsId}` });
     },
