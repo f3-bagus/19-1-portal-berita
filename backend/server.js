@@ -41,6 +41,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 app.get("/", (req, res) => {
+  res.send("Express on Vercel");
+});
+
+
+app.get("/", (req, res) => {
   res.send(`<h1> API BERITA </h1>
     <p>SELAMAT DATANG DI PROJECT KITA</p>`);
 });
